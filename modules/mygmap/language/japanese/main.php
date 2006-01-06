@@ -1,5 +1,5 @@
 <?php
-define("_MYGMAP_LANG_SETDEFAULT","ここをデフォルトに変更");
+define("_MYGMAP_LANG_SETDEFAULT","現在地をデフォルトに変更");
 define("_MYGMAP_LANG_EDIT","修正");
 define("_MYGMAP_LANG_NEWCATEGORY","現在地をカテゴリー追加");
 define("_MYGMAP_LANG_NEWPOINT","現在地をマーカ追加");
