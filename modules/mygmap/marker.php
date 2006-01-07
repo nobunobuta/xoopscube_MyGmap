@@ -67,7 +67,7 @@ $marker_form = '';
 	}
 }
 function showMarkerForm($form, $lat, $lng, $zoom, $errmsg) {
-	$GLOBALS['xoopsTpl']->assign('mygmap_API', $GLOBALS['xoopsModuleConfig']['mygmap_api']);	$GLOBALS['xoopsTpl']->assign('mygmap_center_lat', $lat);	$GLOBALS['xoopsTpl']->assign('mygmap_center_lng', $lng);	$GLOBALS['xoopsTpl']->assign('mygmap_zoom', $zoom);	$GLOBALS['xoopsTpl']->assign('mygmap_width', $GLOBALS['xoopsModuleConfig']['mygmap_height']);	$GLOBALS['xoopsTpl']->assign('mygmap_height', $GLOBALS['xoopsModuleConfig']['mygmap_width']);	$GLOBALS['xoopsTpl']->assign('marker_form', $form);
+	$GLOBALS['xoopsTpl']->assign('mygmap_API', $GLOBALS['xoopsModuleConfig']['mygmap_api']);	$GLOBALS['xoopsTpl']->assign('mygmap_center_lat', $lat);	$GLOBALS['xoopsTpl']->assign('mygmap_center_lng', $lng);	$GLOBALS['xoopsTpl']->assign('mygmap_zoom', $zoom);	$GLOBALS['xoopsTpl']->assign('mygmap_width', $GLOBALS['xoopsModuleConfig']['mygmap_width']);	$GLOBALS['xoopsTpl']->assign('mygmap_height', $GLOBALS['xoopsModuleConfig']['mygmap_height']);	$GLOBALS['xoopsTpl']->assign('marker_form', $form);
 	$GLOBALS['xoopsTpl']->assign('errmsg', $errmsg);
 	$GLOBALS['xoopsTpl']->assign('mygmap_credit', $GLOBALS['mygmap_credit']);}
 ?>
