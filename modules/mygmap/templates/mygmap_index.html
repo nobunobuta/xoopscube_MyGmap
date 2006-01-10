@@ -75,6 +75,11 @@
 <form id="mygmap_addcategory_form" action="category.php" method="post">
   <input id="mygmap_addcategory_form_lat" type="hidden" name="mygmap_category_lat" value="" />  <input id="mygmap_addcategory_form_lng" type="hidden" name="mygmap_category_lng" value="" />  <input id="mygmap_addcategory_form_zoom" type="hidden" name="mygmap_category_zoom" value="" />  <input type="hidden" name="op" value="new" />  <input type="submit" name="submit" value="<{$smarty.const._MYGMAP_LANG_NEWCATEGORY}>"/></form><br/>
 <form id="mygmap_addmark_form" action="marker.php" method="post">
+<{if $mygmap_category }>
+  <input id="mygmap_addmark_form_cat" type="hidden" name="mygmap_marker_category_id" value="<{$mygmap_category.id}>" />
+<{else}>
+  <input id="mygmap_addmark_form_cat" type="hidden" name="mygmap_marker_category_id" value="" />
+<{/if}>
   <input id="mygmap_addmark_form_lat" type="hidden" name="mygmap_lat" value="" />  <input id="mygmap_addmark_form_lng" type="hidden" name="mygmap_lng" value="" />  <input id="mygmap_addmark_form_zoom" type="hidden" name="mygmap_zoom" value="" />  <input type="hidden" name="op" value="new" />  <input type="submit" name="submit" value="<{$smarty.const._MYGMAP_LANG_NEWPOINT}>"/></form><br/>
 <form id="mygmap_addarea_form" action="area.php" method="post">
   <input id="mygmap_addarea_form_lat" type="hidden" name="mygmap_area_lat" value="" />  <input id="mygmap_addarea_form_lng" type="hidden" name="mygmap_area_lng" value="" />  <input id="mygmap_addarea_form_zoom" type="hidden" name="mygmap_area_zoom" value="" />  <input type="hidden" name="op" value="new" />  <input type="submit" name="submit" value="<{$smarty.const._MYGMAP_LANG_NEWAREA}>"/></form><br/>
