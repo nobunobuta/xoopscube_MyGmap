@@ -16,12 +16,12 @@ $marker_form = '';
 			$markerObject->defineFormElementsForGMap();			$marker_form = $markerObject->renderEditForm("Edit","gmapedit",XOOPS_URL."/modules/mygmap/marker.php",1);
 			showMarkerForm($marker_form,
 						   floatval($_POST['mygmap_marker_lat']),
-						   floatval($_POST['mygmap_marker_lat']),
+						   floatval($_POST['mygmap_marker_lng']),
 						   intval($_POST['mygmap_marker_zoom']),
 						   $markerHandler->getErrors());
 			include(XOOPS_ROOT_PATH.'/footer.php');			exit();
 		}
-		redirect_header(XOOPS_URL."/modules/mygmap/",1,'');
+		redirect_header(XOOPS_URL."/modules/mygmap/?cat=".$markerObject->getVar('mygmap_marker_category_id'),1,'');
 		exit();
 		break;
 	  case 'save':
@@ -34,12 +34,12 @@ $marker_form = '';
 					$markerObject->defineFormElementsForGMap();					$marker_form = $markerObject->renderEditForm("Edit","gmapedit",XOOPS_URL."/modules/mygmap/marker.php",1);
 					showMarkerForm($marker_form,
 								   floatval($_POST['mygmap_marker_lat']),
-								   floatval($_POST['mygmap_marker_lat']),
+								   floatval($_POST['mygmap_marker_lng']),
 								   intval($_POST['mygmap_marker_zoom']),
 								   $markerHandler->getErrors());
 					include(XOOPS_ROOT_PATH.'/footer.php');					exit();
 				}
-				redirect_header(XOOPS_URL."/modules/mygmap/",1,'');
+				redirect_header(XOOPS_URL."/modules/mygmap/?cat=".$markerObject->getVar('mygmap_marker_category_id'),1,'');
 				exit();
 			}
 		}
