@@ -21,7 +21,7 @@ class MyGmapMarker extends XoopsTableObject
 		//各オブジェクト要素の定義
 		$this->initVar('mygmap_marker_id', XOBJ_DTYPE_INT, 0, true);
 		$this->initVar('mygmap_marker_category_id', XOBJ_DTYPE_INT, 0, true);
-		$this->initVar('mygmap_marker_title', XOBJ_DTYPE_TXTBOX, '', false, 255);
+		$this->initVar('mygmap_marker_title', XOBJ_DTYPE_TXTBOX, '', true, 255);
 		$this->initVar('mygmap_marker_desc', XOBJ_DTYPE_TXTAREA, null, false);
 		$this->initVar('mygmap_marker_icontext', XOBJ_DTYPE_TXTBOX, '', false, 2);
 		$this->initVar('mygmap_marker_lat', XOBJ_DTYPE_FLOAT, 0, true);
@@ -119,10 +119,10 @@ class MyGmapMarker extends XoopsTableObject
 	}
 
 	function checkVar_mygmap_marker_icontext($value) {
-		if (in_array(trim($value), $this->getIconListArray())){
+		if (array_key_exists(substr($value.' ',0,1), $this->getIconListArray())){
 			return true;
 		}
-		$this->setErrors('Range Error at ICON Text (Blank or A to J)');
+		$this->setErrors('Range Error at ICON Text "'.$value.'" (Blank or A to J)');
 		return false;
 	}
 }

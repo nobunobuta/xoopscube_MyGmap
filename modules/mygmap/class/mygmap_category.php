@@ -20,7 +20,7 @@ class MyGmapCategory extends XoopsTableObject
 
 		//各オブジェクト要素の定義
 		$this->initVar('mygmap_category_id', XOBJ_DTYPE_INT, 0, true);
-		$this->initVar('mygmap_category_name', XOBJ_DTYPE_TXTBOX, '', false, 255);
+		$this->initVar('mygmap_category_name', XOBJ_DTYPE_TXTBOX, '', true, 255);
 		$this->initVar('mygmap_category_desc', XOBJ_DTYPE_TXTAREA, null, false);
 		$this->initVar('mygmap_category_lat', XOBJ_DTYPE_FLOAT, 0, true);
 		$this->initVar('mygmap_category_lng', XOBJ_DTYPE_FLOAT, 0, true);
