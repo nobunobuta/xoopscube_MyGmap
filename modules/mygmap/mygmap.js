@@ -20,23 +20,52 @@ var myGmapCenterIcon;
 
 //Google Map Initializing
 function myGmapLoad() {
-  mygmap_map = new GMap(document.getElementById('mygmap_map'));
-  mygmap_map.addControl(new GLargeMapControl());
-  mygmap_map.addControl(new GMapTypeControl());
-  myGmapCenterIcon = new GIcon();
-  myGmapCenterIcon.image = iconpath +'/marker_center.png';
-  myGmapCenterIcon.shadow = iconpath +'/marker_center_shadow.png';
-  myGmapCenterIcon.iconSize = new GSize( 23,23 );
-  myGmapCenterIcon.shadowSize = new GSize( 29,29 );
-  myGmapCenterIcon.iconAnchor = new GPoint(12,12 );
-  myGmapCenterMarker = new GMarker(new GPoint(0,0),myGmapCenterIcon);
+  var element = document.getElementById('mygmap_map');
+  if (element) {
+    mygmap_map = new GMap(element);
+    mygmap_map.addControl(new GLargeMapControl());
+    mygmap_map.addControl(new GMapTypeControl());
+    myGmapCenterIcon = new GIcon();
+    myGmapCenterIcon.image = iconpath +'/marker_center.png';
+    myGmapCenterIcon.shadow = iconpath +'/marker_center_shadow.png';
+    myGmapCenterIcon.iconSize = new GSize( 23,23 );
+    myGmapCenterIcon.shadowSize = new GSize( 29,29 );
+    myGmapCenterIcon.iconAnchor = new GPoint(12,12 );
+    myGmapCenterMarker = new GMarker(new GPoint(0,0),myGmapCenterIcon);
 
-  myGmapSearchListElement = document.getElementById('mygmap_search_list');
-  myGmapAddressElement = document.getElementById('mygmap_addr');
+    myGmapSearchListElement = document.getElementById('mygmap_search_list');
+    myGmapAddressElement = document.getElementById('mygmap_addr');
 
-  GEvent.addListener(mygmap_map, "moveend", function() {myGmapMoved();});
-  GEvent.addListener(mygmap_map, "zoom", function(oldZoomLevel, newZoomLevel){myGmapZoomed();});
-  myGmapSetInitialLocation();
+    GEvent.addListener(mygmap_map, "moveend", function() {myGmapMoved();});
+    GEvent.addListener(mygmap_map, "zoom", function(oldZoomLevel, newZoomLevel){myGmapZoomed();});
+    myGmapSetInitialLocation();
+  }
+  myGmapShowBlocks();
+}
+
+function myGmapShowBlocks() {
+  for (var i=0; i<myGmapMiniMap_idx; i++) {
+    var element = document.getElementById(myGmapMiniMaps[i].divid);
+    if (element) {
+      var map = new GMap(element);
+      map.addControl(new GSmallZoomControl());
+      map.centerAndZoom(new GPoint(myGmapMiniMaps[i].x,myGmapMiniMaps[i].y), myGmapMiniMaps[i].zoom+1);
+      myGmapMiniMaps[i].map = map;
+    }
+  }
+}
+
+function myGmapCenterAndZoom(x,y,zoom,id) {
+  mygmap_map.centerAndZoom(new GPoint(x,y), zoom);
+  if (useUDAPI) {
+    for (var i=0; i<_myGmapMarkers.length; i++) {
+      if (_myGmapMarkers[i].id == id) {
+        _myGmapMarkers[i].setZIndex(0);
+      } else {
+        _myGmapMarkers[i].setZIndex(Math.round(_myGmapMarkers[i].getLatitude()*-100000));
+      }
+    }
+  }
 }
 
 function myGmapMoved() {
@@ -111,6 +140,14 @@ function myGmapAddMarker(map, lat, lng, html, letter, id) {
   GEvent.addListener(marker, "click", function() {
     marker.openInfoWindowHtml('<div style="width:220px">'+html+'</div>');
   });
+  if (useUDAPI) {
+    GEvent.addListener(marker, "mouseover", function() {
+      marker.setZIndex(0);
+    });
+    GEvent.addListener(marker, "mouseout", function() {
+      marker.setZIndex(Math.round(marker.getLatitude()*-100000));
+    });
+  }
   _myGmapMarkers[_myGmapMarkerIdx] = marker;
   _myGmapMarkers[_myGmapMarkerIdx].point = point;
   if (id != undefined) {
@@ -249,16 +286,10 @@ function myGmapGetLocResponse(httpReq) {
       var ilvl = parseInt(candidate.getElementsByTagName('iLvl')[0].firstChild.data);
       var x = parseFloat(candidate.getElementsByTagName('longitude')[0].firstChild.data);
       var y = parseFloat(candidate.getElementsByTagName('latitude')[0].firstChild.data);
-      minx = Math.min(x, minx);
-      maxx = Math.max(x, maxx);
-      miny = Math.min(y, miny);
-      maxy = Math.max(y, maxy);
+      minx = Math.min(x, minx); maxx = Math.max(x, maxx);
+      miny = Math.min(y, miny); maxy = Math.max(y, maxy);
       maxilvl = Math.max(ilvl, maxilvl);
-      pnts[idx] = {};
-      pnts[idx].x = x;
-      pnts[idx].y = y;
-      pnts[idx].lvl= Math.max((7-ilvl), 0);
-      pnts[idx].text = addr;
+      pnts[idx] = {'x':x, 'y':y, 'lvl':Math.max((7-ilvl), 0), 'text':addr};
       myGmapDebug('==>Result['+idx+']=('+x+','+y+','+ilvl+','+addr+')');
 
     }

@@ -1,4 +1,4 @@
-<?phpinclude dirname(__FILE__).'/include/version.php';$modversion['name'] = "MyGmap";$modversion['version'] = $GLOBALS['mygmap_version_xoops'];$modversion['description'] = "googleAPIによる地図表示モジュールです。";$modversion['credits'] = $GLOBALS['mygmap_credit'];$modversion['author'] = "NobuNobu";$modversion['help'] = "";$modversion['license'] = "GPL see LICENSE";$modversion['official'] = 0;$modversion['image'] = "images/logo.png";$modversion['dirname'] = "mygmap";// Menu$modversion['hasMain'] = 1;// DB Table (作業中)$modversion['sqlfile']['mysql'] = "sql/mysql.sql";
+<?phpinclude_once dirname(__FILE__).'/include/version.php';$modversion['name'] = "MyGmap";$modversion['version'] = $GLOBALS['mygmap_version_xoops'];$modversion['description'] = "googleAPIによる地図表示モジュールです。";$modversion['credits'] = $GLOBALS['mygmap_credit'];$modversion['author'] = "NobuNobu";$modversion['help'] = "";$modversion['license'] = "GPL see LICENSE";$modversion['official'] = 0;$modversion['image'] = "images/logo.png";$modversion['dirname'] = "mygmap";// Menu$modversion['hasMain'] = 1;// DB Table (作業中)$modversion['sqlfile']['mysql'] = "sql/mysql.sql";
 // Tables created by sql file (without prefix!)
 $modversion['tables'][0] = "mygmap_marker";
 $modversion['tables'][1] = "mygmap_catcategory";
@@ -79,14 +79,6 @@ $modversion['config'][5] = array(
 );
 
 $modversion['config'][6] = array(
-	'name'			=> 'mygmap_fuki' ,
-	'title'			=> '_MI_MYGMAP_FUKI_MSG' ,
-	'description'	=> '_MI_MYGMAP_FUKI_DESC' ,
-	'formtype'		=> 'yesno' ,
-	'valuetype'		=> 'int' ,
-	'default'		=> 0 ,
-);
-$modversion['config'][7] = array(
 	'name'			=> 'mygmap_search' ,
 	'title'			=> '_MI_MYGMAP_SEARCH_MSG' ,
 	'description'	=> '_MI_MYGMAP_SEARCH_DESC' ,
@@ -94,7 +86,7 @@ $modversion['config'][7] = array(
 	'valuetype'		=> 'int' ,
 	'default'		=> 0 ,
 );
-$modversion['config'][8] = array(
+$modversion['config'][7] = array(
 	'name'			=> 'mygmap_invgeo' ,
 	'title'			=> '_MI_MYGMAP_INVGEO_MSG' ,
 	'description'	=> '_MI_MYGMAP_INVGEO_DESC' ,
@@ -102,7 +94,7 @@ $modversion['config'][8] = array(
 	'valuetype'		=> 'int' ,
 	'default'		=> 0 ,
 );
-$modversion['config'][9] = array(
+$modversion['config'][8] = array(
 	'name'			=> 'mygmap_link' ,
 	'title'			=> '_MI_MYGMAP_LINK_MSG' ,
 	'description'	=> '_MI_MYGMAP_LINK_DESC' ,
@@ -110,7 +102,7 @@ $modversion['config'][9] = array(
 	'valuetype'		=> 'int' ,
 	'default'		=> 1 ,
 );
-$modversion['config'][10] = array(
+$modversion['config'][9] = array(
 	'name'			=> 'mygmap_wiki' ,
 	'title'			=> '_MI_MYGMAP_WIKI_MSG' ,
 	'description'	=> '_MI_MYGMAP_WIKI_DESC' ,
@@ -118,28 +110,28 @@ $modversion['config'][10] = array(
 	'valuetype'		=> 'int' ,
 	'default'		=> 0 ,
 );
-$modversion['config'][11] = array(
+$modversion['config'][10] = array(
 	'name'			=> 'mygmap_blog' ,
 	'title'			=> '_MI_MYGMAP_BLOG_MSG' ,
 	'description'	=> '_MI_MYGMAP_BLOG_DESC' ,
 	'formtype'		=> 'yesno' ,
 	'valuetype'		=> 'int' ,
 	'default'		=> 0 ,
-);$modversion['config'][12] = array(
+);$modversion['config'][11] = array(
 	'name'			=> 'mygmap_width' ,
 	'title'			=> '_MI_MYGMAP_WIDTH_MSG' ,
 	'description'	=> '_MI_MYGMAP_WIDTH_DESC' ,
 	'formtype'		=> 'textbox' ,
 	'valuetype'		=> 'int' ,
 	'default'		=> 540 ,
-);$modversion['config'][13] = array(
+);$modversion['config'][12] = array(
 	'name'			=> 'mygmap_height' ,
 	'title'			=> '_MI_MYGMAP_HEIGHT_MSG' ,
 	'description'	=> '_MI_MYGMAP_HEIGHT_DESC' ,
 	'formtype'		=> 'textbox' ,
 	'valuetype'		=> 'int' ,
 	'default'		=> 460 ,
-);$modversion['config'][14] = array(
+);$modversion['config'][13] = array(
 	'name'			=> 'mygmap_text1' ,
 	'title'			=> '_MI_MYGMAP_TEXT1_MSG' ,
 	'description'	=> '_MI_MYGMAP_TEXT1_DESC' ,
@@ -147,7 +139,7 @@ $modversion['config'][11] = array(
 	'valuetype'		=> 'text' ,
 	'default'		=> _MI_MYGMAP_TEXT1_DEFAULT ,
 );
-$modversion['config'][15] = array(
+$modversion['config'][14] = array(
 	'name'			=> 'mygmap_text2' ,
 	'title'			=> '_MI_MYGMAP_TEXT2_MSG' ,
 	'description'	=> '_MI_MYGMAP_TEXT2_DESC' ,
@@ -155,10 +147,18 @@ $modversion['config'][15] = array(
 	'valuetype'		=> 'text' ,
 	'default'		=> _MI_MYGMAP_TEXT2_DEFAULT ,
 );
-$modversion['config'][16] = array(
+$modversion['config'][15] = array(
 	'name'			=> 'mygmap_setdef_show' ,
 	'title'			=> '_MI_MYGMAP_SETDEF_SHOW_MSG' ,
 	'description'	=> '_MI_MYGMAP_SETDEF_SHOW_DESC' ,
+	'formtype'		=> 'yesno' ,
+	'valuetype'		=> 'int' ,
+	'default'		=> 1 ,
+);
+$modversion['config'][16] = array(
+	'name'			=> 'mygmap_use_undocAPI' ,
+	'title'			=> '_MI_MYGMAP_UNDOCAPI_MSG' ,
+	'description'	=> '_MI_MYGMAP_UNDOCAPI_DESC' ,
 	'formtype'		=> 'yesno' ,
 	'valuetype'		=> 'int' ,
 	'default'		=> 1 ,
@@ -171,4 +171,12 @@ $modversion['config'][17] = array(
 	'valuetype'		=> 'int' ,
 	'default'		=> 0 ,
 );
+$modversion['blocks'][1]['file'] = "minimap.php";
+$modversion['blocks'][1]['name'] = "Mini Map";
+$modversion['blocks'][1]['description'] = "";
+$modversion['blocks'][1]['show_func'] = "b_mygmap_minimap_show";
+$modversion['blocks'][1]['edit_func'] = "b_mygmap_minimap_edit";
+$modversion['blocks'][1]['options'] = "1";
+$modversion['blocks'][1]['template'] = "mygmap_block_minimap.html";
+$modversion['blocks'][1]['can_clone'] = true ;
 ?>
