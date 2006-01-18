@@ -31,8 +31,8 @@ class MyGmapMarker extends XoopsTableObject
 
 		$this->setAttribute('dohtml', 0);
 		$this->setAttribute('doxcode', 1);
-		$this->setAttribute('dosmiley', 0);
-		$this->setAttribute('doimage', 0);
+		$this->setAttribute('dosmiley', 1);
+		$this->setAttribute('doimage', 1);
 		$this->setAttribute('dobr', 1);
 		//プライマリーキーの定義
 		$this->setKeyFields(array('mygmap_marker_id'));
