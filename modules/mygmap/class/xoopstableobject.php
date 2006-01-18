@@ -125,7 +125,7 @@ if( ! class_exists( 'XoopsTableObject' ) ) {
 			if (file_exists(XOOPS_ROOT_PATH.'/class/xoopsform/formtoken.php')) {
 				include_once XOOPS_ROOT_PATH.'/class/xoopsform/formtoken.php';
 			} else {
-				$withtoken=0;
+				$token=0;
 			}
 			
 			$formEdit =& new XoopsThemeForm($caption,$name,$action);
@@ -236,6 +236,7 @@ if( ! class_exists( 'XoopsTableObject' ) ) {
 					switch ($v['data_type']) {
 					case XOBJ_DTYPE_FLOAT:
 						$cleanv = (float)($cleanv);
+						$this->cleanVars[$k] =& $cleanv;
 						break;
 					default:
 						break;
@@ -246,7 +247,6 @@ if( ! class_exists( 'XoopsTableObject' ) ) {
 						$this->$checkMethod($cleanv);
 					}
 				}
-				$this->cleanVars[$k] =& $cleanv;
 				unset($cleanv);
 			}
 			if (count($this->_errors) > 0) {
@@ -754,37 +754,6 @@ if( ! class_exists( 'XoopsTableObject' ) ) {
 		}
 	}
 	
-	class XoopsJoinCriteria
-	{
-		var $_table_name;
-		var $_main_field;
-		var $_sub_field;
-		var $_join_type;
-		var $_next_join;
-		
-		function XoopsJoinCriteria($table_name, $main_field, $sub_field, $join_type='LEFT')
-		{
-			$this->_table_name = $table_name;
-			$this->_main_field = $main_field;
-			$this->_sub_field = $sub_field;
-			$this->_join_type = $join_type;
-			$this->_next_join = false;
-		}
-		
-		function cascade(&$joinCriteria) {
-			$this->_next_join =& $joinCriteria;
-		}
-		
-		function render($main_table)
-		{
-			$join_str = " ".$this->_join_type." JOIN ".$this->_table_name." ON ".$main_table.".".$this->_main_field."=".$this->_table_name.".".$this->_sub_field." ";
-			if ($this->_next_join) {
-				$join_str .= $this->_next_join->render($this->_table_name);
-			}
-			return $join_str;
-		}
-	}
-	
 	class XoopsCachedTableObjectHandler  extends XoopsTableObjectHandler
 	{
 		var $tableName;
@@ -986,12 +955,6 @@ if( ! class_exists( 'XoopsTableObject' ) ) {
 			return true;
 		}
 
-	    function updateByField(&$record, $fieldName, $fieldValue, $not_gpc=false)
-	    {
-	        $record->setVar($fieldName, $fieldValue, $not_gpc);
-	        return $this->insert($record, true, true);
-	    }
-
 		/**
 		 * レコードの削除
 		 * 
@@ -1155,6 +1118,38 @@ if( ! class_exists( 'XoopsTableObject' ) ) {
 			$this->cache[$table] = array();
 		}
 	}
+
+	class XoopsJoinCriteria
+	{
+		var $_table_name;
+		var $_main_field;
+		var $_sub_field;
+		var $_join_type;
+		var $_next_join;
+		
+		function XoopsJoinCriteria($table_name, $main_field, $sub_field, $join_type='LEFT')
+		{
+			$this->_table_name = $table_name;
+			$this->_main_field = $main_field;
+			$this->_sub_field = $sub_field;
+			$this->_join_type = $join_type;
+			$this->_next_join = false;
+		}
+		
+		function cascade(&$joinCriteria) {
+			$this->_next_join =& $joinCriteria;
+		}
+		
+		function render($main_table)
+		{
+			$join_str = " ".$this->_join_type." JOIN ".$this->_table_name." ON ".$main_table.".".$this->_main_field."=".$this->_table_name.".".$this->_sub_field." ";
+			if ($this->_next_join) {
+				$join_str .= $this->_next_join->render($this->_table_name);
+			}
+			return $join_str;
+		}
+	}
+	
 	$GLOBALS['_xoopsTableCache'] = new XoopsTableCache;
 }
 ?>
