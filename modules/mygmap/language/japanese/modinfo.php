@@ -14,8 +14,6 @@ define("_MI_MYGMAP_LAT_MSG","初期表示地図の経度");
 define("_MI_MYGMAP_LAT_DESC","初期表示地図の経度を東経で指定して下さい。<br />米国などの地図表示時の西経はマイナス数字になります。");
 define("_MI_MYGMAP_ZOOM_MSG","初期表示地図の拡大率");
 define("_MI_MYGMAP_ZOOM_DESC","拡大率を 0(最大倍率)〜17で指定して下さい。");
-define("_MI_MYGMAP_FUKI_MSG","ポインタの吹き出しを最初から表示する");
-define("_MI_MYGMAP_FUKI_DESC","");
 define("_MI_MYGMAP_SEARCH_MSG","住所・駅検索機能を使用");
 define("_MI_MYGMAP_SEARCH_DESC","<a href=\"http://geocode.csis.u-tokyo.ac.jp/cgi-bin/simple_geocode.cgi\">CSISシンプルジオコーディング実験</a>を使用した、住所検索機能を使用します。<br />当機能を使用する場合には、<a href=\"http://www.tkl.iis.u-tokyo.ac.jp/~sagara/geocode/simple_condition.html\">「CSISシンプルジオコーディング実験 参加規約」</a>を参照して条件を承諾する必要があります。<br /><br />なお、当実験で本実験で位置参照情報として利用している元データは一部にかなり古いものが含まれており、最近開通した鉄道の駅名は検索できません。");
 define("_MI_MYGMAP_INVGEO_MSG","地図表示位置の住所表示機能を使用");
@@ -38,6 +36,8 @@ define("_MI_MYGMAP_TEXT2_DESC","URLのパラメータで位置していた時の<br/>吹き出しに
 define("_MI_MYGMAP_TEXT2_DEFAULT","[b]ココですよ！[/b]");
 define("_MI_MYGMAP_SETDEF_SHOW_MSG","「ここをデフォルトに変更」ボタンを表示");
 define("_MI_MYGMAP_SETDEF_SHOW_DESC","管理者が初期表示用の地図を簡単に指定できる様に<br />管理者権限ユーザに対して「ここをデフォルトに変更」ボタンを表示します。<br />（初期設定完了後は、「いいえ」にすることをお奨めします）");
+define("_MI_MYGMAP_UNDOCAPI_MSG","UndocumentなGoogle MAPS APIを使用する");
+define("_MI_MYGMAP_UNDOCAPI_DESC","重なったマーカーの表示制御に文書化されていない非保証の<br/>APIを使用しています。<br/>JavaScriptエラーなどの誤動作が起こった場合には<br/>これを「いいえ」にして下さい。");
 define("_MI_MYGMAP_DEBUG_MSG","デバッグメッセージを出力する");
 define("_MI_MYGMAP_DEBUG_DESC","基本的には、作者(NobuNobu)専用のオプションです。<br />Ajax呼出などを一部トレース出力します。");
 
