@@ -1,7 +1,7 @@
-<?phpinclude_once dirname(__FILE__).'/include/version.php';$modversion['name'] = "MyGmap";$modversion['version'] = $GLOBALS['mygmap_version_xoops'];$modversion['description'] = "googleAPIによる地図表示モジュールです。";$modversion['credits'] = $GLOBALS['mygmap_credit'];$modversion['author'] = "NobuNobu";$modversion['help'] = "";$modversion['license'] = "GPL see LICENSE";$modversion['official'] = 0;$modversion['image'] = "images/logo.png";$modversion['dirname'] = "mygmap";// Menu$modversion['hasMain'] = 1;// DB Table (作業中)$modversion['sqlfile']['mysql'] = "sql/mysql.sql";
+<?phpinclude_once dirname(__FILE__).'/include/version.php';$modversion['name'] = "MyGmap";$modversion['version'] = $GLOBALS['mygmap_version_xoops'];$modversion['description'] = "googleAPIによる地図表示モジュールです。";$modversion['credits'] = $GLOBALS['mygmap_credit'];$modversion['author'] = "NobuNobu";$modversion['help'] = "";$modversion['license'] = "GPL see LICENSE";$modversion['official'] = 0;$modversion['image'] = "images/logo.png";$modversion['dirname'] = "mygmap";// Menu$modversion['hasMain'] = 1;// DB Table$modversion['sqlfile']['mysql'] = "sql/mysql.sql";
 // Tables created by sql file (without prefix!)
 $modversion['tables'][0] = "mygmap_marker";
-$modversion['tables'][1] = "mygmap_catcategory";
+$modversion['tables'][1] = "mygmap_category";
 $modversion['tables'][2] = "mygmap_area";
 
 // Templates
