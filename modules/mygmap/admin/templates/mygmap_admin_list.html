@@ -1,0 +1,27 @@
+<h3><{$modulename}></h3>
+<h4><{$title}></h4>
+<div align="left">
+<table cellspacing="3" class="outer"><tr class="head"><td>
+<a href="<{$newlink}>"><{$lang.new}></a>
+</td></tr></table>
+</div>
+<br />
+<div align="left">
+<table cellspacing="1" class="outer">
+<tr class="head" align="center">
+<{foreach item=header from=$headers}>
+<th width="<{$header.width}>px"><{$header.caption}></th>
+<{/foreach}>
+<th colspan="2" width="120px"></th>
+</tr>
+<{foreach item=record from=$records}>
+<tr class="<{cycle values="odd,even"}>">
+<{foreach item=item from=$record.items}>
+<td align="<{$item.align}>"><{$item.value}></td>
+<{/foreach}>
+<th class="head" align="center" width="50px"><a href="<{$record.editlink}>"><{$lang.edit}></a></td>
+<th class="head" align="center" width="50px"><a href="<{$record.deletelink}>"><{$lang.delete}></a></td>
+</tr>
+<{/foreach}>
+</table>
+</div>
