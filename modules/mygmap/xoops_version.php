@@ -179,4 +179,8 @@ $modversion['blocks'][1]['edit_func'] = "b_mygmap_minimap_edit";
 $modversion['blocks'][1]['options'] = "1";
 $modversion['blocks'][1]['template'] = "mygmap_block_minimap.html";
 $modversion['blocks'][1]['can_clone'] = true ;
+// On Update
+if( ! empty( $_POST['fct'] ) && ! empty( $_POST['op'] ) && $_POST['fct'] == 'modulesadmin' && $_POST['op'] == 'update_ok' && $_POST['dirname'] == $modversion['dirname'] ) {
+	include dirname( __FILE__ ) . "/include/onupdate.inc.php" ;
+}
 ?>
