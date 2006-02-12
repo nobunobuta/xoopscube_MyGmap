@@ -261,6 +261,9 @@ if ( !is_object($xoopsUser) || !is_object($xoopsModule) || !$xoopsUser->isAdmin(
         if ($config[$i]->getVar('conf_valuetype') == 'array') {
           // this is exceptional.. only when value type is arrayneed a smarter way for this
           $ele = ($config[$i]->getVar('conf_value') != '') ? new XoopsFormTextArea($title, $config[$i]->getVar('conf_name'), $myts->htmlspecialchars(implode('|', $config[$i]->getConfValueForOutput())), 5, 50) : new XoopsFormTextArea($title, $config[$i]->getVar('conf_name'), '', 5, 50);
+        } elseif ($config[$i]->getVar('conf_valuetype') == 'textarea') {
+            // another exception for textarea value type..
+            $ele = new XoopsFormTextArea($title, $config[$i]->getVar('conf_name'), $config[$i]->getVar('conf_value', 'e'), 5, 50);
         } else {
           $ele = new XoopsFormTextArea($title, $config[$i]->getVar('conf_name'), $myts->htmlspecialchars($config[$i]->getConfValueForOutput()), 5, 50);
         }
@@ -352,6 +355,7 @@ if ( !is_object($xoopsUser) || !is_object($xoopsModule) || !$xoopsUser->isAdmin(
     $theme_updated = false;
     $startmod_updated = false;
     $lang_updated = false;
+    $config_handler =& xoops_gethandler('config');
     if ($count > 0) {
       for ($i = 0; $i < $count; $i++) {
         $config =& $config_handler->getConfig($conf_ids[$i]);
