@@ -1,6 +1,6 @@
 <?php
-if (!defined('MYGMAP_LANGUAGE_XOOPS_MODINFO_READ')) {
-define ('MYGMAP_LANGUAGE_XOOPS_MODINFO_READ','1');
+if (!defined('MYGMAP_LANGUAGE_MODINFO_READ')) {
+define ('MYGMAP_LANGUAGE_MODINFO_READ','1');
 // Module Info
 
 // Config titles
@@ -60,7 +60,13 @@ define("_MI_MYGMAP_Z_OPT15","15");
 define("_MI_MYGMAP_Z_OPT16","16");
 define("_MI_MYGMAP_Z_OPT17","17");
 
-define("_MI_MYGMAP_AD_MENU0","ブロックアクセス権限");
+define('_MI_MYGMAP_AD_MENU0','カテゴリー管理');
+
+define('_MI_MYGMAP_AD_MENU1','マーカー管理');
+
+define('_MI_MYGMAP_AD_MENU2','表示エリア管理');
+
+define('_MI_MYGMAP_AD_MENU3','ブロックアクセス権限');
 
 }
 ?>

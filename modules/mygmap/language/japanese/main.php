@@ -1,4 +1,7 @@
 <?php
+if (!defined('MYGMAP_LANGUAGE_MAIN_READ')) {
+define ('MYGMAP_LANGUAGE_MAIN_READ','1');
+
 define("_MYGMAP_LANG_SETDEFAULT","現在地をデフォルトに変更");
 define("_MYGMAP_LANG_EDIT","修正");
 define("_MYGMAP_LANG_NEWCATEGORY","現在地をカテゴリー追加");
@@ -17,5 +20,5 @@ define("_MYGMAP_LANG_CATEGORY","カテゴリー");
 define("_MYGMAP_LANG_ICON","アイコン");
 define("_MYGMAP_LANG_ADDRESS","住所");
 define("_MYGMAP_LANG_STATION","駅");
-
+}
 ?>
