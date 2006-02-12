@@ -32,8 +32,8 @@
 <ul>
 <{foreach item=mygmap_marker from=$mygmap_markers}>
  <li>
-   <span onclick="myGmapCenterAndZoom(<{$mygmap_marker.lat}>, <{$mygmap_marker.lng}>, <{$mygmap_marker.zoom}>, <{$mygmap_marker.id}>);">
-     <span id="mygmap_marker_<{$mygmap_marker.id}>"><{$mygmap_marker.mark}>.</span>&nbsp;<a href="#"><{$mygmap_marker.title}></a>
+   <span onclick="myGmapCenterAndZoom(<{$mygmap_marker.lat}>, <{$mygmap_marker.lng}>, <{$mygmap_marker.zoom}>, <{$mygmap_marker.id}>);return(false);">
+     <span id="mygmap_marker_<{$mygmap_marker.id}>"><{$mygmap_marker.mark}>.</span>&nbsp;<a href="?cat=<{$mygmap_category.id}>&amp;id=<{$mygmap_marker.id}>"><{$mygmap_marker.title}></a>
    </span>
 <{if $xoopsUserIsAdmin && $mygmap_marker.id != 0}>
      <a href="marker.php?id=<{$mygmap_marker.id}>">[<{$smarty.const._MYGMAP_LANG_EDIT}>]</a>
@@ -77,7 +77,10 @@
   <input id="mygmap_addmark_form_cat" type="hidden" name="mygmap_marker_category_id" value="<{$mygmap_category.id}>" />
 <{else}>
   <input id="mygmap_addmark_form_cat" type="hidden" name="mygmap_marker_category_id" value="" />
-<{/if}>  <input id="mygmap_addmark_form_lat" type="hidden" name="mygmap_lat" value="" />  <input id="mygmap_addmark_form_lng" type="hidden" name="mygmap_lng" value="" />  <input id="mygmap_addmark_form_zoom" type="hidden" name="mygmap_zoom" value="" />  <input type="hidden" name="op" value="new" />  <input type="submit" name="submit" value="<{$smarty.const._MYGMAP_LANG_NEWPOINT}>"/></form><br/>
+<{/if}>  <input id="mygmap_addmark_form_lat" type="hidden" name="mygmap_marker_lat" value="" />
+  <input id="mygmap_addmark_form_lng" type="hidden" name="mygmap_marker_lng" value="" />
+  <input id="mygmap_addmark_form_zoom" type="hidden" name="mygmap_marker_zoom" value="" />
+  <input type="hidden" name="op" value="new" />  <input type="submit" name="submit" value="<{$smarty.const._MYGMAP_LANG_NEWPOINT}>"/></form><br/>
 <form id="mygmap_addarea_form" action="area.php" method="post">
   <input id="mygmap_addarea_form_lat" type="hidden" name="mygmap_area_lat" value="" />  <input id="mygmap_addarea_form_lng" type="hidden" name="mygmap_area_lng" value="" />  <input id="mygmap_addarea_form_zoom" type="hidden" name="mygmap_area_zoom" value="" />  <input type="hidden" name="op" value="new" />  <input type="submit" name="submit" value="<{$smarty.const._MYGMAP_LANG_NEWAREA}>"/></form><br/>
 <{if $mygmap_setdef_show}>
@@ -121,5 +124,5 @@ function myGmapSetFormVaules(lat,lng,zoom) {
 	myGmapSetAttributeByID('mygmap_info_form_wiki', 'value',
 					'#gmapp(' + lat + ',' + lng + ','+ zoom + ')');	myGmapSetAttributeByID('mygmap_info_form_link', 'value',
 					'<{$smarty.const.XOOPS_URL}>/modules/mygmap/?lat=' + lat + '&lng=' + lng + '&z='+ zoom);	myGmapSetAttributeByID('mygmap_info_form_blog', 'value',
-					'&lt;iframe src="/fgmap/?n=' + lng + '&e=' + lat + '&z='+ zoom + '&t=" width="400" height="350" frameborder="0" scrolling="no"&gt;&lt;/iframe&gt;');}
+					'<iframe src="/fgmap/?n=' + lng + '&amp;e=' + lat + '&amp;z='+ zoom + '&amp;t=" width="400" height="350" frameborder="0" scrolling="no"></iframe>');}
 //]]></script>

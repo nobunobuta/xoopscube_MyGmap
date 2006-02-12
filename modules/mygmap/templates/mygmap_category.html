@@ -1,11 +1,42 @@
-<table><tr><td style="width:<{$mygmap_width}>px">
-<div id="mygmap_map" style="width:<{$mygmap_width}>px; height:<{$mygmap_height}>px"></div>
-<div style="width:<{$mygmap_width}>px;text-align:right;font-size:10px;"><{$mygmap_credit}></div>
-</td>
-<td style="width:200px">
-<{$category_form}>
-</td>
-</tr></table>
+<table>
+  <tr>
+    <td style="width:<{$mygmap_width}>px">
+      <div id="mygmap_map" style="width:<{$mygmap_width}>px; height:<{$mygmap_height}>px"></div>
+      <div style="width:<{$mygmap_width}>px;text-align:right;font-size:10px;"><{$mygmap_credit}></div>
+    </td>
+    <td style="width:350px">
+      <{$mygmap_catedit.javascript}>
+      <form name="<{$mygmap_catedit.name}>" id="<{$mygmap_catedit.name}>" action="<{$mygmap_catedit.action}>" method="<{$mygmap_catedit.method}>" <{$mygmap_catedit.extra}>>
+        <table class="outer" cellspacing="1">
+          <tr>
+            <th colspan="2"><{$mygmap_catedit.title}></th>
+          </tr>
+          <tr>
+            <td class="head"><{$mygmap_catedit.elements.mygmap_category_name.caption}></td>
+            <td class="<{cycle values="odd,even"}>">
+              <{$mygmap_catedit.elements.mygmap_category_name.body}>
+            </td>
+          </tr>
+          <tr>
+            <td class="head"><{$mygmap_catedit.elements.mygmap_category_desc.caption}></td>
+            <td class="<{cycle values="odd,even"}>">
+              <{$mygmap_catedit.elements.mygmap_category_desc.body}>
+            </td>
+          </tr>
+          <tr>
+            <td class="head"><{$mygmap_catedit.elements.submit.caption}></td>
+            <td class="<{cycle values="odd,even"}>">
+    <{foreach item=hidden from=$mygmap_catedit.elements}><{if $hidden.hidden }>
+              <{$hidden.body}>
+    <{/if}><{/foreach}>
+              <{$mygmap_catedit.elements.submit.body}>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </td>
+  </tr>
+</table>
 <div id="mygmap_center"><{$errmsg}></div>
 <script type="text/javascript">
 //<![CDATA[var mygmappath = '<{$smarty.const.XOOPS_URL}>/modules/mygmap/';

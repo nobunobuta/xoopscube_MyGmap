@@ -19,9 +19,10 @@ if( ! class_exists( 'XoopsTableObject' ) ) {
 		var $_extra_vars = array();
 		var $_keys;
 		var $_autoIncrement;
-		var $_formElements;
 		var $_listTableElements;
 		var $_handler;
+		var $_form;
+		var $_list;
 		
 	    function initVar($key, $data_type, $value = null, $required = false, $maxlength = null, $options = '')
 	    {
@@ -88,76 +89,6 @@ if( ! class_exists( 'XoopsTableObject' ) ) {
 			foreach($this->vars as $k=>$v) {
 				$this->vars[$k]['changed'] = false;
 			}
-		}
-		
-		function assignEditFormElement($name,$class,$params)
-		{
-			include_once XOOPS_ROOT_PATH.'/class/xoopsform/formelement.php';
-			include_once XOOPS_ROOT_PATH.'/class/xoopsform/form'. strtolower($class) .'.php';
-			$className = "XoopsForm". $class;
-			$callstr = '$this->_formElements["'.$name.'"] = new XoopsForm'.$class.'(';
-			$delim = '';
-			for ($i=0;$i<count($params);$i++) {
-				if (gettype($params[$i]) == "string") {
-					$callstr .= $delim. '"'. $params[$i].'"';
-				} else {
-					$callstr .= $delim. $params[$i];
-				}
-				$delim = ', ';
-			}
-			$callstr .= ');';
-	//		echo "$callstr<br />";
-			eval($callstr);
-		}
-		
-		function assignEditFormOptionArray($name,$options) {
-			if (method_exists($this->_formElements[$name], 'addOptionArray')) {
-				$this->_formElements[$name]->addOptionArray($options);
-			}
-		}
-		
-		function renderEditForm($caption,$name,$action,$token=0)
-		{
-			include_once XOOPS_ROOT_PATH.'/class/xoopsform/form.php';
-			include_once XOOPS_ROOT_PATH.'/class/xoopsform/themeform.php';
-			include_once XOOPS_ROOT_PATH.'/class/xoopsform/formhidden.php';
-			include_once XOOPS_ROOT_PATH.'/class/xoopsform/formbutton.php';
-			if (file_exists(XOOPS_ROOT_PATH.'/class/xoopsform/formtoken.php')) {
-				include_once XOOPS_ROOT_PATH.'/class/xoopsform/formtoken.php';
-			} else {
-				$token=0;
-			}
-			
-			$formEdit =& new XoopsThemeForm($caption,$name,$action);
-			foreach ($this->_formElements as $key=>$formElement) {
-//				if (!$this->isNew()) {
-					$formElement->setValue($this->getVar($key,'e'));
-//				}
-				$formEdit->addElement($formElement,$this->vars[$key]['required']);
-//				echo "$key - " .get_class($formElement) ."<br/>";
-				unset($formElement);
-			}
-			if ($this->isNew()) {
-				if ($token) {
-					$formEdit->addElement(new XoopsFormToken(XoopsMultiTokenHandler::quickCreate($name.'_insert')));
-				}
-				$formEdit->addElement(new XoopsFormHidden('op','insert'));
-			} else {
-				if ($token) {
-					$formEdit->addElement(new XoopsFormToken(XoopsMultiTokenHandler::quickCreate($name.'_save')));
-				}
-				$formEdit->addElement(new XoopsFormHidden('op','save'));
-			}
-			$formEdit->addElement(new XoopsFormButton('', 'submit', 'OK', 'submit'));
-
-			$str = $formEdit->render();
-			unset($formEdit);
-			return $str;
-		}
-
-		function assignListTableElement($name,$type, $caption) {
-			$_listTableElements[$name]['type'] = $type;
-			$_listTableElements[$name]['caption'] = $caption;
 		}
 		
 	    function assignVar($key, $value)
@@ -279,8 +210,218 @@ if( ! class_exists( 'XoopsTableObject' ) ) {
 	        	$this->setVar($k, $wp_object->$k, true);
 			}
 		}
-	}
 
+	    /**#@+
+	     * @deprecated
+	     */
+		function assignEditFormElement($name,$class,$params)
+		{
+			if (!$this->_form) $this->_form =& new XoopsTableObjectForm;
+			$className = "XoopsForm". $class;
+			$callstr = '$this->_form->addElement("'.$name.'", new XoopsForm'.$class.'(';
+			$delim = '';
+			for ($i=0;$i<count($params);$i++) {
+				if (gettype($params[$i]) == "string") {
+					$callstr .= $delim. '"'. $params[$i].'"';
+				} else {
+					$callstr .= $delim. $params[$i];
+				}
+				$delim = ', ';
+			}
+			$callstr .= '));';
+			eval($callstr);
+		}
+		
+	    /**#@+
+	     * @deprecated
+	     */
+		function assignEditFormOptionArray($name,$options) {
+			$this->_form->addOptionArray($name,$options);
+		}
+		
+	    /**#@+
+	     * @deprecated
+	     */
+		function &buildEditForm($caption,$name,$action,$token=0) {
+			$this->_form->_caption = $caption;
+			$this->_form->_name = $name;
+			$this->_form->_action = $action;
+			$this->_form->_token = $token;
+			$this->_form->buildEditForm($this);
+		}
+
+	    /**#@+
+	     * @deprecated
+	     */
+		function renderEditForm($caption, $name, $action, $token=0) {
+			$this->_form->_caption = $caption;
+			$this->_form->_name = $name;
+			$this->_form->_action = $action;
+			$this->_form->_token = $token;
+			return $this->_form->render($this);
+		}
+
+	    /**#@+
+	     * @deprecated
+	     */
+		function assignEditForm2Tpl(&$tpl, $caption, $name, $action, $token=0) {
+			$this->_form->_caption = $caption;
+			$this->_form->_name = $name;
+			$this->_form->_action = $action;
+			$this->_form->_token = $token;
+			$this->_form->assign($this, $tpl);
+		}
+
+	    /**#@+
+	     * @deprecated
+	     */
+		function assignListTableElement($name, $type, $caption, $width) {
+			if (!$this->_list) $this->_list =& new XoopsTableObjectList;
+			$this->_list->addElement($name, $type, $caption, $width);
+		}
+		
+	    /**#@+
+	     * @deprecated
+	     */
+		function &getListItems() {
+			return $this->_list->getListItems($this);
+		}
+
+	    /**#@+
+	     * @deprecated
+	     */
+		function &getListHeaders() {
+			return $this->_list->getListHeaders();
+		}
+	}
+}
+if( ! class_exists( 'XoopsTableObjectList' ) ) {
+	class XoopsTableObjectList {
+		var $_elements;
+
+		function addElement($name, $type, $caption, $width) {
+			$this->_elements[$name]['type'] = $type;
+			$this->_elements[$name]['caption'] = $caption;
+			$this->_elements[$name]['width'] = $width;
+		}
+		
+		function &getListItems(&$object) {
+			$items = array();
+			foreach($this->_elements as $key=>$value) {
+				$item['name'] = $key;
+				$item['value'] = $object->getVar($key);
+				$item['align'] = $value['type'];
+				$items[] = $item;
+			}
+			return $items;
+		}
+
+		function &getListHeaders() {
+			$header = array();
+			foreach($this->_elements as $key=>$value) {
+				$head['name'] = $key;
+				$head['caption'] = $value['caption'];
+				$head['width'] = $value['width'];
+				$header[] = $head;
+			}
+			return $header;
+		}
+		function _showList(&$objects, &$tpl, $name, $url) {
+			$headers = $this->getListHeaders();
+			
+			foreach ($objects as $object) {
+				$objectKey = $object->getKeyFields();
+				$objectKey = $objectKey[0];
+				$rec['items'] =& $this->getListItems($object);
+				$key = $object->getVar($objectKey);
+				$rec['editlink'] = $url.'?op=edit&amp;'.$objectKey.'='.$key;
+				$rec['deletelink'] = $url.'?op=delete&amp;'.$objectKey.'='.$key;
+				$records[] = $rec;
+			}
+		    $tpl->assign('title',$name);
+		    $tpl->assign('headers',$headers);
+		    $tpl->assign('records',$records);
+		}
+	}
+}
+if( ! class_exists( 'XoopsTableObjectForm' ) ) {
+	class XoopsTableObjectForm {
+		var $_elements;
+		var $_name;
+		var $_caption;
+		var $_action;
+		var $_token = 0;
+
+		function XoopsTableObjectForm($caption='', $name='', $action='', $token=0) {
+			include_once XOOPS_ROOT_PATH.'/class/xoopsformloader.php';
+			$this->_caption = $caption;
+			$this->_name = $name;
+			$this->_action = $action;
+			$this->_token = $token;
+			$this->_elements = array();
+		}
+		function setCaption($caption) {
+			$this->_caption = $caption;
+		}
+		function addElement($name, &$formElement) {
+			$this->_elements[$name] =& $formElement;
+		}
+		
+		function addOptionArray($name,$options) {
+			if (method_exists($this->_elements[$name], 'addOptionArray')) {
+				$this->_elements[$name]->addOptionArray($options);
+			}
+		}
+		
+		function &buildEditForm(&$object) {
+			if (!file_exists(XOOPS_ROOT_PATH.'/class/xoopsform/formtoken.php')) {
+				$this->_token=0;
+			}
+			
+			$formEdit =& new XoopsThemeForm($this->_caption, $this->_name, $this->_action);
+			foreach ($this->_elements as $key=>$formElement) {
+				$formElement->setValue($object->getVar($key,'e'));
+				$formEdit->addElement($formElement,$object->vars[$key]['required']);
+				unset($formElement);
+			}
+			if ($object->isNew()) {
+				if ($this->_token) {
+					$formEdit->addElement(new XoopsFormToken(XoopsMultiTokenHandler::quickCreate($this->_name.'_insert')));
+				}
+				$formEdit->addElement(new XoopsFormHidden('op','insert'));
+			} else {
+				if ($this->_token) {
+					$formEdit->addElement(new XoopsFormToken(XoopsMultiTokenHandler::quickCreate($this->_name.'_save')));
+				}
+				$formEdit->addElement(new XoopsFormHidden('op','save'));
+			}
+			$formEdit->addElement(new XoopsFormButton('', 'submit', 'OK', 'submit'));
+
+			return $formEdit;
+		}
+
+		function render(&$object) {
+			$formEdit =& $this->buildEditForm($object);
+			$str = $formEdit->render();
+			return $str;
+		}
+
+		function assign(&$object, &$tpl) {
+			$formEdit =& $this->buildEditForm($object);
+			$formEdit->assign($tpl);
+		}
+		
+
+		function _showForm(&$object, &$tpl, $errmsg='') {
+			$form =& $this->buildEditForm($object);
+		    $form->assign($tpl);
+		    $tpl->assign('title',$this->_caption);
+		    $tpl->assign('formhtml',$this->render($object));
+		    $tpl->assign('errmsg',$errmsg);
+		}
+	}
+}
+if( ! class_exists( 'XoopsTableObjectHandler' ) ) {
 	class XoopsTableObjectHandler  extends XoopsObjectHandler
 	{
 		var $tableName;

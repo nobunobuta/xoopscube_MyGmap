@@ -1,11 +1,54 @@
-<table><tr><td style="width:<{$mygmap_width}>px">
-<div id="mygmap_map" style="width:<{$mygmap_width}>px; height:<{$mygmap_height}>px"></div>
-<div style="width:<{$mygmap_width}>px;text-align:right;font-size:10px;"><{$mygmap_credit}></div>
-</td>
-<td style="width:200px">
-<{$marker_form}>
-</td>
-</tr></table>
+<table>
+  <tr>
+    <td style="width:<{$mygmap_width}>px">
+      <div id="mygmap_map" style="width:<{$mygmap_width}>px; height:<{$mygmap_height}>px"></div>
+      <div style="width:<{$mygmap_width}>px;text-align:right;font-size:10px;"><{$mygmap_credit}></div>
+    </td>
+    <td style="width:200px">
+      <{$mygmap_markedit.javascript}>
+      <form name="<{$mygmap_markedit.name}>" id="<{$mygmap_markedit.name}>" action="<{$mygmap_markedit.action}>" method="<{$mygmap_markedit.method}>" <{$mygmap_markedit.extra}>>
+        <table class="outer" cellspacing="1">
+          <tr>
+            <th colspan="2"><{$mygmap_markedit.title}></th>
+          </tr>
+          <tr>
+            <td class="head"><{$mygmap_markedit.elements.mygmap_marker_category_id.caption}></td>
+            <td class="<{cycle values="odd,even"}>">
+              <{$mygmap_markedit.elements.mygmap_marker_category_id.body}>
+            </td>
+          </tr>
+          <tr>
+            <td class="head"><{$mygmap_markedit.elements.mygmap_marker_title.caption}></td>
+            <td class="<{cycle values="odd,even"}>">
+              <{$mygmap_markedit.elements.mygmap_marker_title.body}>
+            </td>
+          </tr>
+          <tr>
+            <td class="head"><{$mygmap_markedit.elements.mygmap_marker_desc.caption}></td>
+            <td class="<{cycle values="odd,even"}>">
+              <{$mygmap_markedit.elements.mygmap_marker_desc.body}>
+            </td>
+          </tr>
+          <tr>
+            <td class="head"><{$mygmap_markedit.elements.mygmap_marker_icontext.caption}></td>
+            <td class="<{cycle values="odd,even"}>">
+              <{$mygmap_markedit.elements.mygmap_marker_icontext.body}>
+            </td>
+          </tr>
+          <tr>
+            <td class="head"><{$mygmap_markedit.elements.submit.caption}></td>
+            <td class="<{cycle values="odd,even"}>">
+    <{foreach item=hidden from=$mygmap_markedit.elements}><{if $hidden.hidden }>
+              <{$hidden.body}>
+    <{/if}><{/foreach}>
+              <{$mygmap_markedit.elements.submit.body}>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </td>
+  </tr>
+</table>
 <div id="mygmap_center"><{$errmsg}></div>
 <script type="text/javascript">
 //<![CDATA[var mygmappath = '<{$smarty.const.XOOPS_URL}>/modules/mygmap/';
