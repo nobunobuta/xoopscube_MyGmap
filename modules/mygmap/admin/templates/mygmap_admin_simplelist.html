@@ -2,7 +2,7 @@
 <h4><{$title}></h4>
 <div align="left">
 <table cellspacing="3" class="outer"><tr class="head"><td>
-<a href="<{$newlink}>"><{$lang.new}></a>
+<a href="<{$newlink}>" title="Create new record" ><{$lang.new}></a>
 </td></tr></table>
 </div>
 <br />
@@ -10,18 +10,24 @@
 <table cellspacing="1" class="outer">
 <tr class="head" align="center">
 <{foreach item=header from=$headers}>
+<{if $header.link }>
+<th width="<{$header.width}>px"><a href="<{$header.link}>" title="<{$header.linktitle}>" <{$header.style}>><{$header.caption}></a></th>
+<{else}>
 <th width="<{$header.width}>px"><{$header.caption}></th>
+<{/if}>
 <{/foreach}>
-<th colspan="2" width="120px"></th>
 </tr>
 <{foreach item=record from=$records}>
 <tr class="<{cycle values="odd,even"}>">
 <{foreach item=item from=$record.items}>
+<{if $item.link }>
+<td align="<{$item.align}>"><a href="<{$item.link}>" title="<{$item.linktitle}>"><{$item.value}></a></td>
+<{else}>
 <td align="<{$item.align}>"><{$item.value}></td>
+<{/if}>
 <{/foreach}>
-<th class="head" align="center" width="50px"><a href="<{$record.editlink}>"><{$lang.edit}></a></td>
-<th class="head" align="center" width="50px"><a href="<{$record.deletelink}>"><{$lang.delete}></a></td>
 </tr>
 <{/foreach}>
 </table>
+<{$pagenav}>
 </div>

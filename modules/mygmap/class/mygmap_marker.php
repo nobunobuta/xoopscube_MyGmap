@@ -23,10 +23,13 @@ class MyGmapMarker extends XoopsTableObject
 		$this->setAttribute('dobr', 1);
 
 		$this->setKeyFields(array('mygmap_marker_id'));
+		$this->setNameField('mygmap_marker_title');
 
 		$this->setAutoIncrementField('mygmap_marker_id');
 	}
-
+	
+	// Special Verifier
+	
 	function checkVar_mygmap_marker_lat($value) {
 		if (($value <= 180) && ($value >= -180)) {
 			return true;
@@ -62,12 +65,7 @@ class MyGmapMarker extends XoopsTableObject
 
 class MyGmapMarkerHandler  extends XoopsTableObjectHandler
 {
-	function MyGmapMarkerHandler($db)
-	{
-		$this->XoopsTableObjectHandler($db);
-
-		$this->tableName = $this->db->prefix('mygmap_marker');
-	}
+	var $tableName = 'mygmap_marker';
 
     function getIconListArray() {
     	static $result = Array();
@@ -84,61 +82,6 @@ class MyGmapMarkerHandler  extends XoopsTableObjectHandler
     	}
     	return $result;
     }
-}
-
-class MyGmapMarkerAdminList extends XoopsTableObjectList
-{
-	function MyGmapMarkerAdminList() {
-		$this->addElement('mygmap_marker_id',   'right', '', 20);
-		$this->addElement('mygmap_marker_category_id', 'right', _MYGMAP_LANG_CATEGORY, 80);
-		$this->addElement('mygmap_marker_title','left',_MYGMAP_LANG_TITLE, 300);
-		$this->addElement('mygmap_marker_icontext','right',_MYGMAP_LANG_ICON, 50);
-	}
-}
-
-class MyGmapMarkerAdminForm extends XoopsTableObjectForm
-{
-	function MyGmapMarkerAdminForm($caption='', $name='', $action='', $token=0) {
-		parent::XoopsTableObjectForm($caption, $name, $action, $token);
-		$this->addElement('mygmap_marker_id',new XoopsFormHidden('mygmap_marker_id',0));
-		$this->addElement('mygmap_marker_category_id',new XoopsFormSelect(_MYGMAP_LANG_CATEGORY,'mygmap_marker_category_id'));
-		$this->addElement('mygmap_marker_title',new XoopsFormText(_MYGMAP_LANG_TITLE,'mygmap_marker_title',50,255));
-	    $this->addElement('mygmap_marker_desc', new XoopsFormDhtmlTextArea(_MYGMAP_LANG_DESCRIPTION,'mygmap_marker_desc',''));
-		$this->addElement('mygmap_marker_icontext',new XoopsFormSelect(_MYGMAP_LANG_ICON,'mygmap_marker_icontext'));
-		$this->addElement('mygmap_marker_lat',new XoopsFormText(_MYGMAP_LANG_LAT,'mygmap_marker_lat',25,22));
-		$this->addElement('mygmap_marker_lng',new XoopsFormText(_MYGMAP_LANG_LNG,'mygmap_marker_lng',25,22));
-		$this->addElement('mygmap_marker_zoom',new XoopsFormSelect(_MYGMAP_LANG_ZOOM,'mygmap_marker_zoom'));
-		
-		$categoryHandler =& new MyGmapCategoryHandler($GLOBALS['xoopsDB']);
-		$this->addOptionArray('mygmap_marker_category_id',$categoryHandler->getSelectOptionArray());
-		$markerHandler =& new MyGmapMarkerHandler($GLOBALS['xoopsDB']);
-		$this->addOptionArray('mygmap_marker_icontext', $markerHandler->getIconListArray());
-		$this->addOptionArray('mygmap_marker_zoom',array(
-			'0' =>'0' , '1' =>'1' , '2' =>'2' , '3' =>'3' , '4' =>'4' , '5' =>'5' ,
-			'6' =>'6' , '7' =>'7' , '8' =>'8' , '9' =>'9' , '10' =>'10' , '11' =>'11' ,
-			'12' =>'12' , '13' =>'13' , '14' =>'14' , '15' =>'15' , '16' =>'16' , '17' =>'17' ,
-		));
-	}
-}
-
-class MyGmapMarkerFormForGmap extends XoopsTableObjectForm
-{
-	function MyGmapMarkerFormForGmap($caption='', $name='', $action='', $token=0) {
-		parent::XoopsTableObjectForm($caption, $name, $action, $token);
-		$this->addElement('mygmap_marker_id',new XoopsFormHidden('mygmap_marker_id',0));
-		$this->addElement('mygmap_marker_category_id',new XoopsFormSelect(_MYGMAP_LANG_CATEGORY,'mygmap_marker_category_id'));
-		$this->addElement('mygmap_marker_title',new XoopsFormText(_MYGMAP_LANG_TITLE,'mygmap_marker_title',35,255));
-	    $this->addElement('mygmap_marker_desc', new XoopsFormDhtmlTextArea(_MYGMAP_LANG_DESCRIPTION,'mygmap_marker_desc','',8,25));
-		$this->addElement('mygmap_marker_icontext',new XoopsFormSelect(_MYGMAP_LANG_ICON,'mygmap_marker_icontext'));
-		$this->addElement('mygmap_marker_lat',new XoopsFormHidden('mygmap_marker_lat',0));
-		$this->addElement('mygmap_marker_lng',new XoopsFormHidden('mygmap_marker_lng',0));
-		$this->addElement('mygmap_marker_zoom',new XoopsFormHidden('mygmap_marker_zoom',0));
-		
-		$categoryHandler =& new MyGmapCategoryHandler($GLOBALS['xoopsDB']);
-		$this->addOptionArray('mygmap_marker_category_id',$categoryHandler->getSelectOptionArray());
-		$markerHandler =& new MyGmapMarkerHandler($GLOBALS['xoopsDB']);
-		$this->addOptionArray('mygmap_marker_icontext', $markerHandler->getIconListArray());
-	}
 }
 }
 ?>
