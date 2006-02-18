@@ -2,7 +2,7 @@
 <{if $mygmap_search == "1"}>
 <div id="mygmap_search">
 <form id="mygmap_loc_form" action="#">
-<{$smarty.const._MYGMAP_LANG_ADDRESS}>:<input type="text" autocomplete="off" name="mygmap_loc_form_addr" id="mygmap_loc_form_addr" onkeyup="myGmapRequestLoc('ADDRESS', this.value)" value="" size="40" />
+<{$smarty.const._MYGMAP_LANG_ADDRESS}>:<input type="text" autocomplete="off" name="mygmap_loc_form_addr" id="mygmap_loc_form_addr" onkeyup="myGmapRequestLoc('ADDRESS', this.value)" value="<{$mygmap_addr}>" size="40" />
 <{$smarty.const._MYGMAP_LANG_STATION}>:<input type="text" autocomplete="off" name="mygmap_loc_form_station" id="mygmap_loc_form_station" onkeyup="myGmapRequestLoc('STATION', this.value)" value="" size="30" />
 </form>
 </div>
@@ -99,11 +99,15 @@ var useUDAPI = <{$mygmap_use_undocAPI}>;
 <script type="text/javascript">
 //<![CDATA[
 function myGmapSetInitialLocation() {
+<{if $mygmap_addr }>
+  myGmapRequestLoc('ADDRESS', '<{$mygmap_addr}>')
+<{else}>
   mygmap_map.centerAndZoom(new GPoint(<{$mygmap_center_lat}>,<{$mygmap_center_lng}>), <{$mygmap_zoom}>);
 <{foreach item=mygmap_marker from=$mygmap_markers}>
   myGmapAddMarker(mygmap_map, <{$mygmap_marker.lat}>, <{$mygmap_marker.lng}>,'<{$mygmap_marker.text}>','<{$mygmap_marker.mark}>',<{$mygmap_marker.id}>);
 <{/foreach}>
-  myGmapMoved();}
+  myGmapMoved();<{/if}>
+}
 
 function myGmapSetFormVaules(lat,lng,zoom) {
 	myGmapSetAttributeByID('mygmap_addcategory_form_lat', 'value', lat);
