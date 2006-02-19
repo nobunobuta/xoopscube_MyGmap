@@ -3,7 +3,7 @@
 <div id="mygmap_search">
 <form id="mygmap_loc_form" action="#">
 <{$smarty.const._MYGMAP_LANG_ADDRESS}>:<input type="text" autocomplete="off" name="mygmap_loc_form_addr" id="mygmap_loc_form_addr" onkeyup="myGmapRequestLoc('ADDRESS', this.value)" value="<{$mygmap_addr}>" size="40" />
-<{$smarty.const._MYGMAP_LANG_STATION}>:<input type="text" autocomplete="off" name="mygmap_loc_form_station" id="mygmap_loc_form_station" onkeyup="myGmapRequestLoc('STATION', this.value)" value="" size="30" />
+<{$smarty.const._MYGMAP_LANG_STATION}>:<input type="text" autocomplete="off" name="mygmap_loc_form_station" id="mygmap_loc_form_station" onkeyup="myGmapRequestLoc('STATION', this.value)" value="<{$mygmap_station}>" size="30" />
 </form>
 </div>
 <{/if}>
@@ -25,7 +25,7 @@
 </div>
 <div id="mygmap_list">
 <{if $mygmap_category }>
-<h4 onclick="mygmap_map.centerAndZoom(new GPoint(<{$mygmap_category.lat}>, <{$mygmap_category.lng}>), <{$mygmap_category.zoom}>);">[ <{$smarty.const._MYGMAP_LANG_CATEGORY}> : <a href="#" ><{$mygmap_category.name}></a> ]
+<h4 onclick="mygmap_map.centerAndZoom(new GPoint(<{$mygmap_category.lat}>, <{$mygmap_category.lng}>), <{$mygmap_category.zoom}>);return(false);">[ <{$smarty.const._MYGMAP_LANG_CATEGORY}> : <a href="?cat=<{$mygmap_category.id}>" ><{$mygmap_category.name}></a> ]
 <{if $xoopsUserIsAdmin && $mygmap_category.id != 0}>
   <a href="category.php?mygmap_category_id=<{$mygmap_category.id}>">[<{$smarty.const._MYGMAP_LANG_EDIT}>]</a>
 <{/if}></h4>
@@ -63,10 +63,10 @@
 </tr></table>
 <form id="mygmap_info_form" action="#">
 <{if $mygmap_wiki == "1"}>
-  Wiki:<input type="text" name="mygmap_info_form_wiki" id="mygmap_info_form_wiki" size="50" value="" /><br />
-<{/if}><{if $mygmap_link == "1"}>  URL :<input type="text" name="mygmap_info_form_link" id="mygmap_info_form_link" readonly="readonly" size="60" value="" /><br />
+  Wiki:<input type="text" name="mygmap_info_form_wiki" id="mygmap_info_form_wiki" readonly="readonly" size="50" value="" /><br />
+<{/if}><{if $mygmap_link == "1"}>  URL :<input type="text" name="mygmap_info_form_link" id="mygmap_info_form_link" readonly="readonly" size="70" value="" /><br />
 <{/if}>
-<{if $mygmap_blog == "1"}>  blog:<input type="text" name="mygmap_info_form_blog" id="mygmap_info_form_blog" size="60" value="" /><br />
+<{if $mygmap_blog == "1"}>  blog:<input type="text" name="mygmap_info_form_blog" id="mygmap_info_form_blog" readonly="readonly" size="70" value="" /><br />
 <{/if}>
 </form>
 <{if $xoopsUserIsAdmin}>
@@ -99,8 +99,10 @@ var useUDAPI = <{$mygmap_use_undocAPI}>;
 <script type="text/javascript">
 //<![CDATA[
 function myGmapSetInitialLocation() {
-<{if $mygmap_addr }>
-  myGmapRequestLoc('ADDRESS', '<{$mygmap_addr}>')
+<{if ($mygmap_search == "1") && $mygmap_addr }>
+  myGmapRequestLoc('ADDRESS', '<{$mygmap_addr}>');
+<{elseif ($mygmap_search == "1") && $mygmap_station }>
+  myGmapRequestLoc('STATION', '<{$mygmap_station}>');
 <{else}>
   mygmap_map.centerAndZoom(new GPoint(<{$mygmap_center_lat}>,<{$mygmap_center_lng}>), <{$mygmap_zoom}>);
 <{foreach item=mygmap_marker from=$mygmap_markers}>

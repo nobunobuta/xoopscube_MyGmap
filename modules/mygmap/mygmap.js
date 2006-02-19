@@ -252,7 +252,7 @@ function myGmapHTTPRequestLoc(series, data)
   httpReq.onreadystatechange = function() { 
     if (httpReq.readyState==4) {
       if (httpReq.status == 200) { 
-         myGmapGetLocResponse(httpReq);
+         myGmapGetLocResponse(httpReq, series);
       }
     }
   }
@@ -264,10 +264,11 @@ function myGmapHTTPRequestLoc(series, data)
 }
 var _myGmapSearchMarkers= new Array();
 
-function myGmapGetLocResponse(httpReq) {
+function myGmapGetLocResponse(httpReq, series) {
   if (myGmapIgnoreResponse) return;
   myGmapDebug('myGmapGetLocResponse(httpReq)');
   var resxml  = httpReq.responseXML;
+  var query = resxml.getElementsByTagName('query')[0].firstChild.data.htmlspecialchars();
   var candidates = resxml.getElementsByTagName('candidate');
   var len = candidates.length;
   var pnts = new Array(len);
@@ -319,7 +320,12 @@ function myGmapGetLocResponse(httpReq) {
     var idx_mark = 0;
     var last_x = 180;
     var last_y = 90;
-    html='<h4 onclick="mygmap_map.centerAndZoom(new GPoint('+cx+','+cy+'),'+ilvl+');">[ <a href="#" >Search Results</a> ]</h4><ul>';
+    if (series == 'ADDRESS') {
+    	q_para = 'q=';
+    } else {
+    	q_para = 's=';
+    }
+    html='<h4 onclick="mygmap_map.centerAndZoom(new GPoint('+cx+','+cy+'),'+ilvl+');return(false)">[ <a href="?'+q_para+query+'" >Search Results</a> ]</h4><ul>';
     for (i = 0; i < len; i++) {
       if ((pnts[i].x != last_x) || (pnts[i].y != last_y)) {
       	idx_mark++;
@@ -331,8 +337,8 @@ function myGmapGetLocResponse(httpReq) {
       } else {
         _myGmapSearchMarkers[idx_mark] = myGmapAddMarker(mygmap_map,pnts[i].x,pnts[i].y,pnts[i].text,'S0','S'+i);
       }
-      html += '<li><span onclick="mygmap_map.centerAndZoom(new GPoint('+pnts[i].x+','+pnts[i].y+'),'+pnts[i].lvl+');">';
-      html += '<span id="mygmap_marker_S'+i+'">'+'S'+idx_mark+'.</span>&nbsp;<a href="#">'+pnts[i].text+'</a>';
+      html += '<li><span onclick="mygmap_map.centerAndZoom(new GPoint('+pnts[i].x+','+pnts[i].y+'),'+pnts[i].lvl+');return(false)">';
+      html += '<span id="mygmap_marker_S'+i+'">'+'S'+idx_mark+'.</span>&nbsp;<a href="?'+q_para+pnts[i].text+'">'+pnts[i].text+'</a>';
       html += '</span></li>';
     }
     html += '</ul>';
