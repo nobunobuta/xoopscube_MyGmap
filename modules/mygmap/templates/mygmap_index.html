@@ -25,7 +25,7 @@
 </div>
 <div id="mygmap_list">
 <{if $mygmap_category }>
-<h4 onclick="mygmap_map.centerAndZoom(new GPoint(<{$mygmap_category.lat}>, <{$mygmap_category.lng}>), <{$mygmap_category.zoom}>);return(false);">[ <{$smarty.const._MYGMAP_LANG_CATEGORY}> : <a href="?cat=<{$mygmap_category.id}>" ><{$mygmap_category.name}></a> ]
+<h4>[ <{$smarty.const._MYGMAP_LANG_CATEGORY}> : <a href="?cat=<{$mygmap_category.id}>"  onclick="mygmap_map.centerAndZoom(new GPoint(<{$mygmap_category.lat}>, <{$mygmap_category.lng}>), <{$mygmap_category.zoom}>);return(false);"><{$mygmap_category.name}></a> ]
 <{if $xoopsUserIsAdmin && $mygmap_category.id != 0}>
   <a href="category.php?mygmap_category_id=<{$mygmap_category.id}>">[<{$smarty.const._MYGMAP_LANG_EDIT}>]</a>
 <{/if}></h4>
@@ -105,11 +105,11 @@ function myGmapSetInitialLocation() {
   myGmapRequestLoc('STATION', '<{$mygmap_station}>');
 <{else}>
   mygmap_map.centerAndZoom(new GPoint(<{$mygmap_center_lat}>,<{$mygmap_center_lng}>), <{$mygmap_zoom}>);
+<{/if}>
 <{foreach item=mygmap_marker from=$mygmap_markers}>
   myGmapAddMarker(mygmap_map, <{$mygmap_marker.lat}>, <{$mygmap_marker.lng}>,'<{$mygmap_marker.text}>','<{$mygmap_marker.mark}>',<{$mygmap_marker.id}>);
 <{/foreach}>
-  myGmapMoved();<{/if}>
-}
+  myGmapMoved();}
 
 function myGmapSetFormVaules(lat,lng,zoom) {
 	myGmapSetAttributeByID('mygmap_addcategory_form_lat', 'value', lat);
