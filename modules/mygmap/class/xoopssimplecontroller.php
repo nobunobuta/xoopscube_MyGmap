@@ -95,7 +95,7 @@ class XoopsSimpleController {
 			$key = intval(intval($_GET[$this->_objectKey]));			$object =& $this->objectHandler->get($key);
 			if (is_object($object)) {
 				ob_start();
-				xoops_confirm(array('op'=>'deleteok',$this->_objectKey=>$key), $this->url, __l("Delete this Record")."? [ID=".$key."]");
+				xoops_confirm(array('op'=>'deleteok',$this->_objectKey=>$key), $this->url, $this->__l("Delete this Record")."? [ID=".$key."]");
 				$this->xoopsTpl->assign('formhtml',ob_get_contents());
 				ob_end_clean();
 				$this->xoopsTpl->assign('title',$this->caption.' &raquo; '.$this->__l('Delete'));
