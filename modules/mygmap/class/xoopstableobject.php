@@ -321,6 +321,7 @@ if( ! class_exists( 'XoopsTableObjectHandler' ) ) {
 	class XoopsTableObjectHandler  extends XoopsObjectHandler
 	{
 		var $tableName = null;
+		var $tableAlias = null;
 		var $useFullCache;
 		var $cacheLimit;
 		var $_entityClassName;
@@ -354,6 +355,15 @@ if( ! class_exists( 'XoopsTableObjectHandler' ) ) {
 		{
 			$this->_errors[] = $error_str;
 		}
+		
+		function setAlias($alias) {
+			$this->tableAlias = $alias;
+		}
+		
+		function getAlias() {
+			return($this->tableAlias);
+		}
+		
 		/**
 		 * レコードオブジェクトの生成
 		 * 
@@ -599,11 +609,11 @@ if( ! class_exists( 'XoopsTableObjectHandler' ) ) {
 		 * 
 		 * @return	mixed Array			検索結果レコードの配列
 		 */
-		function &getObjects($criteria = null, $id_as_key = false, $fieldlist="", $distinct = false, $joindef = false)
+		function &getObjects($criteria = null, $id_as_key = false, $fieldlist="", $distinct = false, $joindef = false, $having="")
 		{
 			$records = array();
 
-			if ($result =& $this->open($criteria, $fieldlist, $distinct, $joindef)) {
+			if ($result =& $this->open($criteria, $fieldlist, $distinct, $joindef, $having)) {
 				while ($myrow = $this->db->fetchArray($result)) {
 					$record =& $this->create(false);
 					$record->assignVars($myrow);
@@ -638,7 +648,7 @@ if( ! class_exists( 'XoopsTableObjectHandler' ) ) {
 		 * 
 		 * @return	mixed Array			検索結果レコードの配列
 		 */
-		function &open($criteria = null, $fieldlist="", $distinct = false, $joindef = false)
+		function &open($criteria = null, $fieldlist="", $distinct = false, $joindef = false, $having='')
 		{
 			$limit = $start = 0;
 			$whereStr = '';
@@ -649,12 +659,24 @@ if( ! class_exists( 'XoopsTableObjectHandler' ) ) {
 				$distinct = "";
 			}
 			if ($fieldlist) {
-				$sql = 'SELECT '.$distinct.$fieldlist.' FROM '.$this->tableName;
+				if ($this->getAlias() != '') {
+					$sql = 'SELECT '.$distinct.$fieldlist.' FROM '.$this->tableName.' AS '.$this->getAlias();
+				} else {
+					$sql = 'SELECT '.$distinct.$fieldlist.' FROM '.$this->tableName;
+				}
 			} else {
-				$sql = 'SELECT '.$distinct.'* FROM '.$this->tableName;
+				if ($this->getAlias() != '') {
+					$sql = 'SELECT '.$distinct.'* FROM '.$this->tableName.' AS '.$this->getAlias();
+				} else {
+					$sql = 'SELECT '.$distinct.'* FROM '.$this->tableName;
+			}
 			}
 			if ($joindef) {
-				$sql .= $joindef->render($this->tableName);
+				if ($this->getAlias() != '') {
+					$sql .= $joindef->render($this->getAlias());
+				} else {
+					$sql .= $joindef->render($this->tableName);
+				}
 			}
 			if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
 				$whereStr = $criteria->renderWhere();
@@ -663,6 +685,9 @@ if( ! class_exists( 'XoopsTableObjectHandler' ) ) {
 			if (isset($criteria) && (is_subclass_of($criteria, 'criteriaelement')||get_class($criteria)=='criteriaelement')) {
 				if ($criteria->getGroupby() != ' GROUP BY ') {
 					$sql .= ' '.$criteria->getGroupby();
+					if(strlen($having) > 0){
+						$sql .= ' HAVING '.$having;
+					}
 				}
 				if ((is_array($criteria->getSort()) && count($criteria->getSort()) > 0)) {
 					$orderStr = 'ORDER BY ';
@@ -1199,14 +1224,16 @@ if( ! class_exists( 'XoopsTableObjectHandler' ) ) {
 		var $_sub_field;
 		var $_join_type;
 		var $_next_join;
+		var $_table_alias; // thanks towdash
 		
-		function XoopsJoinCriteria($table_name, $main_field, $sub_field, $join_type='LEFT')
+		function XoopsJoinCriteria($table_name, $main_field, $sub_field, $join_type='LEFT', $table_alias="")
 		{
 			$this->_table_name = $table_name;
 			$this->_main_field = $main_field;
 			$this->_sub_field = $sub_field;
 			$this->_join_type = $join_type;
 			$this->_next_join = false;
+			$this->_table_alias = $table_alias;
 		}
 		
 		function cascade(&$joinCriteria) {
@@ -1215,12 +1242,24 @@ if( ! class_exists( 'XoopsTableObjectHandler' ) ) {
 		
 		function render($main_table)
 		{
-			$join_str = " ".$this->_join_type." JOIN ".$this->_table_name." ON ".$main_table.".".$this->_main_field."=".$this->_table_name.".".$this->_sub_field." ";
+			if($this->_table_alias == ""){
+				$table_alias = $this->_table_name;
+				$alias_def = "";
+			} else {
+				$table_alias = $this->_table_alias;
+				$alias_def = " AS ".$table_alias;
+			}
+			$join_str = " ".$this->_join_type." JOIN ".$this->_table_name . $alias_def." ON ".$main_table.".".$this->_main_field."=".$table_alias.".".$this->_sub_field." ";
 			if ($this->_next_join) {
-				$join_str .= $this->_next_join->render($this->_table_name);
+				$join_str .= $this->_next_join->render($table_alias);
 			}
 			return $join_str;
 		}
+		
+		function getMainAlias() {
+			return $this->_main_alias;
+		}
+
 	}
 	
 	$GLOBALS['_xoopsTableCache'] = new XoopsTableCache;
