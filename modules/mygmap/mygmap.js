@@ -66,6 +66,7 @@ function myGmapCenterAndZoom(x,y,zoom,id) {
       }
     }
   }
+  window.location.hash="#";
 }
 
 function myGmapMoved() {
@@ -219,6 +220,7 @@ function myGmapRequestLoc(series, data)
       myGmapSearchListElement.innerHTML ='';
     }
     myGmapRemoveMakersAll(mygmap_map);
+	myGmapIgnoreResponse = false;
     myGmapSetInitialLocation();
     return;
   }
