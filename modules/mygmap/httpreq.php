@@ -13,6 +13,8 @@ if (strpos($referer, XOOPS_URL.'/modules/mygmap')===false) exit();
 if (empty($_REQUEST['geoop'])) exit();
 include "../../class/snoopy.php";
 $snoopy=new Snoopy();
+//$snoopy->proxy_host='proxy.host.com';
+//$snoopy->proxy_port='8080';
 $snoopy->agent = 'XOOPS MyGmap';
 $postArray = array();
 if ($_REQUEST['geoop']=='csis') {
