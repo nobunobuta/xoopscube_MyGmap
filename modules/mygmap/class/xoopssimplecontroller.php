@@ -38,43 +38,44 @@ class XoopsSimpleController {
 	function newAction() {
 		$object =& $this->objectHandler->create();
 		$object->setFormVars($_POST,'');
-		$this->objectForm->setCaption($this->caption.' &raquo; '.$this->__l('New'));
-		$this->objectForm->showForm($object, &$this->xoopsTpl);
-		$this->object =& $object;
-		return SIMPLE_CONTROLLER_VIEW_FORM;
+		return $this->_showForm($object, $this->__l('New'));
 	}
 
 	function editAction() {
-		if (isset($_GET[$this->_objectKey])) {			if ($object =& $this->objectHandler->get(intval($_GET[$this->_objectKey]))) {
-				$this->objectForm->setCaption($this->caption.' &raquo; '.$this->__l('Edit'));
-				$this->objectForm->showForm($object, &$this->xoopsTpl);
-				$this->object =& $object;
-				return SIMPLE_CONTROLLER_VIEW_FORM;
-			}
-		}		$this->errorMsg = $this->__e('No Record is found');
-		return SIMPLE_CONTROLLER_ACTION_ERROR;
+		if (isset($_GET[$this->_objectKey])) {			$object =& $this->objectHandler->get(intval($_GET[$this->_objectKey]));
+			return $this->_showForm($object, $this->__l('Edit'));
+		} else {
+			$this->errorMsg = $this->__e('Invalid Request');
+			return SIMPLE_CONTROLLER_ACTION_ERROR;
+		}
+	}
+
+	function _showFrom(&$object, $caption) {
+		if (is_object($object)) {
+			$this->objectForm->setCaption($this->caption.' &raquo; '.$caption);
+			$this->objectForm->showForm($object, &$this->xoopsTpl);
+			$this->object =& $object;
+			return SIMPLE_CONTROLLER_VIEW_FORM;
+		} else {
+			$this->errorMsg = $this->__e('No Record is found');
+			return SIMPLE_CONTROLLER_ACTION_ERROR;
+		}
 	}
 
 	function insertAction() {
-		return $this->_insert('insert');
+		$object =& $this->objectHandler->create();
+		return $this->_insert($object, $this->name.'_'.$op, $this->__l('New'));
 	}
 
 	function saveAction() {
-		return $this->_insert('save');
+		$object =& $this->objectHandler->get(intval($_POST[$this->_objectKey]));
+		return $this->_insert($object, $this->name.'_'.$op, $this->__l('Edit'));
 	}
 	
-	function _insert($op) {
-	   if (class_exists('XoopsMultiTokenHandler') && !XoopsMultiTokenHandler::quickValidate($this->name.'_'.$op)) {
+	function _insert(&$object, $token, $caption) {
+		if (class_exists('XoopsMultiTokenHandler') && !XoopsMultiTokenHandler::quickValidate($token)) {
 			$this->errorMsg = $this->__e('Token Error');
 			return SIMPLE_CONTROLLER_ACTION_ERROR;
-		}
-		if (($op=='save')&& isset($_POST[$this->_objectKey])) {			$object =& $this->objectHandler->get(intval($_POST[$this->_objectKey]));
-			$this->objectForm->setCaption($this->caption.' &raquo; '.$this->__l('Edit'));
-		} else if ($op=='insert'){
-			$object =& $this->objectHandler->create();
-			$this->objectForm->setCaption($this->caption.' &raquo; '.$this->__l('New'));
-		} else {
-			$object = false;
 		}
 		if (is_object($object)) {			$object->setFormVars($_POST,'');
 			if ($this->objectHandler->insert($object,false,true)) {
@@ -82,12 +83,14 @@ class XoopsSimpleController {
 				return SIMPLE_CONTROLLER_ACTION_SUCCESS;
 			} else {
 				$object->setFormVars($_POST,'');
+				$this->objectForm->setCaption($this->caption.' &raquo; '.$caption);
 				$this->objectForm->showForm($object, &$this->xoopsTpl, $this->objectHandler->getErrors());
 				return SIMPLE_CONTROLLER_VIEW_FORM;
 			}
+		} else {
+			$this->errorMsg = $this->__e('No Record is found');
+			return SIMPLE_CONTROLLER_ACTION_ERROR;
 		}
-		$this->errorMsg = $this->__e('No Record is found');
-		return SIMPLE_CONTROLLER_ACTION_ERROR;
 	}
 	
 	function deleteAction() {
