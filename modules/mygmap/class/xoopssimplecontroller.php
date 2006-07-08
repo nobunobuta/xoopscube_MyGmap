@@ -78,9 +78,10 @@ class XoopsSimpleController {
 			$this->errorMsg = $this->__e('Token Error');
 			return SIMPLE_CONTROLLER_ACTION_ERROR;
 		}
-		if (is_object($object)) {			$object->setFormVars($_POST,'');
+		if (is_object($object)) {
+			$this->object =& $object;
+			$object->setFormVars($_POST,'');
 			if ($this->objectHandler->insert($object,false,true)) {
-				$this->object =& $object;
 				return SIMPLE_CONTROLLER_ACTION_SUCCESS;
 			} else {
 				$object->setFormVars($_POST,'');
