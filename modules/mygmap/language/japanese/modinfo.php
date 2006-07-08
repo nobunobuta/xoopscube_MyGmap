@@ -36,8 +36,6 @@ define("_MI_MYGMAP_TEXT2_DESC","URLのパラメータで位置していた時の<br/>吹き出しに
 define("_MI_MYGMAP_TEXT2_DEFAULT","[b]ココですよ！[/b]");
 define("_MI_MYGMAP_SETDEF_SHOW_MSG","「ここをデフォルトに変更」ボタンを表示");
 define("_MI_MYGMAP_SETDEF_SHOW_DESC","管理者が初期表示用の地図を簡単に指定できる様に<br />管理者権限ユーザに対して「ここをデフォルトに変更」ボタンを表示します。<br />（初期設定完了後は、「いいえ」にすることをお奨めします）");
-define("_MI_MYGMAP_UNDOCAPI_MSG","UndocumentなGoogle MAPS APIを使用する");
-define("_MI_MYGMAP_UNDOCAPI_DESC","重なったマーカーの表示制御に文書化されていない非保証の<br/>APIを使用しています。<br/>JavaScriptエラーなどの誤動作が起こった場合には<br/>これを「いいえ」にして下さい。");
 define("_MI_MYGMAP_DEBUG_MSG","デバッグメッセージを出力する");
 define("_MI_MYGMAP_DEBUG_DESC","基本的には、作者(NobuNobu)専用のオプションです。<br />Ajax呼出などを一部トレース出力します。");
 

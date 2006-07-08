@@ -53,14 +53,13 @@
 <script type="text/javascript">
 //<![CDATA[var mygmappath = '<{$smarty.const.XOOPS_URL}>/modules/mygmap/';
 var mygmap_API = "<{$mygmap_API}>";
-var useUDAPI = <{$mygmap_use_undocAPI}>;
 //]]>
 </script>
 <script src="<{$smarty.const.XOOPS_URL}>/modules/mygmap/mygmap_loader.js" type="text/javascript"></script>
 <script type="text/javascript">
 //<![CDATA[
 function myGmapSetInitialLocation() {
-  mygmap_map.centerAndZoom(new GPoint(<{$mygmap_center_lat}>,<{$mygmap_center_lng}>), <{$mygmap_zoom}>);
+  mygmap_map.setCenter(new GLatLng(<{$mygmap_center_lng}>,<{$mygmap_center_lat}>), Math.floor( 17 - <{$mygmap_zoom}> ) );
 }
 
 function myGmapSetFormVaules(lat,lng,zoom) {

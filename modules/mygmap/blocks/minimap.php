@@ -35,7 +35,6 @@ if( ! defined( 'MYGMAP_MINIMAP_INCLUDED' ) ) {
 		}
 		$markerHandler =& new MyGmapMarkerHandler($GLOBALS['xoopsDB']);		$markerObject =& $markerHandler->get($option[0]);
 		$block['mygmap_API'] = mygmap_option('mygmap_api');;
-		$block['mygmap_use_undocAPI'] = mygmap_option('mygmap_use_undocAPI');
 		$block['divid'] = 'mygmap_mini_'.$id; $id++;
 		$block['id'] = $markerObject->getVar('mygmap_marker_id');
 		$block['category_id'] = $markerObject->getVar('mygmap_marker_category_id');

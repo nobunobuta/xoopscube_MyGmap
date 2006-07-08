@@ -156,14 +156,6 @@ $modversion['config'][15] = array(
 	'default'		=> 1 ,
 );
 $modversion['config'][16] = array(
-	'name'			=> 'mygmap_use_undocAPI' ,
-	'title'			=> '_MI_MYGMAP_UNDOCAPI_MSG' ,
-	'description'	=> '_MI_MYGMAP_UNDOCAPI_DESC' ,
-	'formtype'		=> 'yesno' ,
-	'valuetype'		=> 'int' ,
-	'default'		=> 1 ,
-);
-$modversion['config'][17] = array(
 	'name'			=> 'mygmap_debug' ,
 	'title'			=> '_MI_MYGMAP_DEBUG_MSG' ,
 	'description'	=> '_MI_MYGMAP_DEBUG_DESC' ,

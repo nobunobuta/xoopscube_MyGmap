@@ -14,6 +14,8 @@ define('_MYGMAP_LANG_AREA','表示エリア');
 define('_MYGMAP_LANG_CATEGORY','カテゴリー');
 define('_MYGMAP_LANG_MARKER','マーカー');
 
+define('_MYGMAP_LANG_ALLCATEGORY','全て');
+
 define('_MYGMAP_LANG_TITLE','タイトル');
 define('_MYGMAP_LANG_DESCRIPTION','説明');
 define('_MYGMAP_LANG_ORDER','表示順');

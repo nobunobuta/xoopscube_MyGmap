@@ -22,7 +22,7 @@ var myGmapCenterIcon;
 function myGmapLoad() {
   var element = document.getElementById('mygmap_map');
   if (element) {
-    mygmap_map = new GMap(element);
+    mygmap_map = new GMap2(element);
     mygmap_map.addControl(new GLargeMapControl());
     mygmap_map.addControl(new GMapTypeControl());
     myGmapCenterIcon = new GIcon();
@@ -47,42 +47,58 @@ function myGmapShowBlocks() {
   for (var i=0; i<myGmapMiniMap_idx; i++) {
     var element = document.getElementById(myGmapMiniMaps[i].divid);
     if (element) {
-      var map = new GMap(element);
+      var map = new GMap2(element);
       map.addControl(new GSmallZoomControl());
-      map.centerAndZoom(new GPoint(myGmapMiniMaps[i].x,myGmapMiniMaps[i].y), myGmapMiniMaps[i].zoom+1);
+      map.setCenter(new GLatLng(myGmapMiniMaps[i].y,myGmapMiniMaps[i].x), Math.floor( 17 - myGmapMiniMaps[i].zoom+1 ) );
       myGmapMiniMaps[i].map = map;
     }
   }
 }
 
-function myGmapCenterAndZoom(x,y,zoom,id) {
-  mygmap_map.centerAndZoom(new GPoint(x,y), zoom);
-  if (useUDAPI) {
-    for (var i=0; i<_myGmapMarkers.length; i++) {
-      if (_myGmapMarkers[i].id == id) {
-        _myGmapMarkers[i].setZIndex(0);
-      } else {
-        _myGmapMarkers[i].setZIndex(Math.round(_myGmapMarkers[i].getLatitude()*-100000));
+function myGmapCenterAndZoom() {
+  if (arguments.length == 4) {
+    x = arguments[0];
+    y = arguments[1];
+    zoom = arguments[2];
+    id =  arguments[3];
+    popwin = 0;
+  } else if (arguments.length == 5) {
+    x = arguments[0];
+    y = arguments[1];
+    zoom = arguments[2];
+    id =  arguments[3];
+    popwin = arguments[4];
+  }
+  mygmap_map.setCenter(new GLatLng(y, x), Math.floor(17-zoom) );
+  for (var i=0; i<_myGmapMarkers.length; i++) {
+    point = _myGmapMarkers[i].point;
+    if (_myGmapMarkers[i].id == id) {
+      var hPoint = mygmap_map.getCurrentMapType().getProjection().fromLatLngToPixel(point ,mygmap_map.getZoom());
+      var hLatLng = mygmap_map.getCurrentMapType().getProjection().fromPixelToLatLng(new GPoint(hPoint.x + 0.5 , hPoint.y + 0.5 ) , mygmap_map.getZoom());
+      _myGmapMarkers[i].setPoint(hLatLng);
+      if (popwin) {
+        GEvent.trigger(_myGmapMarkers[i],"click");
       }
+    } else {
+	  _myGmapMarkers[i].setPoint(point);
     }
   }
   window.location.hash="#";
 }
 
 function myGmapMoved() {
-  var center = mygmap_map.getCenterLatLng();
-  var bounds = mygmap_map.getBoundsLatLng();
-  var zoomlevel = mygmap_map.getZoomLevel();
+  var center = mygmap_map.getCenter();
+  var bounds = mygmap_map.getBounds();
+  var zoomlevel = Math.floor( 17 -mygmap_map.getZoom());
   myGmapSetFormVaules(center.x, center.y, zoomlevel);
   mygmap_map.removeOverlay(myGmapCenterMarker);
-  myGmapCenterMarker = new GMarker(new GPoint(center.x, center.y),myGmapCenterIcon);
+  myGmapCenterMarker = new GMarker(new GLatLng(center.y,center.x),myGmapCenterIcon);
   mygmap_map.addOverlay(myGmapCenterMarker);
   if (myGmapAddressElement) myGmapRequestAddr(center,zoomlevel);
   for (var i=0; i<_myGmapMarkers.length; i++) {
     element = document.getElementById('mygmap_marker_'+_myGmapMarkers[i].id);
     if (element) {
-      if ((bounds.minX < _myGmapMarkers[i].point.x) && (bounds.maxX > _myGmapMarkers[i].point.x) &&
-          (bounds.minY < _myGmapMarkers[i].point.y) && (bounds.maxY > _myGmapMarkers[i].point.y)) {
+      if (bounds.contains(_myGmapMarkers[i].point)) {
         element.style.cssText ='font-weight:bold;';
       } else {
         element.style.cssText ='font-weight:bold;color:#A0A0A0';
@@ -91,13 +107,12 @@ function myGmapMoved() {
   }
 }
 function myGmapZoomed() {
-  var bounds = mygmap_map.getBoundsLatLng();
-  if (myGmapAddressElement) myGmapRenderCurAddress(mygmap_map.getZoomLevel());
+  var bounds = mygmap_map.getBounds();
+  if (myGmapAddressElement) myGmapRenderCurAddress(Math.floor( 17 -mygmap_map.getZoom()));
   for (var i=0; i<_myGmapMarkers.length; i++) {
     element = document.getElementById('mygmap_marker_'+_myGmapMarkers[i].id);
     if (element) {
-      if ((bounds.minX < _myGmapMarkers[i].point.x) && (bounds.maxX > _myGmapMarkers[i].point.x) &&
-          (bounds.minY < _myGmapMarkers[i].point.y) && (bounds.maxY > _myGmapMarkers[i].point.y)) {
+      if (bounds.contains(_myGmapMarkers[i].point)) {
         element.style.cssText ='font-weight:bold;';
       } else {
         element.style.cssText ='font-weight:bold;color:#A0A0A0';
@@ -119,7 +134,7 @@ var _myGmapMarkers= new Array();
 var _myGmapMarkerIdx=0;
 
 function myGmapAddMarker(map, lat, lng, html, letter, id) {
-  var point = new GPoint(lat, lng);
+  var point = new GLatLng(lng,lat);
   if (letter == undefined) {
     var marker = new GMarker(point);
   } else {
@@ -141,14 +156,14 @@ function myGmapAddMarker(map, lat, lng, html, letter, id) {
   GEvent.addListener(marker, "click", function() {
     marker.openInfoWindowHtml('<div style="width:220px">'+html+'</div>');
   });
-  if (useUDAPI) {
-    GEvent.addListener(marker, "mouseover", function() {
-      marker.setZIndex(0);
-    });
-    GEvent.addListener(marker, "mouseout", function() {
-      marker.setZIndex(Math.round(marker.getLatitude()*-100000));
-    });
-  }
+  GEvent.addListener(marker, "mouseover", function() {
+    var hPoint = mygmap_map.getCurrentMapType().getProjection().fromLatLngToPixel(point ,mygmap_map.getZoom());
+    var hLatLng = mygmap_map.getCurrentMapType().getProjection().fromPixelToLatLng(new GPoint(hPoint.x + 0.5 , hPoint.y + 0.5 ) , mygmap_map.getZoom());
+    marker.setPoint(hLatLng);
+  });
+  GEvent.addListener(marker, "mouseout", function() {
+    marker.setPoint(point);
+  });
   _myGmapMarkers[_myGmapMarkerIdx] = marker;
   _myGmapMarkers[_myGmapMarkerIdx].point = point;
   if (id != undefined) {
@@ -298,9 +313,9 @@ function myGmapGetLocResponse(httpReq, series) {
     }
     var cx = (maxx + minx) / 2.0;
     var cy = (maxy + miny) / 2.0;
-    var point = new GPoint(cx, cy);
+    var point = new GLatLng(cy, cx);
     ilvl = Math.max((7-maxilvl),0);
-    var bounds = mygmap_map.getBoundsLatLng();
+    var bounds = mygmap_map.getBounds();
     var view_w = 0.0053 * (1 + ilvl);
     var view_h = 0.0034 * (1 + ilvl);
     while (maxx - minx > view_w || maxy - miny > view_h) {
@@ -308,7 +323,7 @@ function myGmapGetLocResponse(httpReq, series) {
       view_w *= 2.0;
       view_h *= 2.0;
     }    
-    mygmap_map.centerAndZoom(point,ilvl);
+    mygmap_map.setCenter(point,17-ilvl);
 
     for (var i=0; i<len-1; i++) {
       for (var j=len-1; j>i ;j--) {
@@ -327,7 +342,7 @@ function myGmapGetLocResponse(httpReq, series) {
     } else {
     	q_para = 's=';
     }
-    html='<h4 onclick="mygmap_map.centerAndZoom(new GPoint('+cx+','+cy+'),'+ilvl+');return(false)">[ <a href="?'+q_para+query+'" >Search Results</a> ]</h4><ul>';
+    html='<h4 onclick="mygmap_map.setCenter(new GLatLng('+cy+','+cx+'),'+ (17-ilvl) +');return(false)">[ <a href="?'+q_para+query+'" >Search Results</a> ]</h4><ul>';
     for (i = 0; i < len; i++) {
       if ((pnts[i].x != last_x) || (pnts[i].y != last_y)) {
       	idx_mark++;
@@ -339,7 +354,7 @@ function myGmapGetLocResponse(httpReq, series) {
       } else {
         _myGmapSearchMarkers[idx_mark] = myGmapAddMarker(mygmap_map,pnts[i].x,pnts[i].y,pnts[i].text,'S0','S'+i);
       }
-      html += '<li><span onclick="mygmap_map.centerAndZoom(new GPoint('+pnts[i].x+','+pnts[i].y+'),'+pnts[i].lvl+');return(false)">';
+      html += '<li><span onclick="mygmap_map.setCenter(new GLatLng('+pnts[i].y+','+pnts[i].x+'),'+(17-pnts[i].lvl)+');return(false)">';
       html += '<span id="mygmap_marker_S'+i+'">'+'S'+idx_mark+'.</span>&nbsp;<a href="?'+q_para+pnts[i].text+'">'+pnts[i].text+'</a>';
       html += '</span></li>';
     }
@@ -354,6 +369,7 @@ function myGmapRequestAddr(point,zoom)
 {
   if (!myGmapAddressElement) return;
   if (!point)  return;
+  myGmapDebug('myGmapRequestAddr(('+point.x+','+point.y+'),'+zoom+')');
   // create XMLHttpRequest object
   var httpReq = myGmapCreateHttpRequest();
   data = 'lat=' + point.y + '&lon='+point.x+'&geoop=invgeo';

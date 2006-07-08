@@ -1,6 +1,6 @@
 if (mygmap_gapi_src == undefined) {
   var mygmap_map;
-  var mygmap_gapi_src = "http://maps.google.co.jp/maps?file=api&amp;v=1&amp;datum=wgs84&amp;key=" + mygmap_API;
+  var mygmap_gapi_src = "http://maps.google.co.jp/maps?file=api&amp;v=2&amp;datum=wgs84&amp;key=" + mygmap_API;
   var mygmap_local_js_src = mygmappath + "mygmap.js";
   document.write('<'+'script src="'+mygmap_gapi_src+'"'+' type="text/javascript" charset="utf-8"><'+'/script>');
   document.write('<'+'script src="'+mygmap_local_js_src+'"'+' type="text/javascript"><'+'/script>');
