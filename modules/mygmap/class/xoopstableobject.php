@@ -6,6 +6,9 @@ if (!defined('XOBJ_DTYPE_CUSTOM')) define('XOBJ_DTYPE_CUSTOM', 102);
 if (!defined('XOBJ_VCLASS_TFIELD')) define('XOBJ_VCLASS_TFIELD', 1);
 if (!defined('XOBJ_VCLASS_ATTRIB')) define('XOBJ_VCLASS_ATTRIB', 2);
 if (!defined('XOBJ_VCLASS_EXTRA')) define('XOBJ_VCLASS_EXTRA', 3);
+if (!defined('XOBJ_DTYPE_STRING')) define('XOBJ_DTYPE_STRING', 1);
+if (!defined('XOBJ_DTYPE_TEXT')) define('XOBJ_DTYPE_TEXT', 2);
+if (!defined('XOBJ_DTYPE_BOOL')) define('XOBJ_DTYPE_BOOL', 103);
 /**
 * Generic Table Manupulation XoopsObject class
  * 
@@ -166,9 +169,9 @@ if( ! class_exists( 'XoopsTableObject' ) ) {
 				if(method_exists($this, $getMethod)) {
 					$this->$getMethod($this->vars[$key]['value'],$format);
 				} else {
-					$this->vars[$key]['data_type'] == XOBJ_DTYPE_TXTBOX;
+					$this->vars[$key]['data_type'] = XOBJ_DTYPE_TXTBOX;
 					$ret =& parent::getVar($key, $format);
-					$this->vars[$key]['data_type'] == XOBJ_DTYPE_CUSTOM;
+					$this->vars[$key]['data_type'] = XOBJ_DTYPE_CUSTOM;
 				}
 			} else {
 				$ret =& parent::getVar($key, $format);
@@ -390,6 +393,7 @@ if( ! class_exists( 'XoopsTableObjectHandler' ) ) {
 		 */
 		function &get($keys)
 		{
+		    $ret = false;
 			$record =& $this->create(false);
 			$recordKeys = $record->getKeyFields();
 			$recordVars = $record->getVars();
@@ -398,7 +402,7 @@ if( ! class_exists( 'XoopsTableObjectHandler' ) ) {
 				$sql = sprintf("SELECT * FROM %s WHERE %s",$this->tableName, $whereStr);
 
 				if ( !$result =& $this->query($sql) ) {
-					return false;
+					return $ret;
 				}
 
 				$numrows = $this->db->getRowsNum($result);
@@ -410,7 +414,7 @@ if( ! class_exists( 'XoopsTableObjectHandler' ) ) {
 				}
 			}
 			unset($record);
-			return false;
+			return $ret;
 		}
 
 		function _key2where($keys) {
@@ -648,7 +652,7 @@ if( ! class_exists( 'XoopsTableObjectHandler' ) ) {
 		 * 
 		 * @return	mixed Array			検索結果レコードの配列
 		 */
-		function &open($criteria = null, $fieldlist="", $distinct = false, $joindef = false, $having='')
+		function &open($criteria = null, $fieldlist="", $distinct = false, $joindef = false, $having="")
 		{
 			$limit = $start = 0;
 			$whereStr = '';
@@ -669,7 +673,7 @@ if( ! class_exists( 'XoopsTableObjectHandler' ) ) {
 					$sql = 'SELECT '.$distinct.'* FROM '.$this->tableName.' AS '.$this->getAlias();
 				} else {
 					$sql = 'SELECT '.$distinct.'* FROM '.$this->tableName;
-			}
+				}
 			}
 			if ($joindef) {
 				if ($this->getAlias() != '') {
@@ -679,7 +683,7 @@ if( ! class_exists( 'XoopsTableObjectHandler' ) ) {
 				}
 			}
 			if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
-				$whereStr = $criteria->renderWhere();
+				$whereStr = $this->_renderWhere($criteria);
 				$sql .= ' '.$whereStr;
 			}
 			if (isset($criteria) && (is_subclass_of($criteria, 'criteriaelement')||get_class($criteria)=='criteriaelement')) {
@@ -731,7 +735,7 @@ if( ! class_exists( 'XoopsTableObjectHandler' ) ) {
 	    {
 	        $sql = 'SELECT COUNT(*) FROM '.$this->tableName;
 	        if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
-	            $sql .= ' '.$criteria->renderWhere();
+	            $sql .= ' '.$this->_renderWhere($criteria);
 	        }
 	        $result =& $this->query($sql);
 	        if (!$result) {
@@ -766,7 +770,7 @@ if( ! class_exists( 'XoopsTableObjectHandler' ) ) {
 	        $set_clause = $fieldname.' = '.$fieldvalue;
 	        $sql = 'UPDATE '.$this->tableName.' SET '.$set_clause;
 	        if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
-	            $sql .= ' '.$criteria->renderWhere();
+	            $sql .= ' '.$this->_renderWhere($criteria);
 	        }
 			if (!$result =& $this->query($sql, $force)) {
 				return false;
@@ -786,7 +790,7 @@ if( ! class_exists( 'XoopsTableObjectHandler' ) ) {
 	    {
 	        $sql = 'DELETE FROM '.$this->tableName;
 	        if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
-	            $sql .= ' '.$criteria->renderWhere();
+	            $sql .= ' '.$this->_renderWhere($criteria);
 	        }
 			if (!$result =& $this->query($sql, $force)) {
 				return false;
@@ -841,7 +845,7 @@ if( ! class_exists( 'XoopsTableObjectHandler' ) ) {
 
 			if (!$result) {
 				$this->_errors[] = $this->db->error();
-				return false;
+				$result = false;
 			}
 			return $result;
 		}
@@ -850,7 +854,153 @@ if( ! class_exists( 'XoopsTableObjectHandler' ) ) {
 		{
 			return $this->_sql;
 		}
-	}
+		
+		function _renderWhere($criteria) {
+		    $whereStr = $this->_makeCriteria4sql($criteria);
+		    if ($whereStr) return 'WHERE '.$whereStr;
+		    return '';
+		}
+		
+		function _makeCriteria4sql($criteria)
+    	{
+    		$dmmyObj =& $this->create();
+    		return $this->_makeCriteriaElement4sql($criteria, $dmmyObj);
+    	}
+
+    	/**
+    	 * @param $criteria CriteriaElement
+    	 * @param $obj XoopsSimpleObject
+    	 */	
+    	function _makeCriteriaElement4sql($criteria, &$obj)
+    	{
+    		if (is_a($criteria, "CriteriaElement")) {
+    			if (is_a($criteria, "CriteriaCompo")) {
+    				$queryString = "";
+                    $maxCount = count($criteria->criteriaElements);
+                    for ($i = 0; $i < $maxCount ; $i++) {
+                        if ($i != 0) {
+                            $queryString .= " " . $criteria->conditions[$i];
+                        }
+                        $queryString .= " " . $this->_makeCriteria4sql($criteria->criteriaElements[$i]);
+                    }
+    				return "(" . $queryString . ")";
+    			} else {
+    				//
+    				// Render
+    				//
+    				if (method_exists($criteria, 'getName')) {
+    				    $name = $criteria->getName();
+    				    $value = $criteria->getValue();
+    				    $operator = $criteria->getOperator();
+    				} else {
+    				    $name = $criteria->column;
+    				    $value = $criteria->value;
+    				    $operator = $criteria->operator;
+    				}
+                    if ($name != null) {
+        				if (isset($obj->vars[$name])) {
+        				    $type = $obj->vars[$name]['data_type'];
+        				} else if (is_array($value) && array_key_exists('type',$value)) {
+        				    $type = $value['type'];
+        				    $value = $value['value'];
+        				} else {
+        				    $type = XOBJ_DTYPE_TXTBOX;
+        				}
+                        if (!in_array(strtoupper($operator), array('IN', 'NOT IN'))) {
+        			    	$value = $this->_makeCriteriaValue4sql($value, $type);
+        			    } else {
+        			        if (!is_array($value) && preg_match('/^\(([^)]*)\)$/', trim($value), $match)) {
+        			            $value = $this->_parseInCause($match[1]);
+        			        }
+        			        if (is_array($value)) {
+        			            foreach (array_keys($value) as $key) {
+        			                $value[$key] = $this->_makeCriteriaValue4sql($value[$key], $type);
+        			            }
+        			            $value = '('.implode(',', $value).')';
+        			        } else {
+        			            return null;
+        			        }
+        			    }
+       					return $name . " " . $operator . " " . $value;
+    				} else {
+    					return null;
+    				}
+    			}
+    		}
+    	}
+	
+       	function _makeCriteriaValue4sql($value, $type) {
+    		switch ($type) {
+    			case XOBJ_DTYPE_BOOL:
+    				$value = $value ? "1" : "0";
+    				break;
+    			
+    			case XOBJ_DTYPE_INT:
+    			case XOBJ_DTYPE_STIME:
+    			case XOBJ_DTYPE_MTIME:
+    			case XOBJ_DTYPE_LTIME:
+    				$value = intval($value);
+    				break;
+    			
+    			case XOBJ_DTYPE_FLOAT:
+    				$value = floatval($value);
+    				break;
+    			
+    			case XOBJ_DTYPE_TXTBOX:
+    			case XOBJ_DTYPE_TXTAREA:
+    			case XOBJ_DTYPE_URL:
+    			case XOBJ_DTYPE_EMAIL:
+    			case XOBJ_DTYPE_SOURCE:
+    			case XOBJ_DTYPE_OTHER:
+    				$value = $this->db->quoteString($value);
+    				break;
+    			default:
+    		}
+    		return $value;
+    	}
+
+        function _parseInCause($str) {
+           $result = Array();
+           $ptr = 0;
+           $len = strlen($str);
+           while ($ptr < $len) {
+               while (($ptr < $len) && (strpos(" \r\t\n",$str[$ptr]) !== false)) $ptr++;
+               if ($str[$ptr] == '"') {
+                   $ptr++;
+                   $q = $ptr;
+                   while (($ptr < $len) && ($str[$ptr] != '"')) {
+                       if ($str[$ptr] == '\\') { $ptr+=2; continue; }
+                       $ptr++;
+                   }
+                   $result[] = stripslashes(substr($str, $q, $ptr-$q));
+                   $ptr++;
+                   while (($ptr < $len) && (strpos(" \r\t\n",$str[$ptr]) !== false)) $ptr++;
+                   $ptr++;
+               } else if ($str[$ptr] == "'") {
+                   $ptr++;
+                   $q = $ptr;
+                   while (($ptr < $len) && ($str[$ptr] != "'")) {
+                       if ($str[$ptr] == '\\') { $ptr+=2; continue; }
+                       $ptr++;
+                   }
+                   $result[] = stripslashes(substr($str, $q, $ptr-$q));
+                   $ptr++;
+                   while (($ptr < $len) && (strpos(" \r\t\n",$str[$ptr]) !== false)) $ptr++;
+                   $ptr++;
+               } else {
+                   $q = $ptr;
+                   while (($ptr < $len) && (strpos(",;",$str[$ptr]) === false)) {
+                       $ptr++;
+                   }
+                   $result[] = stripslashes(trim(substr($str, $q, $ptr-$q)));
+                   while (($ptr < $len) && (strpos(" \r\t\n",$str[$ptr]) !== false)) $ptr++;
+                   $ptr++;
+               }
+           }
+           return $result;
+        }
+   	}
+
 	
 	class XoopsCachedTableObjectHandler  extends XoopsTableObjectHandler
 	{
@@ -881,6 +1031,7 @@ if( ! class_exists( 'XoopsTableObjectHandler' ) ) {
 		 */
 		function &get($keys)
 		{
+		    $ret = false;
 			$record =& $this->create(false);
 			$recordKeys = $record->getKeyFields();
 			$recordVars = $record->getVars();
@@ -888,7 +1039,7 @@ if( ! class_exists( 'XoopsTableObjectHandler' ) ) {
 				if (count($recordKeys) == 1) {
 					$keys = array($recordKeys[0] => $keys);
 				} else {
-					return false;
+					return $ret;
 				}
 			}
 			$whereStr = "";
@@ -905,7 +1056,7 @@ if( ! class_exists( 'XoopsTableObjectHandler' ) ) {
 					$whereAnd = " AND ";
 					$cacheKey[$v] = $keys[$v];
 				} else {
-					return false;
+					return $ret;
 				}
 			}
 			$cacheKey = serialize($cacheKey);
@@ -916,7 +1067,7 @@ if( ! class_exists( 'XoopsTableObjectHandler' ) ) {
 			$sql = sprintf("SELECT * FROM %s WHERE %s",$this->tableName, $whereStr);
 
 			if ( !$result =& $this->query($sql) ) {
-				return false;
+				return $ret;
 			}
 			$numrows = $this->db->getRowsNum($result);
 //		echo $numrows."<br/>";
@@ -928,7 +1079,7 @@ if( ! class_exists( 'XoopsTableObjectHandler' ) ) {
 				return $record;
 			}
 			unset($record);
-			return false;
+			return $ret;
 		}
 	    /**
 	     * レコードの保存
@@ -1377,6 +1528,16 @@ if( ! class_exists( 'XoopsTableObjectList' ) ) {
 			return $item;
 		}
 
+	}
+
+	function intCriteriaVal($value) {
+		return array('value'=>$value, 'type'=>XOBJ_DTYPE_INT, 0);
+	}
+	function strCriteriaVal($value) {
+		return array('value'=>$value, 'type'=>XOBJ_DTYPE_TXTBOX, 0);
+	}
+	function floatCriteriaVal($value) {
+		return array('value'=>$value, 'type'=>XOBJ_DTYPE_FLOAT, 0);
 	}
 }
 
