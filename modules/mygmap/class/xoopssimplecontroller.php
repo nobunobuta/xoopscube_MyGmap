@@ -14,6 +14,7 @@ class XoopsSimpleController {
 	var $listFilterCriteria = null;
 	var $url;
 	var $xoopsTpl;
+	var $op = '';
 	var $defautlOp = '';
 	var $allowedOp = array();
 	var $object = null;
@@ -25,9 +26,9 @@ class XoopsSimpleController {
 		$objectKey = $object->getKeyFields();
 		$this->_objectKey = $objectKey[0];
 
-		$op = (!isset($_REQUEST['op'])) ? $this->defautlOp : $_REQUEST['op'];
-		if (in_array($op, $this->allowedOp) && method_exists($this, $op.'Action')) {
-			$method = $op.'Action';
+		$this->op = (!isset($_REQUEST['op'])) ? $this->defautlOp : $_REQUEST['op'];
+		if (in_array($this->op, $this->allowedOp) && method_exists($this, $this->op.'Action')) {
+			$method = $this->op.'Action';
 			return $this->$method();
 		} else {
 			$this->errorMsg = $this->__e('Invalid Operation');
@@ -50,10 +51,10 @@ class XoopsSimpleController {
 		}
 	}
 
-	function _showFrom(&$object, $caption) {
+	function _showForm(&$object, $caption) {
 		if (is_object($object)) {
 			$this->objectForm->setCaption($this->caption.' &raquo; '.$caption);
-			$this->objectForm->showForm($object, &$this->xoopsTpl);
+			$this->objectForm->showForm($object, $this->xoopsTpl);
 			$this->object =& $object;
 			return SIMPLE_CONTROLLER_VIEW_FORM;
 		} else {
@@ -64,16 +65,16 @@ class XoopsSimpleController {
 
 	function insertAction() {
 		$object =& $this->objectHandler->create();
-		return $this->_insert($object, $this->name.'_'.$op, $this->__l('New'));
+		return $this->_insert($object, $this->__l('New'));
 	}
 
 	function saveAction() {
 		$object =& $this->objectHandler->get(intval($_POST[$this->_objectKey]));
-		return $this->_insert($object, $this->name.'_'.$op, $this->__l('Edit'));
+		return $this->_insert($object,  $this->__l('Edit'));
 	}
 	
-	function _insert(&$object, $token, $caption) {
-		if (class_exists('XoopsMultiTokenHandler') && !XoopsMultiTokenHandler::quickValidate($token)) {
+	function _insert(&$object, $caption) {
+		if (class_exists('XoopsMultiTokenHandler') && !XoopsMultiTokenHandler::quickValidate($this->name.'_'.$this->op)) {
 			$this->errorMsg = $this->__e('Token Error');
 			return SIMPLE_CONTROLLER_ACTION_ERROR;
 		}
@@ -84,7 +85,7 @@ class XoopsSimpleController {
 			} else {
 				$object->setFormVars($_POST,'');
 				$this->objectForm->setCaption($this->caption.' &raquo; '.$caption);
-				$this->objectForm->showForm($object, &$this->xoopsTpl, $this->objectHandler->getErrors());
+				$this->objectForm->showForm($object, $this->xoopsTpl, $this->objectHandler->getErrors());
 				return SIMPLE_CONTROLLER_VIEW_FORM;
 			}
 		} else {
@@ -119,7 +120,7 @@ class XoopsSimpleController {
 			$object = false;
 		}
 		if (is_object($object)) {			if ($this->objectHandler->delete($object)) {
-				return SIMPLE_CONTROLLER_ACTION_SUCESS;
+				return SIMPLE_CONTROLLER_ACTION_SUCCESS;
 			} else {
 				$this->errorMsg = $this->__e('Record Delete Error');
 				return SIMPLE_CONTROLLER_ACTION_ERROR;
