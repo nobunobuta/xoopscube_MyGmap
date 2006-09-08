@@ -1,6 +1,7 @@
 <?php
 include '../../../include/cp_header.php';
-include('../class/mygmap_classes.php');
+include('../class/mygmap_classes.php');
+
 class MyGmapCategoryAdminList extends XoopsTableObjectList
 {
 	function MyGmapCategoryAdminList() {

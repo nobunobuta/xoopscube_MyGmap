@@ -1,4 +1,21 @@
-<?phpinclude_once dirname(__FILE__).'/include/version.php';$modversion['name'] = "MyGmap";$modversion['version'] = $GLOBALS['mygmap_version_xoops'];$modversion['description'] = "googleAPIによる地図表示モジュールです。";$modversion['credits'] = $GLOBALS['mygmap_credit'];$modversion['author'] = "NobuNobu";$modversion['help'] = "";$modversion['license'] = "GPL see LICENSE";$modversion['official'] = 0;$modversion['image'] = "images/logo.png";$modversion['dirname'] = "mygmap";// Menu$modversion['hasMain'] = 1;// DB Table$modversion['sqlfile']['mysql'] = "sql/mysql.sql";
+<?php
+include_once dirname(__FILE__).'/include/version.php';
+$modversion['name'] = "MyGmap";
+$modversion['version'] = $GLOBALS['mygmap_version_xoops'];
+$modversion['description'] = "googleAPIによる地図表示モジュールです。";
+$modversion['credits'] = $GLOBALS['mygmap_credit'];
+$modversion['author'] = "NobuNobu";
+$modversion['help'] = "";
+$modversion['license'] = "GPL see LICENSE";
+$modversion['official'] = 0;
+$modversion['image'] = "images/logo.png";
+$modversion['dirname'] = "mygmap";
+
+// Menu
+$modversion['hasMain'] = 1;
+
+// DB Table
+$modversion['sqlfile']['mysql'] = "sql/mysql.sql";
 // Tables created by sql file (without prefix!)
 $modversion['tables'][0] = "mygmap_marker";
 $modversion['tables'][1] = "mygmap_category";
@@ -7,13 +24,15 @@ $modversion['tables'][2] = "mygmap_area";
 // Templates
 $modversion['templates'][1]['file'] = 'mygmap_index.html';
 $modversion['templates'][1]['description'] = '';
-$modversion['templates'][2]['file'] = 'mygmap_category.html';
+$modversion['templates'][2]['file'] = 'mygmap_category.html';
 $modversion['templates'][2]['description'] = '';
-$modversion['templates'][3]['file'] = 'mygmap_marker.html';
+$modversion['templates'][3]['file'] = 'mygmap_marker.html';
 $modversion['templates'][3]['description'] = '';
-$modversion['templates'][4]['file'] = 'mygmap_area.html';
+$modversion['templates'][4]['file'] = 'mygmap_area.html';
 $modversion['templates'][4]['description'] = '';
-$modversion['hasAdmin'] = 1;$modversion['adminindex'] = "admin/index.php";
+
+$modversion['hasAdmin'] = 1;
+$modversion['adminindex'] = "admin/index.php";
 $modversion['adminmenu'] = "admin/menu.php";
 $modversion['hasconfig'] = 1;
 $modversion['config'][1] = array(
@@ -24,7 +43,8 @@ $modversion['config'][1] = array(
 	'valuetype'		=> 'text' ,
 	'default'		=> '' ,
 );
-$modversion['config'][2] = array(
+
+$modversion['config'][2] = array(
 	'name'			=> 'mygmap_cat' ,
 	'title'			=> '_MI_MYGMAP_CAT_MSG' ,
 	'description'	=> '_MI_MYGMAP_CAT_DESC' ,
@@ -32,7 +52,8 @@ $modversion['config'][1] = array(
 	'valuetype'		=> 'text' ,
 	'default'		=> '0' ,
 );
-$modversion['config'][3] = array(
+
+$modversion['config'][3] = array(
 	'name'			=> 'mygmap_lat' ,
 	'title'			=> '_MI_MYGMAP_LAT_MSG' ,
 	'description'	=> '_MI_MYGMAP_LAT_DESC' ,
@@ -40,7 +61,8 @@ $modversion['config'][1] = array(
 	'valuetype'		=> 'text' ,
 	'default'		=> '133.20066690444946' ,
 );
-$modversion['config'][4] = array(
+
+$modversion['config'][4] = array(
 	'name'			=> 'mygmap_lng' ,
 	'title'			=> '_MI_MYGMAP_LNG_MSG' ,
 	'description'	=> '_MI_MYGMAP_LNG_DESC' ,
@@ -117,21 +139,24 @@ $modversion['config'][10] = array(
 	'formtype'		=> 'yesno' ,
 	'valuetype'		=> 'int' ,
 	'default'		=> 0 ,
-);$modversion['config'][11] = array(
+);
+$modversion['config'][11] = array(
 	'name'			=> 'mygmap_width' ,
 	'title'			=> '_MI_MYGMAP_WIDTH_MSG' ,
 	'description'	=> '_MI_MYGMAP_WIDTH_DESC' ,
 	'formtype'		=> 'textbox' ,
 	'valuetype'		=> 'int' ,
 	'default'		=> 540 ,
-);$modversion['config'][12] = array(
+);
+$modversion['config'][12] = array(
 	'name'			=> 'mygmap_height' ,
 	'title'			=> '_MI_MYGMAP_HEIGHT_MSG' ,
 	'description'	=> '_MI_MYGMAP_HEIGHT_DESC' ,
 	'formtype'		=> 'textbox' ,
 	'valuetype'		=> 'int' ,
 	'default'		=> 460 ,
-);$modversion['config'][13] = array(
+);
+$modversion['config'][13] = array(
 	'name'			=> 'mygmap_text1' ,
 	'title'			=> '_MI_MYGMAP_TEXT1_MSG' ,
 	'description'	=> '_MI_MYGMAP_TEXT1_DESC' ,
@@ -175,4 +200,4 @@ $modversion['blocks'][1]['can_clone'] = true ;
 if( ! empty( $_POST['fct'] ) && ! empty( $_POST['op'] ) && $_POST['fct'] == 'modulesadmin' && $_POST['op'] == 'update_ok' && $_POST['dirname'] == $modversion['dirname'] ) {
 	include dirname( __FILE__ ) . "/include/onupdate.inc.php" ;
 }
-?>
+?>

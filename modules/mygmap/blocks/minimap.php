@@ -5,7 +5,8 @@ if( ! defined( 'MYGMAP_MINIMAP_INCLUDED' ) ) {
 	require_once (XOOPS_ROOT_PATH.'/modules/mygmap/class/mygmap_classes.php');
 	function b_mygmap_minimap_edit($option)
 	{
-		$markerHandler =& new MyGmapMarkerHandler($GLOBALS['xoopsDB']);		$form = '<table width="100%">';
+		$markerHandler =& new MyGmapMarkerHandler($GLOBALS['xoopsDB']);
+		$form = '<table width="100%">';
 		$form .= '<tr><td>Marker ID:</td>';
 		$form .= '<td><select name="options[0]">';
 		$markerObjects =& $markerHandler->getObjects();
@@ -33,7 +34,8 @@ if( ! defined( 'MYGMAP_MINIMAP_INCLUDED' ) ) {
 			$block['gmapi_include'] = 1;
 			define('MYGMAP_GMAPI_INCLUDED', 1);
 		}
-		$markerHandler =& new MyGmapMarkerHandler($GLOBALS['xoopsDB']);		$markerObject =& $markerHandler->get($option[0]);
+		$markerHandler =& new MyGmapMarkerHandler($GLOBALS['xoopsDB']);
+		$markerObject =& $markerHandler->get($option[0]);
 		$block['mygmap_API'] = mygmap_option('mygmap_api');;
 		$block['divid'] = 'mygmap_mini_'.$id; $id++;
 		$block['id'] = $markerObject->getVar('mygmap_marker_id');

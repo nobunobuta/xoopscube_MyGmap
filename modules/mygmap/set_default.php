@@ -1,6 +1,8 @@
 <?php
-include("../../mainfile.php");if ($GLOBALS['xoopsUserIsAdmin']) {
-	if (isset($_POST['lat']) && isset($_POST['lng']) && isset($_POST['zoom'])) {		$update_configs = array('mygmap_lat','mygmap_lng','mygmap_zoom');
+include("../../mainfile.php");
+if ($GLOBALS['xoopsUserIsAdmin']) {
+	if (isset($_POST['lat']) && isset($_POST['lng']) && isset($_POST['zoom'])) {
+		$update_configs = array('mygmap_lat','mygmap_lng','mygmap_zoom');
 		$update_vars = array(floatval($_POST['lat']),floatval($_POST['lng']),intval($_POST['zoom']));
 	    $config_handler =& xoops_gethandler('configitem');
 		foreach($update_configs as $key=>$update_config) {
