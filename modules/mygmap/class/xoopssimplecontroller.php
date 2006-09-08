@@ -45,13 +45,15 @@ class XoopsSimpleController {
 	}
 
 	function editAction() {
-		if (isset($_GET[$this->_objectKey])) {			if ($object =& $this->objectHandler->get(intval($_GET[$this->_objectKey]))) {
+		if (isset($_GET[$this->_objectKey])) {
+			if ($object =& $this->objectHandler->get(intval($_GET[$this->_objectKey]))) {
 				$this->objectForm->setCaption($this->caption.' &raquo; '.$this->__l('Edit'));
 				$this->objectForm->showForm($object, &$this->xoopsTpl);
 				$this->object =& $object;
 				return SIMPLE_CONTROLLER_VIEW_FORM;
 			}
-		}		$this->errorMsg = $this->__e('No Record is found');
+		}
+		$this->errorMsg = $this->__e('No Record is found');
 		return SIMPLE_CONTROLLER_ACTION_ERROR;
 	}
 
@@ -68,7 +70,8 @@ class XoopsSimpleController {
 			$this->errorMsg = $this->__e('Token Error');
 			return SIMPLE_CONTROLLER_ACTION_ERROR;
 		}
-		if (($op=='save')&& isset($_POST[$this->_objectKey])) {			$object =& $this->objectHandler->get(intval($_POST[$this->_objectKey]));
+		if (($op=='save')&& isset($_POST[$this->_objectKey])) {
+			$object =& $this->objectHandler->get(intval($_POST[$this->_objectKey]));
 			$this->objectForm->setCaption($this->caption.' &raquo; '.$this->__l('Edit'));
 		} else if ($op=='insert'){
 			$object =& $this->objectHandler->create();
@@ -76,7 +79,8 @@ class XoopsSimpleController {
 		} else {
 			$object = false;
 		}
-		if (is_object($object)) {			$object->setFormVars($_POST,'');
+		if (is_object($object)) {
+			$object->setFormVars($_POST,'');
 			if ($this->objectHandler->insert($object,false,true)) {
 				$this->object =& $object;
 				return SIMPLE_CONTROLLER_ACTION_SUCCESS;
@@ -92,7 +96,8 @@ class XoopsSimpleController {
 	
 	function deleteAction() {
 		if (isset($_GET[$this->_objectKey])) {
-			$key = intval(intval($_GET[$this->_objectKey]));			$object =& $this->objectHandler->get($key);
+			$key = intval(intval($_GET[$this->_objectKey]));
+			$object =& $this->objectHandler->get($key);
 			if (is_object($object)) {
 				ob_start();
 				xoops_confirm(array('op'=>'deleteok',$this->_objectKey=>$key), $this->url, $this->__l("Delete this Record")."? [ID=".$key."]");
@@ -111,11 +116,14 @@ class XoopsSimpleController {
 			$this->errorMsg = $this->__e('Token Error');
 			return SIMPLE_CONTROLLER_ACTION_ERROR;
 		}
-		if (isset($_POST[$this->_objectKey])) {			$key = intval(intval($_POST[$this->_objectKey]));			$object =& $this->objectHandler->get($key);
+		if (isset($_POST[$this->_objectKey])) {
+			$key = intval(intval($_POST[$this->_objectKey]));
+			$object =& $this->objectHandler->get($key);
 		} else {
 			$object = false;
 		}
-		if (is_object($object)) {			if ($this->objectHandler->delete($object)) {
+		if (is_object($object)) {
+			if ($this->objectHandler->delete($object)) {
 				return SIMPLE_CONTROLLER_ACTION_SUCESS;
 			} else {
 				$this->errorMsg = $this->__e('Record Delete Error');
@@ -156,7 +164,8 @@ class XoopsSimpleController {
 	}
 
 	function viewAction() {
-		if (isset($_GET[$this->_objectKey])) {			if ($object =& $this->objectHandler->get(intval($_GET[$this->_objectKey]))) {
+		if (isset($_GET[$this->_objectKey])) {
+			if ($object =& $this->objectHandler->get(intval($_GET[$this->_objectKey]))) {
 				return SIMPLE_CONTROLLER_VIEW_SINGLE;
 			}
 		}

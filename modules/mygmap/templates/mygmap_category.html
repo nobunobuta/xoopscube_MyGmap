@@ -39,7 +39,8 @@
 </table>
 <div id="mygmap_center"><{$errmsg}></div>
 <script type="text/javascript">
-//<![CDATA[var mygmappath = '<{$smarty.const.XOOPS_URL}>/modules/mygmap/';
+//<![CDATA[
+var mygmappath = '<{$smarty.const.XOOPS_URL}>/modules/mygmap/';
 var mygmap_API = "<{$mygmap_API}>";
 var useUDAPI = <{$mygmap_use_undocAPI}>;
 //]]>
@@ -56,4 +57,5 @@ function myGmapSetFormVaules(lat,lng,zoom) {
 	myGmapSetAttributeByID('mygmap_category_lng', 'value', lng);
 	myGmapSetAttributeByID('mygmap_category_zoom', 'value', zoom);
 }
-//]]></script>
+//]]>
+</script>

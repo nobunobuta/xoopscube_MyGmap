@@ -1,5 +1,6 @@
 <?php
-include('../../mainfile.php');include('class/mygmap_classes.php');
+include('../../mainfile.php');
+include('class/mygmap_classes.php');
 class MyGmapMarkerForm extends XoopsTableObjectForm {
 	function MyGmapMarkerForm($caption='', $name='', $action='', $token=0) {
 		parent::XoopsTableObjectForm($caption, $name, $action, $token);
@@ -21,13 +22,20 @@ class MyGmapMarkerForm extends XoopsTableObjectForm {
 
 if ($GLOBALS['xoopsUserIsAdmin']) {
 	$xoopsOption['template_main'] = 'mygmap_marker.html';
-	include(XOOPS_ROOT_PATH.'/header.php');	$controller = new MyGmapSimpleController('MyGmapMarker', 'mygmap_markedit',_MYGMAP_LANG_MARKER);
+	include(XOOPS_ROOT_PATH.'/header.php');
+	$controller = new MyGmapSimpleController('MyGmapMarker', 'mygmap_markedit',_MYGMAP_LANG_MARKER);
     $result = $controller->action();
 	switch ($result) {
 		case SIMPLE_CONTROLLER_VIEW_FORM:
-			$GLOBALS['xoopsTpl']->assign('mygmap_API', $GLOBALS['xoopsModuleConfig']['mygmap_api']);			$GLOBALS['xoopsTpl']->assign('mygmap_center_lat', $controller->object->getVar('mygmap_marker_lat'));			$GLOBALS['xoopsTpl']->assign('mygmap_center_lng', $controller->object->getVar('mygmap_marker_lng'));			$GLOBALS['xoopsTpl']->assign('mygmap_zoom', $controller->object->getVar('mygmap_marker_zoom'));			$GLOBALS['xoopsTpl']->assign('mygmap_width', $GLOBALS['xoopsModuleConfig']['mygmap_width']);
+			$GLOBALS['xoopsTpl']->assign('mygmap_API', $GLOBALS['xoopsModuleConfig']['mygmap_api']);
+			$GLOBALS['xoopsTpl']->assign('mygmap_center_lat', $controller->object->getVar('mygmap_marker_lat'));
+			$GLOBALS['xoopsTpl']->assign('mygmap_center_lng', $controller->object->getVar('mygmap_marker_lng'));
+			$GLOBALS['xoopsTpl']->assign('mygmap_zoom', $controller->object->getVar('mygmap_marker_zoom'));
+			$GLOBALS['xoopsTpl']->assign('mygmap_width', $GLOBALS['xoopsModuleConfig']['mygmap_width']);
 			$GLOBALS['xoopsTpl']->assign('mygmap_height', $GLOBALS['xoopsModuleConfig']['mygmap_height']);
-			$GLOBALS['xoopsTpl']->assign('mygmap_credit', $GLOBALS['mygmap_credit']);			$GLOBALS['xoopsTpl']->assign('mygmap_use_undocAPI', $GLOBALS['xoopsModuleConfig']['mygmap_use_undocAPI']);			include(XOOPS_ROOT_PATH.'/footer.php');
+			$GLOBALS['xoopsTpl']->assign('mygmap_credit', $GLOBALS['mygmap_credit']);
+			$GLOBALS['xoopsTpl']->assign('mygmap_use_undocAPI', $GLOBALS['xoopsModuleConfig']['mygmap_use_undocAPI']);
+			include(XOOPS_ROOT_PATH.'/footer.php');
 			break;
 		case SIMPLE_CONTROLLER_ACTION_ERROR:
 			redirect_header(XOOPS_URL.'/modules/mygmap/', 2, $controller->errorMsg);
