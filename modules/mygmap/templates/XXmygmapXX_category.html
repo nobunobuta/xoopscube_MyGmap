@@ -11,6 +11,9 @@
           <tr>
             <th colspan="2"><{$mygmap_catedit.title}></th>
           </tr>
+<{if $errmsg }>
+          <tr><td colspan="2" class="head"><span style="color:#FF0000"><{$errmsg}></span></td></tr>
+<{/if}>
           <tr>
             <td class="head"><{$mygmap_catedit.elements.mygmap_category_name.caption}></td>
             <td class="<{cycle values="odd,even"}>">
@@ -21,6 +24,12 @@
             <td class="head"><{$mygmap_catedit.elements.mygmap_category_desc.caption}></td>
             <td class="<{cycle values="odd,even"}>">
               <{$mygmap_catedit.elements.mygmap_category_desc.body}>
+            </td>
+          </tr>
+          <tr>
+            <td class="head"><{$mygmap_catedit.elements.mygmap_category_maptype.caption}></td>
+            <td class="<{cycle values="odd,even"}>">
+              <{$mygmap_catedit.elements.mygmap_category_maptype.body}>
             </td>
           </tr>
           <tr>
@@ -37,24 +46,21 @@
     </td>
   </tr>
 </table>
-<div id="mygmap_center"><{$errmsg}></div>
 <script type="text/javascript">
-//<![CDATA[
-var mygmappath = '<{$smarty.const.XOOPS_URL}>/modules/mygmap/';
+//<![CDATA[var mygmappath = '<{$smarty.const.XOOPS_URL}>/modules/<{$mygmap_dirname}>/';
 var mygmap_API = "<{$mygmap_API}>";
 //]]>
 </script>
-<script src="<{$smarty.const.XOOPS_URL}>/modules/mygmap/mygmap_loader.js" type="text/javascript"></script>
+<script src="?action=MyGmapLoadJscipt" type="text/javascript"></script>
 <script type="text/javascript">
 //<![CDATA[
 function myGmapSetInitialLocation() {
-  mygmap_map.setCenter(new GLatLng(<{$mygmap_center_lng}>,<{$mygmap_center_lat}>), Math.floor( 17 - <{$mygmap_zoom}> ) );
+  myGmapCenterAndZoom(<{$mygmap_center_lat}>,<{$mygmap_center_lng}>, <{$mygmap_zoom}>,<{$mygmap_maptype}>);
 }
 
-function myGmapSetFormVaules(lat,lng,zoom) {
+function myGmapSetFormVaules(lat,lng,zoom,maptype) {
 	myGmapSetAttributeByID('mygmap_category_lat', 'value', lat);
 	myGmapSetAttributeByID('mygmap_category_lng', 'value', lng);
 	myGmapSetAttributeByID('mygmap_category_zoom', 'value', zoom);
 }
-//]]>
-</script>
+//]]></script>

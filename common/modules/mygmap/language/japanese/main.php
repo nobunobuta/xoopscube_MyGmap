@@ -2,9 +2,6 @@
 if (!defined('MYGMAP_LANGUAGE_MAIN_READ')) {
 define ('MYGMAP_LANGUAGE_MAIN_READ','1');
 
-define('_MYGMAP_LANG_EDIT','修正');
-define('_MYGMAP_LANG_NEW','新規作成');
-
 define('_MYGMAP_LANG_SETDEFAULT','現在地をデフォルトに変更');
 define('_MYGMAP_LANG_NEWCATEGORY','現在地をカテゴリー追加');
 define('_MYGMAP_LANG_NEWPOINT','現在地をマーカ追加');
@@ -25,9 +22,9 @@ define('_MYGMAP_LANG_ZOOM','縮尺');
 define('_MYGMAP_LANG_ICON','アイコン');
 define('_MYGMAP_LANG_ADDRESS','住所');
 define('_MYGMAP_LANG_STATION','駅');
-
-define('_MYGMAP_ERROR_ACTION_SUCCESS','更新が正常に完了しました');
-define('_MYGMAP_ERROR_TOKEN_ERROR','TOKENエラーです');
-
+define('_MYGMAP_LANG_MAPTYPE','モード');
+define('_MYGMAP_LANG_MAPTYPE_MAP','地図');
+define('_MYGMAP_LANG_MAPTYPE_SATELITE','サテライト');
+define('_MYGMAP_LANG_MAPTYPE_HYBRID','デュアル');
 }
 ?>

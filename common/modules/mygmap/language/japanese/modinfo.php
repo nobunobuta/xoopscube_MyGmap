@@ -8,12 +8,17 @@ define("_MI_MYGMAP_API_MSG","Google Maps APIからもらえるキー");
 define("_MI_MYGMAP_API_DESC","<a href=\"http://www.google.com/apis/maps/signup.html\">Google Maps API - Sign up</a>からもらえるソースの<br />key =xxxxxxx\"のxxxxxxx部分のみを記述して下さい。<br />Sign up時のURLは、".XOOPS_URL." 又は".XOOPS_URL."/modules/mygmap/ を指定して<br />キーを取得して下さい。");
 define("_MI_MYGMAP_CAT_MSG","初期表示するカテゴリーID");
 define("_MI_MYGMAP_CAT_DESC","初期表示地図のカテゴリーIDを指定して下さい。<br />0に指定した場合には、以下の緯度・経度・拡大率が有効になります。");
-define("_MI_MYGMAP_LNG_MSG","初期表示地図の緯度");
-define("_MI_MYGMAP_LNG_DESC","初期表示地図の緯度を北緯で指定して下さい。");
-define("_MI_MYGMAP_LAT_MSG","初期表示地図の経度");
-define("_MI_MYGMAP_LAT_DESC","初期表示地図の経度を東経で指定して下さい。<br />米国などの地図表示時の西経はマイナス数字になります。");
+define("_MI_MYGMAP_LAT_MSG","初期表示地図の緯度");
+define("_MI_MYGMAP_LAT_DESC","初期表示地図の緯度を北緯で指定して下さい。");
+define("_MI_MYGMAP_LNG_MSG","初期表示地図の経度");
+define("_MI_MYGMAP_LNG_DESC","初期表示地図の経度を東経で指定して下さい。<br />米国などの地図表示時の西経はマイナス数字になります。");
 define("_MI_MYGMAP_ZOOM_MSG","初期表示地図の拡大率");
 define("_MI_MYGMAP_ZOOM_DESC","拡大率を 0(最大倍率)〜17で指定して下さい。");
+define("_MI_MYGMAP_MAPTYPE_MSG","初期表示の地図タイプ");
+define("_MI_MYGMAP_MAPTYPE_DESC","地図・サテライト・デュアルから選択出来ます");
+define("_MI_MYGMAP_MAPTYPE_OPT1","地図");
+define("_MI_MYGMAP_MAPTYPE_OPT2","サテライト");
+define("_MI_MYGMAP_MAPTYPE_OPT3","デュアル");
 define("_MI_MYGMAP_SEARCH_MSG","住所・駅検索機能を使用");
 define("_MI_MYGMAP_SEARCH_DESC","<a href=\"http://geocode.csis.u-tokyo.ac.jp/cgi-bin/simple_geocode.cgi\">CSISシンプルジオコーディング実験</a>を使用した、住所検索機能を使用します。<br />当機能を使用する場合には、<a href=\"http://www.tkl.iis.u-tokyo.ac.jp/~sagara/geocode/simple_condition.html\">「CSISシンプルジオコーディング実験 参加規約」</a>を参照して条件を承諾する必要があります。<br /><br />なお、当実験で本実験で位置参照情報として利用している元データは一部にかなり古いものが含まれており、最近開通した鉄道の駅名は検索できません。");
 define("_MI_MYGMAP_INVGEO_MSG","地図表示位置の住所表示機能を使用");
@@ -57,14 +62,13 @@ define("_MI_MYGMAP_Z_OPT14","14");
 define("_MI_MYGMAP_Z_OPT15","15");
 define("_MI_MYGMAP_Z_OPT16","16");
 define("_MI_MYGMAP_Z_OPT17","17");
+define("_MI_MYGMAP_Z_OPT18","18");
+define("_MI_MYGMAP_Z_OPT19","19");
 
 define('_MI_MYGMAP_AD_MENU0','カテゴリー管理');
-
 define('_MI_MYGMAP_AD_MENU1','マーカー管理');
-
 define('_MI_MYGMAP_AD_MENU2','表示エリア管理');
-
 define('_MI_MYGMAP_AD_MENU3','ブロックアクセス権限');
-
+define('_MI_MYGMAP_AD_MENU4','テンプレート管理');
 }
 ?>
