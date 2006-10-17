@@ -68,7 +68,5 @@ define("_MI_MYGMAP_Z_OPT19","19");
 define('_MI_MYGMAP_AD_MENU0','カテゴリー管理');
 define('_MI_MYGMAP_AD_MENU1','マーカー管理');
 define('_MI_MYGMAP_AD_MENU2','表示エリア管理');
-define('_MI_MYGMAP_AD_MENU3','ブロックアクセス権限');
-define('_MI_MYGMAP_AD_MENU4','テンプレート管理');
 }
 ?>

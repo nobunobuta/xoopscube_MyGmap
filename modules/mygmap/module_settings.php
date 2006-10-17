@@ -1,8 +1,11 @@
 <?php
+if (class_exists('NBFrame')) {
     $environment =& NBFrame::getEnvironments(NBFRAME_TARGET_TEMP);
     $environment->setOrigDirName('mygmap');
-    $environment->setAttribute('defaultActionOp','MyGmapMain');
-    $environment->setAttribute('allowedActionOp', array('MyGmapCategory',
+    $environment->setAttribute('ModueleMainAction','MyGmapMain');
+    $environment->setAttribute('AdminMainAction',  'admin.MyGmapMainAdmin');
+
+    $environment->setAttribute('AllowedAction', array('MyGmapCategory',
                                                           'MyGmapMarker',
                                                           'MyGmapArea',
                                                           'MyGmapHttpReq',
@@ -16,5 +19,11 @@
                                                           'NBFrame.admin.BlocksAdmin',
                                                           'NBFrame.admin.AltSys',
                                                        ));
-    $environment->setAttribute('blockHandler', array('MyGmapMiniMapBlock'));
+
+    $environment->setAttribute('BlockHandler', array('MyGmapMiniMapBlock'));
+
+    $environment->setAttribute('UseAltSys', true);
+    $environment->setAttribute('UseBlockAdmin', true);
+    $environment->setAttribute('UseTemplateAdmin', true);
+}
 ?>

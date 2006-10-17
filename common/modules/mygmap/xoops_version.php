@@ -44,8 +44,8 @@ $modversion['templates'][4] = NBFrame::setModuleTemplate('area.html');
 $modversion['templates'][4]['description'] = '';
 
 $modversion['hasAdmin'] = 1;
-$modversion['adminindex'] = 'index.php?action=admin.MyGmapMainAdmin';
-$modversion['adminmenu'] = 'include/admin_menu.inc.php';
+$modversion['adminindex'] = 'index.php?action='.$modEnv->getAttribute('AdminMainAction');
+$modversion['adminmenu'] = 'include/NBFrameAdminMenu.inc.php';
 $modversion['hasconfig'] = 1;
 $modversion['config'][1] = array(
     'name'          => 'mygmap_api' ,
