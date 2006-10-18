@@ -22,7 +22,7 @@ if (!class_exists('MyGmapLoadJsciptAction')) {
                 echo "  mygmap_plugin_js_src = mygmappath + \"?action=MyGmapLoadJscipt&op=plugin&file=". $file['name']."&place=".$file['place']."\";\n";
                 echo "  document.write('<'+'script src=\"'+mygmap_plugin_js_src+'\"'+' type=\"text/javascript\"><'+'/script>');\n";
             }
-            echo "  var iconpath = mygmappath + '?action=MyGmapGetImage&file=';\n";            echo "\n";
+            echo "  var iconpath = mygmappath + '?action=NBFrame.GetImage&file=';\n";            echo "\n";
             echo "  var myGmapMiniMaps = new Array();\n";
             echo "  var myGmapMiniMap_idx = 0;\n";
             echo "}\n";

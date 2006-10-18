@@ -106,17 +106,15 @@ var mygmap_API = "<{$mygmap_API}>";
 <script type="text/javascript">
 //<![CDATA[
 function myGmapSetInitialLocation() {
+myGmapCenterAndZoom(<{$mygmap_center_lat}>,<{$mygmap_center_lng}>,<{$mygmap_zoom}>,<{$mygmap_maptype}>);
 <{if ($mygmap_search == "1") && $mygmap_addr }>
   myGmapRequestLoc('ADDRESS', '<{$mygmap_addr}>');
 <{elseif ($mygmap_search == "1") && $mygmap_station }>
   myGmapRequestLoc('STATION', '<{$mygmap_station}>');
-<{else}>
-  myGmapCenterAndZoom(<{$mygmap_center_lat}>,<{$mygmap_center_lng}>,<{$mygmap_zoom}>,<{$mygmap_maptype}>);
 <{/if}>
 <{foreach item=mygmap_marker from=$mygmap_markers}>
   myGmapAddMarker(mygmap_map, <{$mygmap_marker.lat}>, <{$mygmap_marker.lng}>,'<{$mygmap_marker.text}>','<{$mygmap_marker.mark}>',<{$mygmap_marker.id}>);
 <{/foreach}>
-  myGmapMoved();
 }
 
 function myGmapSetFormVaules(lat,lng,zoom,maptype) {

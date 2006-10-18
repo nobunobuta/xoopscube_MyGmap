@@ -10,7 +10,7 @@ $modversion['author'] = 'NobuNobu';
 $modversion['help'] = '';
 $modversion['license'] = 'GPL see LICENSE';
 $modversion['official'] = 0;
-$modversion['image'] = '?action=MyGmapGetImage&file=logo.png';
+$modversion['image'] = '?action=NBFrame.GetImage&file=logo.png';
 $modversion['dirname'] = $modEnv->mCurrentDirName;
 
 //$modversion['NBFrameOnInstall']['file'] =  '/include/oninstall.inc.php';
@@ -218,8 +218,8 @@ $modversion['config'][17] = array(
 $modversion['blocks'][1]['file'] = 'NBFrameBlockLoader.php';
 $modversion['blocks'][1]['name'] = 'Mini Map';
 $modversion['blocks'][1]['description'] = '';
-$modversion['blocks'][1]['show_func'] = 'b_'.$modEnv->prefix('MyGmapMiniMapBlock_show');
-$modversion['blocks'][1]['edit_func'] = 'b_'.$modEnv->prefix('MyGmapMiniMapBlock_edit');
+$modversion['blocks'][1]['show_func'] = NBFrame::getBlockShowFunction('MyGmapMiniMapBlock');
+$modversion['blocks'][1]['edit_func'] = NBFrame::getBlockEditFunction('MyGmapMiniMapBlock');
 $modversion['blocks'][1]['options'] = '1';
 $modversion['blocks'][1] += NBFrame::setBlockTemplate('block_minimap.html');
 $modversion['blocks'][1]['can_clone'] = true ;

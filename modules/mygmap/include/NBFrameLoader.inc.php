@@ -17,5 +17,5 @@ if (defined('NBFRAME_BASE_DIR')) {
     require_once NBFRAME_BASE_DIR.'/class/NBFrame.class.php';
 }
 NBFrame::prePrepare(dirname(dirname(__FILE__)));
-require_once dirname(dirname(__FILE__)).'/module_settings.php';
+require dirname(dirname(__FILE__)).'/module_settings.php';
 ?>

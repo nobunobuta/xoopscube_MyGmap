@@ -161,8 +161,8 @@ function myGmapCenterAndZoom() {
       point = _myGmapMarkers[i].point;
       if (_myGmapMarkers[i].id == id) {
         hPoint = mygmap_map.getCurrentMapType().getProjection().fromLatLngToPixel(point ,mygmap_map.getZoom());
-      hLatLng = mygmap_map.getCurrentMapType().getProjection().fromPixelToLatLng(new GPoint(hPoint.x + 0.5 , hPoint.y + 0.5 ) , mygmap_map.getZoom());
-      _myGmapMarkers[i].setPoint(hLatLng);
+        hLatLng = mygmap_map.getCurrentMapType().getProjection().fromPixelToLatLng(new GPoint(hPoint.x + 0.5 , hPoint.y + 0.5 ) , mygmap_map.getZoom());
+        _myGmapMarkers[i].setPoint(hLatLng);
         if (popwin) {
           GEvent.trigger(_myGmapMarkers[i],"click");
         }
