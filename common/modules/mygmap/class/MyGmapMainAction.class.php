@@ -163,7 +163,6 @@ if (!class_exists('MyGmapMainAction')) {
             if ($GLOBALS['xoopsModuleConfig']['mygmap_invgeo']) {
                 $credit .= '<br />'.$GLOBALS['mygmap_invgeo_credit'];
             }
-            $this->mXoopsTpl->assign('mygmap_credit', $credit);
             $this->mXoopsTpl->assign('xoopsUserIsAdmin', $GLOBALS['xoopsUserIsAdmin']);
             $this->mXoopsTpl->assign('mygmap_can_edit_area', NBFrameCheckRight('areaedit', 1));
             $this->mXoopsTpl->assign('mygmap_can_edit_category', NBFrameCheckRight('categoryedit', 1));
@@ -190,6 +189,10 @@ if (!class_exists('MyGmapMainAction')) {
                 $extra .= $this->mXoopsTpl->fetch($file);
             }
             $this->mXoopsTpl->assign('mygmap_extra_info', $extra);
+            if (!empty($GLOBALS['mygmap_plugin_credit'])) {
+                $credit .= $GLOBALS['mygmap_plugin_credit'];
+            }
+            $this->mXoopsTpl->assign('mygmap_credit', $credit);
         }
 
         function usort_cmp($a, $b) {

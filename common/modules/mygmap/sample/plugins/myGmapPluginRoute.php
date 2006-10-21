@@ -33,6 +33,7 @@ class myGmapPluginRoute {
         $controller->mXoopsTpl->assign('mygmap_route', $controller->mAttributes['mygmap_route']);
         $controller->mXoopsTpl->assign('mygmap_pagetitle', $controller->mAttributes['mygmap_pagetitle']);
         $controller->mXoopsTpl->assign('xoops_pagetitle', "MyGmap/".$controller->mAttributes['mygmap_pagetitle']);
+        $GLOBALS['mygmap_plugin_credit'] .= '<br />MyGmap Route Drawing Plugin. (Original hack by <a href="http://www.asobox.com/dna/">fanrun7</a>)';
     }
 }
 ?>
