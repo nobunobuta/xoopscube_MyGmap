@@ -4,18 +4,23 @@ if (class_exists('NBFrame')) {
     $environment->setAttribute('AdminMainAction',  'admin.MyGmapMainAdmin');
 
     $environment->setAttribute('AllowedAction', array('MyGmapCategory',
-                                                          'MyGmapMarker',
-                                                          'MyGmapArea',
-                                                          'MyGmapHttpReq',
-                                                          'MyGmapSetDefault',
-                                                          'MyGmapLoadJscipt',
-                                                          'admin.MyGmapMainAdmin',
-                                                          'admin.MyGmapAreaAdmin',
-                                                          'admin.MyGmapMarkerAdmin',
-                                                          'admin.MyGmapCategoryAdmin',
-                                                          'NBFrame.GetImage',
-                                                          'NBFrame.admin.BlocksAdmin',
-                                                          'NBFrame.admin.AltSys',
+                                                      'MyGmapMarker',
+                                                      'MyGmapArea',
+                                                      'MyGmapHttpReq',
+                                                      'MyGmapSetDefault',
+                                                      'MyGmapLoadJscipt',
+                                                      'admin.MyGmapMainAdmin',
+                                                      'admin.MyGmapAreaAdmin',
+                                                      'admin.MyGmapMarkerAdmin',
+                                                      'admin.MyGmapCategoryAdmin',
+                                                      'NBFrame.GetImage',
+                                                      'NBFrame.admin.BlocksAdmin',
+                                                      'NBFrame.admin.AltSys',
+                                                  ));
+
+    $environment->setAttribute('NoCommonAction', array('MyGmapHttpReq',
+                                                       'MyGmapLoadJscipt',
+                                                       'NBFrame.GetImage',
                                                        ));
 
     $environment->setAttribute('BlockHandler', array('MyGmapMiniMapBlock'));

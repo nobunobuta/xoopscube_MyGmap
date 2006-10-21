@@ -2,7 +2,7 @@
 if (!class_exists('MyGmapMiniMapBlock')) {
     class MyGmapMiniMapBlock {
         function edit(&$environment, $option) {
-            $dirName = $environment->mCurrentDirName;
+            $dirName = $environment->mDirName;
             $markerHandler =& NBFrame::getHandler('MyGmapMarker',$environment);            $form = '<table width="100%">';
             $form .= '<tr><td>Marker ID:</td>';
             $form .= '<td><select name="options[0]">';
@@ -22,7 +22,7 @@ if (!class_exists('MyGmapMiniMapBlock')) {
         }
         
         function show(&$environment, $option){
-            $dirName = $environment->mCurrentDirName;
+            $dirName = $environment->mDirName;
             static $id = 0;
             
             if (defined('MYGMAP_GMAPI_INCLUDED')) {

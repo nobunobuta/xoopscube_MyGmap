@@ -12,13 +12,13 @@ if (!class_exists('MyGmapLoadJsciptAction')) {
             header('Content-type: application/x-javascript;charset="EUC-JP"');
             echo "if (mygmap_js_src == undefined) {\n";
             echo "  var mygmap_map;\n";
-            echo "  var mygmap_js_src = \"http://maps.google.com/maps?file=api&amp;v=2.64c&amp;key=\" + mygmap_API;\n";
+            echo "  var mygmap_js_src = \"http://maps.google.com/maps?file=api&amp;v=2.65&amp;key=\" + mygmap_API;\n";
             echo "  document.write('<'+'script src=\"'+mygmap_js_src+'\"'+' type=\"text/javascript\" charset=\"utf-8\"><'+'/script>');\n";
             echo "\n";
             echo "  mygmap_js_src = mygmappath + \"?action=MyGmapLoadJscipt&op=load\";\n";
             echo "  document.write('<'+'script src=\"'+mygmap_js_src+'\"'+' type=\"text/javascript\"><'+'/script>');\n";
             echo "\n";
-            foreach(MyGmapUtils::getPluginFiles($this->mEnvironment->mCurrentDirName, 'js', true) as $file) {
+            foreach(MyGmapUtils::getPluginFiles($this->mEnvironment->mDirName, 'js', true) as $file) {
                 echo "  mygmap_plugin_js_src = mygmappath + \"?action=MyGmapLoadJscipt&op=plugin&file=". $file['name']."&place=".$file['place']."\";\n";
                 echo "  document.write('<'+'script src=\"'+mygmap_plugin_js_src+'\"'+' type=\"text/javascript\"><'+'/script>');\n";
             }
@@ -41,7 +41,7 @@ if (!class_exists('MyGmapLoadJsciptAction')) {
             $place =  basename($_GET['place']);
             switch ($place) {
                 case 'module' :
-                    $fileName = XOOPS_ROOT_PATH.'/modules/'.$this->mEnvironment->mCurrentDirName.'/plugins/'. $fileName;
+                    $fileName = XOOPS_ROOT_PATH.'/modules/'.$this->mEnvironment->mDirName.'/plugins/'. $fileName;
                     break;
                 case 'trust' :
                     $fileName = XOOPS_TRUST_PATH.'/modules/mygmap/plugins/'. $fileName;

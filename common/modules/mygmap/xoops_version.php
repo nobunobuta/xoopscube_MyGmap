@@ -2,7 +2,7 @@
 include_once dirname(__FILE__).'/include/version.inc.php';
 $modEnv =& NBFrame::getEnvironments(NBFRAME_TARGET_INSTALLER);
 
-$modversion['name'] = 'MyGmap ['.$modEnv->mCurrentDirName.']';
+$modversion['name'] = 'MyGmap ['.$modEnv->mDirName.']';
 $modversion['version'] = $GLOBALS['mygmap_version_xoops'];
 $modversion['description'] = 'googleAPIによる地図表示モジュールです。';
 $modversion['credits'] = $GLOBALS['mygmap_credit'];
@@ -11,7 +11,7 @@ $modversion['help'] = '';
 $modversion['license'] = 'GPL see LICENSE';
 $modversion['official'] = 0;
 $modversion['image'] = '?action=NBFrame.GetImage&file=logo.png';
-$modversion['dirname'] = $modEnv->mCurrentDirName;
+$modversion['dirname'] = $modEnv->mDirName;
 
 //$modversion['NBFrameOnInstall']['file'] =  '/include/oninstall.inc.php';
 //$modversion['NBFrameOnInstall']['func'][] = 'install_mygmap';

@@ -5,13 +5,6 @@ if (!class_exists('MyGmapHttpReqAction')) {
         var $mLoadCommon = false;
         function executeDefaultOp() {
             error_reporting(E_ERROR);
-            foreach (array('GLOBALS', '_SESSION', 'HTTP_SESSION_VARS', '_GET', 'HTTP_GET_VARS', '_POST',
-                           'HTTP_POST_VARS', '_COOKIE', 'HTTP_COOKIE_VARS', '_REQUEST', '_SERVER',
-                           'HTTP_SERVER_VARS', '_ENV', 'HTTP_ENV_VARS', '_FILES', 'HTTP_POST_FILES') as $bad_global) {
-                if (isset($_REQUEST[$bad_global])) {
-                   exit();
-                }
-            }
             $referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : $_ENV['HTTP_REFERER'];
             if (!$referer) exit();
             if (strpos($referer, $this->getUrlBase())===false) exit();
