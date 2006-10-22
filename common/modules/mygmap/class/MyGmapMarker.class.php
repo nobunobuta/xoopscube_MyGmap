@@ -57,7 +57,7 @@ if( ! class_exists( 'MyGmapMarker' ) ) {
         }
 
         function checkVar_mygmap_marker_icontext($value) {
-            if (array_key_exists(substr($value.' ',0,1), $this->_handler->getIconListArray())){
+            if (array_key_exists(substr($value.' ',0,1), $this->mHandler->getIconListArray())){
                 return true;
             }
             $this->setErrors('Range Error at ICON Text "'.$value.'" (Blank or A to J)');
@@ -80,7 +80,7 @@ if( ! class_exists( 'MyGmapMarker' ) ) {
 
     class MyGmapMarkerHandler  extends NBFrameObjectHandler
     {
-        var $tableName = 'marker';
+        var $mTableName = 'marker';
 
         function getIconListArray() {
             static $result = Array();

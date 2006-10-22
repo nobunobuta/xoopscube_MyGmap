@@ -53,7 +53,7 @@ if( ! class_exists( 'MyGmapArea' ) ) {
 
     class MyGmapAreaHandler extends NBFrameObjectHandler
     {
-        var $tableName = 'area';
+        var $mTableName = 'area';
     }
 }
 ?>

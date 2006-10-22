@@ -65,7 +65,7 @@ if( ! class_exists( 'MyGmapCategory' ) ) {
 
     class MyGmapCategoryHandler  extends NBFrameObjectHandler
     {
-        var $tableName = 'category';
+        var $mTableName = 'category';
         
         function insert(&$record,$force=false,$updateOnlyChanged=false) {
             $record->setVar('mygmap_category_updatetime', time(), true);
