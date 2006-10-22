@@ -224,6 +224,4 @@ $modversion['blocks'][1]['options'] = '1';
 $modversion['blocks'][1] += NBFrame::setBlockTemplate('block_minimap.html');
 $modversion['blocks'][1]['can_clone'] = true ;
 
-// On Update Pre Process
-NBFrame::executePreUpdateProcess($modversion);
 ?>
