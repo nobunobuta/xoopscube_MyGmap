@@ -85,6 +85,8 @@ function myGmapLoad() {
     myGmapSearchListElement = document.getElementById('mygmap_search_list');
     myGmapAddressElement = document.getElementById('mygmap_addr');
 
+    myGmapMapTypes = new Array(null, G_NORMAL_MAP, G_SATELLITE_MAP, G_HYBRID_MAP);
+
     if (G_NORMAL_MAP.getMaximumResolution()==17) {
       // Following Lines make new Maptype for higher resolution
       var myNewNormalMapTypeOptions = { 
@@ -118,7 +120,6 @@ function myGmapLoad() {
     GEvent.addListener(mygmap_map, 'click', myGmapPopupMarkerInfo);
     myGmapSetInitialLocation();
   }
-  myGmapMapTypes = new Array(null, G_NORMAL_MAP, G_SATELLITE_MAP, G_HYBRID_MAP);
   
   myGmapShowBlocks();
 }

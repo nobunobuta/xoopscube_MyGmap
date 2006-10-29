@@ -156,6 +156,7 @@ if (!class_exists('MyGmapMainAction')) {
             $this->mXoopsTpl->assign('mygmap_height', $GLOBALS['xoopsModuleConfig']['mygmap_height']);
             $this->mXoopsTpl->assign('mygmap_setdef_show', $GLOBALS['xoopsModuleConfig']['mygmap_setdef_show']);
             $this->mXoopsTpl->assign('mygmap_debug', $GLOBALS['xoopsModuleConfig']['mygmap_debug']);
+            $this->mXoopsTpl->assign('mygmap_infopop', $GLOBALS['xoopsModuleConfig']['mygmap_infopop']);
             $credit = $GLOBALS['mygmap_credit'];
             if ($GLOBALS['xoopsModuleConfig']['mygmap_search']) {
                 $credit .= '<br />'.$GLOBALS['mygmap_csis_credit'];

@@ -126,7 +126,17 @@ $modversion['config'][6] = array(
                     '_MI_MYGMAP_MAPTYPE_OPT3'=>3 ,
      ),
 );
+
 $modversion['config'][7] = array(
+    'name'          => 'mygmap_infopop' ,
+    'title'         => '_MI_MYGMAP_INFOPOP_MSG' ,
+    'description'   => '_MI_MYGMAP_INFOPOP_DESC' ,
+    'formtype'      => 'yesno' ,
+    'valuetype'     => 'int' ,
+    'default'       => 0 ,
+);
+
+$modversion['config'][8] = array(
     'name'          => 'mygmap_search' ,
     'title'         => '_MI_MYGMAP_SEARCH_MSG' ,
     'description'   => '_MI_MYGMAP_SEARCH_DESC' ,
@@ -134,7 +144,7 @@ $modversion['config'][7] = array(
     'valuetype'     => 'int' ,
     'default'       => 0 ,
 );
-$modversion['config'][8] = array(
+$modversion['config'][9] = array(
     'name'          => 'mygmap_invgeo' ,
     'title'         => '_MI_MYGMAP_INVGEO_MSG' ,
     'description'   => '_MI_MYGMAP_INVGEO_DESC' ,
@@ -142,7 +152,7 @@ $modversion['config'][8] = array(
     'valuetype'     => 'int' ,
     'default'       => 0 ,
 );
-$modversion['config'][9] = array(
+$modversion['config'][10] = array(
     'name'          => 'mygmap_link' ,
     'title'         => '_MI_MYGMAP_LINK_MSG' ,
     'description'   => '_MI_MYGMAP_LINK_DESC' ,
@@ -150,7 +160,7 @@ $modversion['config'][9] = array(
     'valuetype'     => 'int' ,
     'default'       => 1 ,
 );
-$modversion['config'][10] = array(
+$modversion['config'][11] = array(
     'name'          => 'mygmap_wiki' ,
     'title'         => '_MI_MYGMAP_WIKI_MSG' ,
     'description'   => '_MI_MYGMAP_WIKI_DESC' ,
@@ -158,7 +168,7 @@ $modversion['config'][10] = array(
     'valuetype'     => 'int' ,
     'default'       => 0 ,
 );
-$modversion['config'][11] = array(
+$modversion['config'][12] = array(
     'name'          => 'mygmap_blog' ,
     'title'         => '_MI_MYGMAP_BLOG_MSG' ,
     'description'   => '_MI_MYGMAP_BLOG_DESC' ,
@@ -166,7 +176,7 @@ $modversion['config'][11] = array(
     'valuetype'     => 'int' ,
     'default'       => 0 ,
 );
-$modversion['config'][12] = array(
+$modversion['config'][13] = array(
     'name'          => 'mygmap_width' ,
     'title'         => '_MI_MYGMAP_WIDTH_MSG' ,
     'description'   => '_MI_MYGMAP_WIDTH_DESC' ,
@@ -174,7 +184,7 @@ $modversion['config'][12] = array(
     'valuetype'     => 'int' ,
     'default'       => 540 ,
 );
-$modversion['config'][13] = array(
+$modversion['config'][14] = array(
     'name'          => 'mygmap_height' ,
     'title'         => '_MI_MYGMAP_HEIGHT_MSG' ,
     'description'   => '_MI_MYGMAP_HEIGHT_DESC' ,
@@ -182,7 +192,7 @@ $modversion['config'][13] = array(
     'valuetype'     => 'int' ,
     'default'       => 460 ,
 );
-$modversion['config'][14] = array(
+$modversion['config'][15] = array(
     'name'          => 'mygmap_text1' ,
     'title'         => '_MI_MYGMAP_TEXT1_MSG' ,
     'description'   => '_MI_MYGMAP_TEXT1_DESC' ,
@@ -190,7 +200,7 @@ $modversion['config'][14] = array(
     'valuetype'     => 'text' ,
     'default'       => _MI_MYGMAP_TEXT1_DEFAULT ,
 );
-$modversion['config'][15] = array(
+$modversion['config'][16] = array(
     'name'          => 'mygmap_text2' ,
     'title'         => '_MI_MYGMAP_TEXT2_MSG' ,
     'description'   => '_MI_MYGMAP_TEXT2_DESC' ,
@@ -198,7 +208,7 @@ $modversion['config'][15] = array(
     'valuetype'     => 'text' ,
     'default'       => _MI_MYGMAP_TEXT2_DEFAULT ,
 );
-$modversion['config'][16] = array(
+$modversion['config'][17] = array(
     'name'          => 'mygmap_setdef_show' ,
     'title'         => '_MI_MYGMAP_SETDEF_SHOW_MSG' ,
     'description'   => '_MI_MYGMAP_SETDEF_SHOW_DESC' ,
@@ -206,7 +216,7 @@ $modversion['config'][16] = array(
     'valuetype'     => 'int' ,
     'default'       => 1 ,
 );
-$modversion['config'][17] = array(
+$modversion['config'][18] = array(
     'name'          => 'mygmap_debug' ,
     'title'         => '_MI_MYGMAP_DEBUG_MSG' ,
     'description'   => '_MI_MYGMAP_DEBUG_DESC' ,
