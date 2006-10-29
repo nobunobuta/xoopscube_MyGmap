@@ -1,5 +1,5 @@
 function myGmapPluginFgmap_Load () {
-  GEvent.addListener(mygmap_map, "moveend", myGmapRouteMoved);
+  GEvent.addListener(mygmap_map, "moveend", myGmapFgmapMoved);
   myGmapFgmapMoved();
 }
 
