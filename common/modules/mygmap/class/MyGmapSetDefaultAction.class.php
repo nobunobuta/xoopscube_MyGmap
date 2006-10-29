@@ -1,8 +1,7 @@
 <?php
 if (!class_exists('MyGmapSetDefaultAction')) {
     NBFrame::using('Action');
-    class MyGmapSetDefaultAction extends NBFrameAction
-    {
+    class MyGmapSetDefaultAction extends NBFrameAction {
         function executeDefaultOp() {
             if ($GLOBALS['xoopsUserIsAdmin']) {
                 if (isset($_POST['lat']) && isset($_POST['lng']) && isset($_POST['zoom'])) {
@@ -27,6 +26,9 @@ if (!class_exists('MyGmapSetDefaultAction')) {
                 $this->mErrorMsg = $this->__e('Permission Error');
                 return NBFRAME_ACTION_ERROR;
             }
+        }
+        function executeActionSuccess() {
+            redirect_header($this->getUrlBase(), 2, $this->__e('Action Success'));
         }
     }
 }
