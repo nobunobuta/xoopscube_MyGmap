@@ -1,0 +1,74 @@
+<table>
+  <tr>
+    <td style="width:<{$mygmap_width}>px">
+      <div id="mygmap_map" style="width:<{$mygmap_width}>px; height:<{$mygmap_height}>px; color:#000000"></div>
+      <div style="width:<{$mygmap_width}>px;text-align:right;font-size:10px;"><{$mygmap_credit}></div>
+    </td>
+    <td style="width:350px">
+      <{$mygmap_areaedit.javascript}>
+      <form name="<{$mygmap_areaedit.name}>" id="<{$mygmap_areaedit.name}>" action="<{$mygmap_areaedit.action}>" method="<{$mygmap_areaedit.method}>" <{$mygmap_areaedit.extra}>>
+        <table class="outer" cellspacing="1">
+          <tr>
+            <th colspan="2"><{$mygmap_areaedit.title}></th>
+          </tr>
+<{if $errmsg }>
+          <tr><td colspan="2" class="head"><span style="color:#FF0000"><{$errmsg}></span></td></tr>
+<{/if}>
+          <tr>
+            <td class="head"><{$mygmap_areaedit.elements.mygmap_area_name.caption}></td>
+            <td class="<{cycle values="odd,even"}>">
+              <{$mygmap_areaedit.elements.mygmap_area_name.body}>
+            </td>
+          </tr>
+          <tr>
+            <td class="head"><{$mygmap_areaedit.elements.mygmap_area_desc.caption}></td>
+            <td class="<{cycle values="odd,even"}>">
+              <{$mygmap_areaedit.elements.mygmap_area_desc.body}>
+            </td>
+          </tr>
+          <tr>
+            <td class="head"><{$mygmap_areaedit.elements.mygmap_area_order.caption}></td>
+            <td class="<{cycle values="odd,even"}>">
+              <{$mygmap_areaedit.elements.mygmap_area_order.body}>
+            </td>
+          </tr>
+          <tr>
+            <td class="head"><{$mygmap_areaedit.elements.mygmap_area_maptype.caption}></td>
+            <td class="<{cycle values="odd,even"}>">
+              <{$mygmap_areaedit.elements.mygmap_area_maptype.body}>
+            </td>
+          </tr>
+          <tr>
+            <td class="head"><{$mygmap_areaedit.elements.submit.caption}></td>
+            <td class="<{cycle values="odd,even"}>">
+    <{foreach item=hidden from=$mygmap_areaedit.elements}><{if $hidden.hidden }>
+              <{$hidden.body}>
+    <{/if}><{/foreach}>
+              <{$mygmap_areaedit.elements.submit.body}>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </td>
+  </tr>
+</table>
+<div id="mygmap_center"><{$errmsg}></div>
+<script type="text/javascript">
+//<![CDATA[
+var mygmappath = '<{$smarty.const.XOOPS_URL}>/modules/<{$mygmap_dirname}>/';
+var mygmap_API = "<{$mygmap_API}>";
+//]]>
+</script>
+<script src="?action=MyGmapLoadJscipt" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+function myGmapSetInitialLocation() {
+  myGmapCenterAndZoom(<{$mygmap_center_lat}>,<{$mygmap_center_lng}>,<{$mygmap_zoom}>,<{$mygmap_maptype}>);
+}
+
+function myGmapSetFormVaules(lat,lng,zoom,maptype) {
+	myGmapSetAttributeByID('mygmap_area_lat', 'value', lat);
+	myGmapSetAttributeByID('mygmap_area_lng', 'value', lng);
+	myGmapSetAttributeByID('mygmap_area_zoom', 'value', zoom);
+}
+//]]></script>

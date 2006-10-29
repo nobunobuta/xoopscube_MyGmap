@@ -36,7 +36,7 @@
 <ul>
 <{foreach item=mygmap_marker from=$mygmap_markers}>
  <li id="mygmap_markerlist_<{$mygmap_marker.id}>">
-   <span onclick="myGmapCenterAndZoom(<{$mygmap_marker.lat}>, <{$mygmap_marker.lng}>, <{$mygmap_marker.zoom}>, <{$mygmap_marker.maptype}>, <{$mygmap_marker.id}>, <{$mygmap_infopop}>);">
+   <span onclick="myGmapCenterAndZoom(<{$mygmap_marker.lat}>, <{$mygmap_marker.lng}>, <{$mygmap_marker.zoom}>, <{$mygmap_marker.maptype}>, <{$mygmap_marker.id}>);">
      <span id="mygmap_marker_<{$mygmap_marker.id}>"><{$mygmap_marker.mark}>.</span>&nbsp;<a href="?cat=<{$mygmap_category.id}>&amp;id=<{$mygmap_marker.id}>" onclick="return(false);"><{$mygmap_marker.title}></a>
    </span>
 <{if $mygmap_marker.canedit && $mygmap_marker.id != 0}>

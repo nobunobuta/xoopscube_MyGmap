@@ -28,7 +28,10 @@ if (!class_exists('MyGmapSetDefaultAction')) {
             }
         }
         function executeActionSuccess() {
-            redirect_header($this->getUrlBase(), 2, $this->__e('Action Success'));
+            redirect_header($this->getUrlBase().'/', 2, $this->__e('Action Success'));
+        }
+        function executeActionError() {
+            redirect_header($this->getUrlBase().'/', 2, $this->mErrorMsg);
         }
     }
 }
