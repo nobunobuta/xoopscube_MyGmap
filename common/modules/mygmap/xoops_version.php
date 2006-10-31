@@ -10,7 +10,7 @@ $modversion['author'] = 'NobuNobu';
 $modversion['help'] = '';
 $modversion['license'] = 'GPL see LICENSE';
 $modversion['official'] = 0;
-$modversion['image'] = '?action=NBFrame.GetImage&file=logo.png';
+$modversion['image'] = '?action=NBFrame.GetModuleIcon';
 $modversion['dirname'] = $modEnv->mDirName;
 
 //$modversion['NBFrameOnInstall']['file'] =  '/include/oninstall.inc.php';
