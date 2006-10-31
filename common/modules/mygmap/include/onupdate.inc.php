@@ -16,6 +16,11 @@ if (!function_exists('update_mygmap')){
             $sql1 = "ALTER TABLE ".$xoopsDB->prefix($dirname.'_marker')." DROP mygmap_marker_tmp";
             $xoopsDB->query($sql1);
 
+            $sql1 = "ALTER TABLE ".$xoopsDB->prefix($dirname.'_marker')."
+                     MODIFY COLUMN `mygmap_marker_lat` DOUBLE(14,9) NOT NULL DEFAULT 0.000000000,
+                     MODIFY COLUMN `mygmap_marker_lng` DOUBLE(14,9) NOT NULL DEFAULT 0.000000000
+                    ";
+            $xoopsDB->query($sql1);
 
             $GLOBALS['msgs'][] = "TABLE ".$xoopsDB->prefix($dirname.'_marker')." is modified.";
 
@@ -44,6 +49,12 @@ if (!function_exists('update_mygmap')){
             $sql1 = "ALTER TABLE ".$xoopsDB->prefix($dirname.'_area')." DROP mygmap_area_tmp";
             $xoopsDB->query($sql1);
 
+            $sql1 = "ALTER TABLE ".$xoopsDB->prefix($dirname.'_area')."
+                     MODIFY COLUMN `mygmap_area_lat` DOUBLE(14,9) NOT NULL DEFAULT 0.000000000,
+                     MODIFY COLUMN `mygmap_area_lng` DOUBLE(14,9) NOT NULL DEFAULT 0.000000000
+                    ";
+            $xoopsDB->query($sql1);
+
             $GLOBALS['msgs'][] = "TABLE ".$xoopsDB->prefix($dirname.'_area')." is modified.";
         }
         if (!$xoopsDB->getRowsNum($xoopsDB->query("SHOW COLUMNS FROM ".$xoopsDB->prefix($dirname.'_area')." LIKE 'mygmap_area_updatetime'"))) {
@@ -63,6 +74,12 @@ if (!function_exists('update_mygmap')){
             $xoopsDB->query("UPDATE ".$xoopsDB->prefix($dirname.'_category')." SET mygmap_category_tmp=mygmap_category_lng, mygmap_category_lng=mygmap_category_lat, mygmap_category_lat=mygmap_category_tmp, mygmap_category_zoom=17-mygmap_category_zoom");
 
             $sql1 = "ALTER TABLE ".$xoopsDB->prefix($dirname.'_category')." DROP mygmap_category_tmp";
+            $xoopsDB->query($sql1);
+
+            $sql1 = "ALTER TABLE ".$xoopsDB->prefix($dirname.'_category')."
+                     MODIFY COLUMN `mygmap_category_lat` DOUBLE(14,9) NOT NULL DEFAULT 0.000000000,
+                     MODIFY COLUMN `mygmap_category_lng` DOUBLE(14,9) NOT NULL DEFAULT 0.000000000
+                    ";
             $xoopsDB->query($sql1);
 
             $GLOBALS['msgs'][] = "TABLE ".$xoopsDB->prefix($dirname.'_category')." is modified.";
