@@ -1,8 +1,6 @@
 <?php
 include_once dirname(__FILE__).'/include/version.inc.php';
-$modEnv =& NBFrame::getEnvironments(NBFRAME_TARGET_INSTALLER);
-
-$modversion['name'] = 'MyGmap ['.$modEnv->mDirName.']';
+$modversion['name'] = 'MyGmap'; // It'll be rewritten
 $modversion['version'] = $GLOBALS['mygmap_version_xoops'];
 $modversion['description'] = 'googleAPIによる地図表示モジュールです。';
 $modversion['credits'] = $GLOBALS['mygmap_credit'];
@@ -10,16 +8,19 @@ $modversion['author'] = 'NobuNobu';
 $modversion['help'] = '';
 $modversion['license'] = 'GPL see LICENSE';
 $modversion['official'] = 0;
-$modversion['image'] = '?action=NBFrame.GetModuleIcon';
-$modversion['dirname'] = $modEnv->mDirName;
+$modversion['image'] = 'images/logo.png'; // It'll be rewritten
+$modversion['dirname'] = 'mygmap'; // It'll be rewritten
 
+//If you want specify your custom install sequence, uncomment following 2 lines.
 //$modversion['NBFrameOnInstall']['file'] =  '/include/oninstall.inc.php';
 //$modversion['NBFrameOnInstall']['func'][] = 'install_mygmap';
+
 $modversion['NBFrameOnUpdate']['file'] = '/include/onupdate.inc.php';
 $modversion['NBFrameOnUpdate']['func'][] = 'update_mygmap';
+
+//If you want specify your custom uninstall sequence, uncomment following 2 lines.
 //$modversion['NBFrameOnUninstall']['file'] =  '/include/onuninstall.inc.php';
 //$modversion['NBFrameOnUninstall']['func'][] = 'uninstall_mygmap';
-NBFrame::prepareInstaller($modversion);
 
 // Menu
 $modversion['hasMain'] = 1;
@@ -28,24 +29,24 @@ $modversion['hasMain'] = 1;
 $modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
 
 // Tables created by sql file (without prefix!)
-$modversion['tables'][0] = $modEnv->prefix('marker');
-$modversion['tables'][1] = $modEnv->prefix('category');
-$modversion['tables'][2] = $modEnv->prefix('area');
+$modversion['tables'][0] = 'marker'; // It'll be rewritten
+$modversion['tables'][1] = 'category'; // It'll be rewritten
+$modversion['tables'][2] = 'area'; // It'll be rewritten
 
 // Templates
 
-$modversion['templates'][1] = NBFrame::setModuleTemplate('main.html');
+$modversion['templates'][1]['file'] = 'main.html'; // It'll be rewritten
 $modversion['templates'][1]['description'] = '';
-$modversion['templates'][2] = NBFrame::setModuleTemplate('category.html');
+$modversion['templates'][2]['file'] = 'category.html'; // It'll be rewritten
 $modversion['templates'][2]['description'] = '';
-$modversion['templates'][3] = NBFrame::setModuleTemplate('marker.html');
+$modversion['templates'][3]['file'] = 'marker.html'; // It'll be rewritten
 $modversion['templates'][3]['description'] = '';
-$modversion['templates'][4] = NBFrame::setModuleTemplate('area.html');
+$modversion['templates'][4]['file'] = 'area.html'; // It'll be rewritten
 $modversion['templates'][4]['description'] = '';
 
 $modversion['hasAdmin'] = 1;
-$modversion['adminindex'] = 'index.php?action='.$modEnv->getAttribute('AdminMainAction');
-$modversion['adminmenu'] = 'include/NBFrameAdminMenu.inc.php';
+$modversion['adminindex'] = 'admin/index.php'; // It'll be rewritten
+$modversion['adminmenu'] = 'include/admin_menu.inc.php'; // It'll be rewritten
 $modversion['hasconfig'] = 1;
 $modversion['config'][1] = array(
     'name'          => 'mygmap_api' ,
@@ -215,13 +216,12 @@ $modversion['config'][17] = array(
     'default'       => 0 ,
 );
 
-$modversion['blocks'][1]['file'] = 'NBFrameBlockLoader.php';
+$modversion['blocks'][1]['file'] = 'NBFrameBlockLoader.php'; //You should specify this filename;
 $modversion['blocks'][1]['name'] = 'Mini Map';
 $modversion['blocks'][1]['description'] = '';
-$modversion['blocks'][1]['show_func'] = NBFrame::getBlockShowFunction('MyGmapMiniMapBlock');
-$modversion['blocks'][1]['edit_func'] = NBFrame::getBlockEditFunction('MyGmapMiniMapBlock');
+$modversion['blocks'][1]['show_func'] = 'b_MyGmapMiniMapBlock_show';  // It'll be rewritten
+$modversion['blocks'][1]['edit_func'] = 'b_MyGmapMiniMapBlock_edit';  // It'll be rewritten
 $modversion['blocks'][1]['options'] = '1';
-$modversion['blocks'][1] += NBFrame::setBlockTemplate('block_minimap.html');
+$modversion['blocks'][1]['template'] = 'block_minimap.html';  // It'll be rewritten
 $modversion['blocks'][1]['can_clone'] = true ;
-
 ?>
