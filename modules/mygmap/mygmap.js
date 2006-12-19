@@ -136,10 +136,12 @@ function myGmapAddMarker(map, lat, lng, html, letter, id) {
     var marker = new GMarker(point,icon);
   }
   map.addOverlay(marker);
-  // Show this markers index in the info window when it is clicked
-  GEvent.addListener(marker, "click", function() {
-    marker.openInfoWindowHtml('<div style="width:220px">'+html+'</div>');
-  });
+  if (html != '') {
+    // Show this markers index in the info window when it is clicked
+    GEvent.addListener(marker, "click", function() {
+      marker.openInfoWindowHtml('<div style="width:220px">'+html+'</div>');
+    });
+  }
   if (useUDAPI) {
     GEvent.addListener(marker, "mouseover", function() {
       marker.setZIndex(0);
