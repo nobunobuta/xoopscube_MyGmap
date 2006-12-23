@@ -153,6 +153,16 @@ if( ! class_exists( 'XoopsTableObject' ) ) {
 	        }
 	    }
 
+        function setVarAsSQLFunc($key, $func, $param) {
+            if (!empty($key) && isset($func) && isset($param) && isset($this->vars[$key])) {
+                $this->vars[$key]['func'] = $func;
+                $this->vars[$key]['value'] =& $param;
+                $this->vars[$key]['not_gpc'] = $not_gpc;
+                $this->vars[$key]['changed'] = true;
+                $this->setDirty();
+            }
+        }
+
 	    /**
 	    * returns a specific variable for the object in a proper format
 	    * 
@@ -189,19 +199,23 @@ if( ! class_exists( 'XoopsTableObject' ) ) {
 				if (!$v['changed']) {
 				} else {
 					$cleanv = is_string($cleanv) ? trim($cleanv) : $cleanv;
-					switch ($v['data_type']) {
-					case XOBJ_DTYPE_FLOAT:
-						$cleanv = (float)($cleanv);
-						$this->cleanVars[$k] =& $cleanv;
-						break;
-					default:
-						break;
-					}
-					//個別の変数チェックがあれば実行;
-					$checkMethod = 'checkVar_'.$k;
-					if(method_exists($this, $checkMethod)) {
-						$this->$checkMethod($cleanv);
-					}
+                    if (isset($v['func'])) {
+                        $this->cleanVars[$k] =& $cleanv;
+                    } else {
+					    switch ($v['data_type']) {
+					        case XOBJ_DTYPE_FLOAT:
+						        $cleanv = (float)($cleanv);
+						        $this->cleanVars[$k] =& $cleanv;
+						        break;
+					        default:
+						        break;
+					    }
+					    //個別の変数チェックがあれば実行;
+					    $checkMethod = 'checkVar_'.$k;
+					    if(method_exists($this, $checkMethod)) {
+						    $this->$checkMethod($cleanv);
+					    }
+				    }
 				}
 				unset($cleanv);
 			}
@@ -481,8 +495,8 @@ if( ! class_exists( 'XoopsTableObjectHandler' ) ) {
 					if ($record->isAutoIncrement($k)) {
 						$v = $this->getAutoIncrementValue();
 					}
-					if (preg_match("/^__MySqlFunc__/", $v)) {  // for value using MySQL function.
-						$value = preg_replace('/^__MySqlFunc__/', '', $v);
+                    if (isset($vars[$k]['func'])) {  // for value using MySQL function.
+                        $v = $vars[$k]['func'].'('.$v.')';
 					} elseif ($vars[$k]['data_type'] == XOBJ_DTYPE_INT) {
 						if (!is_null($v)) {
 							$v = intval($v);
@@ -520,8 +534,8 @@ if( ! class_exists( 'XoopsTableObjectHandler' ) ) {
 					if ($vars[$k]['var_class'] != XOBJ_VCLASS_TFIELD) {
 						continue;
 					}
-					if (preg_match("/^__MySqlFunc__/", $v)) {  // for value using MySQL function.
-						$value = preg_replace('/^__MySqlFunc__/', '', $v);
+                    if (isset($vars[$k]['func'])) {  // for value using MySQL function.
+                        $value = $vars[$k]['func'].'('.$v.')';
 					} elseif ($vars[$k]['data_type'] == XOBJ_DTYPE_INT) {
 						$v = intval($v);
 						$value = ($v) ? $v : 0;
@@ -880,15 +894,15 @@ if( ! class_exists( 'XoopsTableObjectHandler' ) ) {
                     for ($i = 0; $i < $maxCount ; $i++) {
                         $subQueryString = $this->_makeCriteria4sql($criteria->criteriaElements[$i]);
                         if ($subQueryString) {
-                        if ($i != 0) {
-                            $queryString .= " " . $criteria->conditions[$i];
-                        }
+	                        if ($i != 0) {
+	                            $queryString .= " " . $criteria->conditions[$i];
+	                        }
                             $queryString .= " " . $subQueryString;
                         }
                     }
                     if ($queryString) {
-    				return "(" . $queryString . ")";
-    			} else {
+	    				return "(" . $queryString . ")";
+	    			} else {
     				    return null;
     				}
     			} else {
@@ -1122,8 +1136,8 @@ if( ! class_exists( 'XoopsTableObjectHandler' ) ) {
 					if ($record->isAutoIncrement($k)) {
 						$v = $this->getAutoIncrementValue();
 					}
-					if (preg_match("/^__MySqlFunc__/", $v)) {  // for value using MySQL function.
-						$value = preg_replace('/^__MySqlFunc__/', '', $v);
+                    if (isset($vars[$k]['func'])) {  // for value using MySQL function.
+                        $v = $vars[$k]['func'].'('.$v.')';
 					} elseif ($vars[$k]['data_type'] == XOBJ_DTYPE_INT) {
 						if (!is_null($v)) {
 							$v = intval($v);
@@ -1162,8 +1176,8 @@ if( ! class_exists( 'XoopsTableObjectHandler' ) ) {
 					if ($vars[$k]['var_class'] != XOBJ_VCLASS_TFIELD) {
 						continue;
 					}
-					if (preg_match("/^__MySqlFunc__/", $v)) {  // for value using MySQL function.
-						$value = preg_replace('/^__MySqlFunc__/', '', $v);
+                    if (isset($vars[$k]['func'])) {  // for value using MySQL function.
+                        $value = $vars[$k]['func'].'('.$v.')';
 					} elseif ($vars[$k]['data_type'] == XOBJ_DTYPE_INT) {
 						$v = intval($v);
 						$value = ($v) ? $v : 0;
