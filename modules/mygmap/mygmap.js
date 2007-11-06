@@ -280,7 +280,7 @@ function myGmapHTTPRequestLoc(series, data)
   httpReq.send(data);
 }
 var _myGmapSearchMarkers= new Array();
-
+var _myGmapSearchMarkersCount = 0;
 function myGmapGetLocResponse(httpReq, series) {
   if (myGmapIgnoreResponse) return;
   myGmapDebug('myGmapGetLocResponse(httpReq)');
@@ -295,9 +295,10 @@ function myGmapGetLocResponse(httpReq, series) {
     var maxx = -180.0;
     var maxy = -90.0;
     var maxilvl = 0;
-    for(i=0; i <= _myGmapSearchMarkers.length; i++) {
+    for(i=0; i < _myGmapSearchMarkersCount; i++) {
       mygmap_map.removeOverlay(_myGmapSearchMarkers[i]);
     }
+    _myGmapSearchMarkers = new Array();
     for (var idx = 0; idx < len; idx++) {
       var candidate = candidates[idx];
       var addr = candidate.getElementsByTagName('address')[0].firstChild.data.htmlspecialchars();
@@ -350,14 +351,15 @@ function myGmapGetLocResponse(httpReq, series) {
       	last_y = pnts[i].y;
       }
       if (idx_mark < 10) {
-        _myGmapSearchMarkers[idx_mark] = myGmapAddMarker(mygmap_map,pnts[i].x,pnts[i].y,pnts[i].text,'S'+idx_mark,'S'+i);
+        _myGmapSearchMarkers[idx_mark-1] = myGmapAddMarker(mygmap_map,pnts[i].x,pnts[i].y,pnts[i].text,'S'+idx_mark,'S'+i);
       } else {
-        _myGmapSearchMarkers[idx_mark] = myGmapAddMarker(mygmap_map,pnts[i].x,pnts[i].y,pnts[i].text,'S0','S'+i);
+        _myGmapSearchMarkers[idx_mark-1] = myGmapAddMarker(mygmap_map,pnts[i].x,pnts[i].y,pnts[i].text,'S0','S'+i);
       }
       html += '<li><span onclick="mygmap_map.setCenter(new GLatLng('+pnts[i].y+','+pnts[i].x+'),'+(17-pnts[i].lvl)+');return(false)">';
       html += '<span id="mygmap_marker_S'+i+'">'+'S'+idx_mark+'.</span>&nbsp;<a href="?'+q_para+pnts[i].text+'">'+pnts[i].text+'</a>';
       html += '</span></li>';
     }
+    _myGmapSearchMarkersCount = idx_mark;
     html += '</ul>';
     if (myGmapSearchListElement) {
       myGmapSearchListElement.innerHTML =html;
