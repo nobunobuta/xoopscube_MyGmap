@@ -1,6 +1,6 @@
 <?php
-	$mygmap_version_major = '1';
-	$mygmap_version_minor = '1';
+	$mygmap_version_major = '2';
+	$mygmap_version_minor = '5';
 	$mygmap_version_mod   = '0';
 	$mygmap_version_fix   = '-Beta1';
 	$GLOBALS['mygmap_version_str']   = $mygmap_version_major.'.'.$mygmap_version_minor.'.'.$mygmap_version_mod.$mygmap_version_fix;

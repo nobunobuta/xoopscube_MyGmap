@@ -34,7 +34,7 @@
         ),
     );
 
-    $tableDef['stream']['marker'] = array(
+    $tableDef['mygmap']['marker'] = array(
         'fields' => array(
             'mygmap_marker_id' =>          array('int(8)',          'NOT NULL', null, 'auto_increment'),
             'mygmap_marker_category_id' => array('int(8)',          'NOT NULL', "0",  ''),

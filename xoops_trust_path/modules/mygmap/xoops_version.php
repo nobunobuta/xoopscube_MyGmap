@@ -15,8 +15,9 @@ $modversion['dirname'] = 'mygmap'; // It'll be rewritten
 //$modversion['NBFrameOnInstall']['file'] =  '/include/oninstall.inc.php';
 //$modversion['NBFrameOnInstall']['func'][] = 'install_mygmap';
 
-$modversion['NBFrameOnUpdate']['file'] = '/include/onupdate.inc.php';
-$modversion['NBFrameOnUpdate']['func'][] = 'update_mygmap';
+//If you want specify your custom update sequence, uncomment following 2 lines.
+//$modversion['NBFrameOnUpdate']['file'] = '/include/onupdate.inc.php';
+//$modversion['NBFrameOnUpdate']['func'][] = 'update_mygmap';
 
 //If you want specify your custom uninstall sequence, uncomment following 2 lines.
 //$modversion['NBFrameOnUninstall']['file'] =  '/include/onuninstall.inc.php';
@@ -24,25 +25,6 @@ $modversion['NBFrameOnUpdate']['func'][] = 'update_mygmap';
 
 // Menu
 $modversion['hasMain'] = 1;
-
-// DB Table
-$modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
-
-// Tables created by sql file (without prefix!)
-$modversion['tables'][0] = 'marker'; // It'll be rewritten
-$modversion['tables'][1] = 'category'; // It'll be rewritten
-$modversion['tables'][2] = 'area'; // It'll be rewritten
-
-// Templates
-
-$modversion['templates'][1]['file'] = 'main.html'; // It'll be rewritten
-$modversion['templates'][1]['description'] = '';
-$modversion['templates'][2]['file'] = 'category.html'; // It'll be rewritten
-$modversion['templates'][2]['description'] = '';
-$modversion['templates'][3]['file'] = 'marker.html'; // It'll be rewritten
-$modversion['templates'][3]['description'] = '';
-$modversion['templates'][4]['file'] = 'area.html'; // It'll be rewritten
-$modversion['templates'][4]['description'] = '';
 
 $modversion['hasAdmin'] = 1;
 $modversion['adminindex'] = 'admin/index.php'; // It'll be rewritten
