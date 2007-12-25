@@ -19,8 +19,6 @@ if (class_exists('NBFrame')) {
                                                        'MyGmapLoadJscipt',
                                                        ));
 
-    $environment->setAttribute('BlockHandler', array('MyGmapMiniMapBlock'));
-
     $environment->setAttribute('UseAltSys', true);
     $environment->setAttribute('UseBlockAdmin', true);
     $environment->setAttribute('UseTemplateAdmin', true);

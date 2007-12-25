@@ -198,11 +198,12 @@ $modversion['config'][17] = array(
     'default'       => 0 ,
 );
 
-$modversion['blocks'][1]['file'] = 'NBFrameBlockLoader.php'; //You should specify this filename;
+//$modversion['blocks'][1]['file'] = 'NBFrameBlockLoader.php'; //You should specify this filename;
 $modversion['blocks'][1]['name'] = 'Mini Map';
 $modversion['blocks'][1]['description'] = '';
-$modversion['blocks'][1]['show_func'] = 'b_MyGmapMiniMapBlock_show';  // It'll be rewritten
-$modversion['blocks'][1]['edit_func'] = 'b_MyGmapMiniMapBlock_edit';  // It'll be rewritten
+$modversion['blocks'][1]['class'] = 'MyGmapMiniMapBlock';
+$modversion['blocks'][1]['show_func'] = 'show';  // It'll be rewritten
+$modversion['blocks'][1]['edit_func'] = 'edit';  // It'll be rewritten
 $modversion['blocks'][1]['options'] = '1';
 $modversion['blocks'][1]['template'] = 'block_minimap.html';  // It'll be rewritten
 $modversion['blocks'][1]['can_clone'] = true ;
