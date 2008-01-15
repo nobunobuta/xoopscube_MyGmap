@@ -4,7 +4,7 @@ if (!class_exists('MyGmapMarkerAdminAction')) {
 
     class MyGmapMarkerAdminAction extends NBFrameAdminMaintAction {
         function prepare() {
-            parent::prepare('MyGmapMarker', _AD_MYGMAP_LANG_MARKER_TITLE);
+            parent::prepare('MyGmapMarker', $this->__l('Marker Title'));
         }
     }
 }

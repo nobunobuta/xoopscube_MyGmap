@@ -8,15 +8,15 @@ if (!class_exists('MyGmapCategoryAdminList')) {
             parent::prepare();
 
             $this->addElement('mygmap_category_id', '#', 20, array('sort'=>true));
-            $this->addElement('mygmap_category_name', _AD_MYGMAP_LANG_TITLE, 300);
-            $this->addElement('mygmap_category_maptype', _AD_MYGMAP_LANG_MAPTYPE, 80, array('sort'=>true));
+            $this->addElement('mygmap_category_name', $this->__l('Title'), 300);
+            $this->addElement('mygmap_category_maptype', $this->__l('MapType'), 80, array('sort'=>true));
             $this->addElement('__SimpleEditLink__','',50, array('caption'=>$this->__l('Edit')));
             $this->addElement('__SimpleDeleteLink__','',50, array('caption'=>$this->__l('Delete')));
             $this->addElement('__SimplePermLink__','',50, array('caption'=>$this->__l('Perm')));
         }
         
         function formatItem_mygmap_category_maptype($value) {
-            $optionArray = array('', _AD_MYGMAP_LANG_MAPTYPE_MAP,_AD_MYGMAP_LANG_MAPTYPE_SATELITE,_AD_MYGMAP_LANG_MAPTYPE_HYBRID);
+            $optionArray = array('', $this->__l('MapType Map'),$this->__l('MapType Satelite'),$this->__l('Maptype_Hybrid'));
             return $optionArray[$value];
         }
 

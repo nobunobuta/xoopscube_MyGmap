@@ -19,7 +19,7 @@ if (!class_exists('MyGmapMainAction')) {
             $criteria = new Criteria(1, intNBCriteriaVal(1));
             $categoryObjects =& $categoryHandler->getObjects($criteria);
             $this->elements['catlist'] = array();
-            $this->elements['catlist'][] = array('id'=>-1, 'name'=>_MYGMAP_LANG_ALLCATEGORY);
+            $this->elements['catlist'][] = array('id'=>-1, 'name'=>$this->__l('All Categories'));
             foreach($categoryObjects as $categoryObject) {
                 $mygmap_cat = array();
                 $mygmap_cat['id'] = $categoryObject->getVar('mygmap_category_id');

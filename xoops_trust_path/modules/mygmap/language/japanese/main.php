@@ -1,30 +1,31 @@
 <?php
-if (!defined('MYGMAP_LANGUAGE_MAIN_READ')) {
-define ('MYGMAP_LANGUAGE_MAIN_READ','1');
+$constpref = NBFrame::langConstPrefix('', NBFRAME_TARGET_TEMP);
+if (!defined($constpref.'LANGUAGE_MAIN_READ')) {
+define($constpref.'LANGUAGE_MAIN_READ','1');
 
-define('_MYGMAP_LANG_SETDEFAULT','現在地をデフォルトに変更');
-define('_MYGMAP_LANG_NEWCATEGORY','現在地をカテゴリー追加');
-define('_MYGMAP_LANG_NEWPOINT','現在地をマーカ追加');
-define('_MYGMAP_LANG_NEWAREA','現在地をエリア追加');
+define($constpref.'LANG_SET_DEFAULT','現在地をデフォルトに変更');
+define($constpref.'LANG_NEW_CATEGORY','現在地をカテゴリー追加');
+define($constpref.'LANG_NEW_POINT','現在地をマーカ追加');
+define($constpref.'LANG_NEW_AREA','現在地をエリア追加');
 
-define('_MYGMAP_LANG_AREA','表示エリア');
-define('_MYGMAP_LANG_CATEGORY','カテゴリー');
-define('_MYGMAP_LANG_MARKER','マーカー');
+define($constpref.'LANG_AREA','表示エリア');
+define($constpref.'LANG_CATEGORY','カテゴリー');
+define($constpref.'LANG_MARKER','マーカー');
 
-define('_MYGMAP_LANG_ALLCATEGORY','全て');
+define($constpref.'LANG_ALL_CATEGORIES','全て');
 
-define('_MYGMAP_LANG_TITLE','タイトル');
-define('_MYGMAP_LANG_DESCRIPTION','説明');
-define('_MYGMAP_LANG_ORDER','表示順');
-define('_MYGMAP_LANG_LAT','経度');
-define('_MYGMAP_LANG_LNG','緯度');
-define('_MYGMAP_LANG_ZOOM','縮尺');
-define('_MYGMAP_LANG_ICON','アイコン');
-define('_MYGMAP_LANG_ADDRESS','住所');
-define('_MYGMAP_LANG_STATION','駅');
-define('_MYGMAP_LANG_MAPTYPE','モード');
-define('_MYGMAP_LANG_MAPTYPE_MAP','地図');
-define('_MYGMAP_LANG_MAPTYPE_SATELITE','サテライト');
-define('_MYGMAP_LANG_MAPTYPE_HYBRID','デュアル');
+define($constpref.'LANG_TITLE','タイトル');
+define($constpref.'LANG_DESCRIPTION','説明');
+define($constpref.'LANG_ORDER','表示順');
+define($constpref.'LANG_LAT','経度');
+define($constpref.'LANG_LNG','緯度');
+define($constpref.'LANG_ZOOM','縮尺');
+define($constpref.'LANG_ICON','アイコン');
+define($constpref.'LANG_ADDRESS','住所');
+define($constpref.'LANG_STATION','駅');
+define($constpref.'LANG_MAPTYPE','モード');
+define($constpref.'LANG_MAPTYPE_MAP','地図');
+define($constpref.'LANG_MAPTYPE_SATELITE','サテライト');
+define($constpref.'LANG_MAPTYPE_HYBRID','デュアル');
 }
 ?>

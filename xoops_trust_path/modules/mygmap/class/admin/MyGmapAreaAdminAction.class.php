@@ -4,7 +4,7 @@ if (!class_exists('MyGmapAreaAdminAction')) {
 
     class MyGmapAreaAdminAction extends NBFrameAdminMaintAction {
         function prepare() {
-            parent::prepare('MyGmapArea', _AD_MYGMAP_LANG_AREA_TITLE);
+            parent::prepare('MyGmapArea', $this->__l('Area Title'));
         }
     }
 }

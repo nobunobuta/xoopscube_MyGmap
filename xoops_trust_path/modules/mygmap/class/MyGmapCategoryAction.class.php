@@ -5,7 +5,7 @@ if (!class_exists('MyGmapCategoryAction')) {
     class MyGmapCategoryAction extends NBFrameObjectAction
     {
         function prepare() {
-            parent::prepare('MyGmapCategory', 'mygmap_catedit',_MYGMAP_LANG_CATEGORY);
+            parent::prepare('MyGmapCategory', 'mygmap_catedit',$this->__l('Category'));
             $this->setObjectForm('MyGmapCategory');
             $this->setFormTemplate($this->prefix('category.html'));
             $this->setExecutePermission('categoryedit');

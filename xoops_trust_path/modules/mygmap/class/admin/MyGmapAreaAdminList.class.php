@@ -6,14 +6,14 @@ if (!class_exists('MyGmapAreaAdminList')) {
     {
         function prepare() {
             $this->addElement('mygmap_area_id', '#', 20, array('sort'=>true));
-            $this->addElement('mygmap_area_name',  _AD_MYGMAP_LANG_TITLE, 300);
-            $this->addElement('mygmap_area_order', _AD_MYGMAP_LANG_ORDER, 50, array('sort'=>true));
-            $this->addElement('mygmap_area_maptype', _AD_MYGMAP_LANG_MAPTYPE, 80, array('sort'=>true));
+            $this->addElement('mygmap_area_name',  $this->__l('Title'), 300);
+            $this->addElement('mygmap_area_order', $this->__l('Order'), 50, array('sort'=>true));
+            $this->addElement('mygmap_area_maptype', $this->__l('MapType'), 80, array('sort'=>true));
             $this->addElement('__SimpleEditLink__','',50, array('caption'=>$this->__l('Edit')));
             $this->addElement('__SimpleDeleteLink__','',50, array('caption'=>$this->__l('Delete')));
         }
         function formatItem_mygmap_area_maptype($value) {
-            $optionArray = array('', _AD_MYGMAP_LANG_MAPTYPE_MAP,_AD_MYGMAP_LANG_MAPTYPE_SATELITE,_AD_MYGMAP_LANG_MAPTYPE_HYBRID);
+            $optionArray = array('', $this->__l('Maptype Map'),$this->__l('Maptype Satelite'),$this->__l('Maptype Hybrid'));
             return $optionArray[$value];
         }
     }

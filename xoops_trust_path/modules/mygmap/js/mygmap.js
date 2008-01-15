@@ -181,7 +181,8 @@ function myGmapMoved() {
   var bounds = mygmap_map.getBounds();
   var zoomlevel = mygmap_map.getZoom();
   var maptype = ((mygmap_map.getCurrentMapType() == G_NORMAL_MAP) ? 1
-            : ((mygmap_map.getCurrentMapType() == G_SATELLITE_MAP)?  2 : 3));
+            : ((mygmap_map.getCurrentMapType() == G_SATELLITE_MAP)?  2
+            : ((mygmap_map.getCurrentMapType() == G_HYBRID_MAP)?  3 : 1)));
   myGmapSetFormVaules(center.lat(), center.lng(), zoomlevel, maptype);
   mygmap_map.removeOverlay(myGmapCenterMarker);
   myGmapCenterMarker = new GMarker(new GLatLng(center.lat(),center.lng()),myGmapCenterIcon);

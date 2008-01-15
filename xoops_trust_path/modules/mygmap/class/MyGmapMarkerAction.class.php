@@ -5,7 +5,7 @@ if (!class_exists('MyGmapMarkerAction')) {
     class MyGmapMarkerAction extends NBFrameObjectAction
     {
         function prepare() {
-            parent::prepare('MyGmapMarker', 'mygmap_markedit',_MYGMAP_LANG_MARKER);
+            parent::prepare('MyGmapMarker', 'mygmap_markedit',$this->__l('Marker'));
             $this->setObjectForm('MyGmapMarker');
             $this->setFormTemplate($this->prefix('marker.html'));
             $this->setExecutePermission('markeredit');
