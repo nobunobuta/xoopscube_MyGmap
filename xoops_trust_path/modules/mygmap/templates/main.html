@@ -113,7 +113,7 @@ myGmapCenterAndZoom(<{$mygmap_center_lat}>,<{$mygmap_center_lng}>,<{$mygmap_zoom
   myGmapRequestLoc('STATION', '<{$mygmap_station}>');
 <{/if}>
 <{foreach item=mygmap_overlay from=$mygmap_overlays}>
-  myGmapAddOverlay(mygmap_map, '<{$smarty.const.XOOPS_URL}>/modules/<{$mygmap_dirname}>/?action=MyGmapLoadKLM&file=<{$mygmap_overlay}>');
+  myGmapAddOverlay(mygmap_map, '<{$mygmap_overlay}>');
 <{/foreach}>
 <{foreach item=mygmap_marker from=$mygmap_markers}>
   myGmapAddMarker(mygmap_map, <{$mygmap_marker.lat}>, <{$mygmap_marker.lng}>,'<{$mygmap_marker.text}>','<{$mygmap_marker.mark}>',<{$mygmap_marker.id}>);

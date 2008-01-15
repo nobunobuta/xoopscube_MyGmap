@@ -54,7 +54,7 @@ if (!class_exists('MyGmapMainAction')) {
                     $this->elements['category']['name'] = $categoryObject->getVar('mygmap_category_name');
                     $this->elements['category']['desc'] = $categoryObject->getVar('mygmap_category_desc');
                     if ($categoryObject->getVar('mygmap_category_overlay')) {
-                        $this->elements['overlay'][] = $categoryObject->getVar('mygmap_category_overlay');
+                        $this->elements['overlay'][] = $this->overlayURL($categoryObject->getVar('mygmap_category_overlay'));
                     }
                 } else {
                     $this->elements['center_lat'] = $mygmap_marker['lat'] = $GLOBALS['xoopsModuleConfig']['mygmap_lat'];
@@ -63,7 +63,7 @@ if (!class_exists('MyGmapMainAction')) {
                     $this->elements['category']['id'] = -1;
                     foreach($categoryObjects as $categoryObject) {
                         if ($categoryObject->getVar('mygmap_category_overlay')) {
-                            $this->elements['overlay'][] = $categoryObject->getVar('mygmap_category_overlay');
+                            $this->elements['overlay'][] = $this->overlayURL($categoryObject->getVar('mygmap_category_overlay'));
                         }
                     }
                 }
@@ -205,6 +205,15 @@ if (!class_exists('MyGmapMainAction')) {
             $this->mXoopsTpl->assign('mygmap_credit', $credit);
         }
 
+        function overlayURL($str)
+        {
+            if (preg_match('/^mymap\:([0-9a-z\.]+)$/',$str,$matches)) {
+                $url = 'http://maps.google.co.jp/maps/ms?ie=UTF8&hl=ja&msa=0&output=kml&msid='.$matches[1];
+            } else {
+                $url = 'http://www.zuisen.com/modules/mygmap/?action=MyGmapLoadKLM&file='.basename($str);
+            }
+            return $url;
+        }
         function usort_cmp($a, $b) {
             if ($a['mark'] === $b['mark']) return (($a['title'] < $b['title']) ? -1: 1);
             if (trim($a['mark']) === '') return 1;
