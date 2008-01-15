@@ -23,5 +23,6 @@ if (class_exists('NBFrame')) {
     $environment->setAttribute('UseAltSys', true);
     $environment->setAttribute('UseBlockAdmin', true);
     $environment->setAttribute('UseTemplateAdmin', true);
+    $environment->setAttribute('UseLanguageAdmin', true);
 }
 ?>

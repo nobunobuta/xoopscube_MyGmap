@@ -11,9 +11,6 @@
             'mygmap_category_overlay' =>    array('varchar(255)', 'NOT NULL', "",  ''),
         ),
         'primary' => 'mygmap_category_id',
-        'keys' => array(
-            'mygmap_category_updatetime_key' => 'mygmap_category_updatetime',
-        ),
         'usesys'=> true,
     );
 
@@ -29,9 +26,6 @@
             'mygmap_area_maptype' =>    array('int(5)',       'NOT NULL', "0", ''),
         ),
         'primary' => 'mygmap_area_id',
-        'keys' => array(
-            'mygmap_area_updatetime_key' => 'mygmap_area_updatetime',
-        ),
         'usesys'=> true,
     );
 
@@ -50,7 +44,6 @@
         'primary' => 'mygmap_marker_id',
         'keys' => array(
             'mygmap_marker_category_id_key' => 'mygmap_marker_category_id',
-            'mygmap_marker_updatetime_key'  => 'mygmap_marker_updatetime',
         ),
         'usesys'=> true,
     );
