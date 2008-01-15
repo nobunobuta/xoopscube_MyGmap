@@ -9,6 +9,7 @@ if (class_exists('NBFrame')) {
                                                       'MyGmapHttpReq',
                                                       'MyGmapSetDefault',
                                                       'MyGmapLoadJscipt',
+                                                      'MyGmapLoadKLM',
                                                       'admin.MyGmapMainAdmin',
                                                       'admin.MyGmapAreaAdmin',
                                                       'admin.MyGmapMarkerAdmin',

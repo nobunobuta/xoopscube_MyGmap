@@ -21,6 +21,7 @@ define($constpref.'LANG_LAT','経度');
 define($constpref.'LANG_LNG','緯度');
 define($constpref.'LANG_ZOOM','縮尺');
 define($constpref.'LANG_ICON','アイコン');
+define($constpref.'LANG_OVERLAY','オーバーレイ');
 define($constpref.'LANG_ADDRESS','住所');
 define($constpref.'LANG_STATION','駅');
 define($constpref.'LANG_MAPTYPE','モード');

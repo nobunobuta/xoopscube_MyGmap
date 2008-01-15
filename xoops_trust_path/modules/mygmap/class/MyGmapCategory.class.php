@@ -2,9 +2,8 @@
 if( ! class_exists( 'MyGmapCategory' ) ) {
     class MyGmapCategory extends NBFrameObject
     {
-        function MyGmapCategory() {
-            $this->NBFrameObject();
 
+        function prepare() {
             $this->initVar('mygmap_category_id', XOBJ_DTYPE_INT, 0, true);
             $this->initVar('mygmap_category_name', XOBJ_DTYPE_TXTBOX, '', true, 255);
             $this->initVar('mygmap_category_desc', XOBJ_DTYPE_TXTAREA, null, false);

@@ -14,7 +14,8 @@ if (!class_exists('MyGmapMainAction')) {
             $myts =& MyTextSanitizer::getInstance();
             $this->elements['markers'] = array();
             $this->elements['category'] = array();
-
+            $this->elements['overlay'] = array();
+            
             $categoryHandler =& NBFrame::getHandler('MyGmapCategory', $this->mEnvironment);
             $criteria = new Criteria(1, intNBCriteriaVal(1));
             $categoryObjects =& $categoryHandler->getObjects($criteria);
@@ -52,11 +53,19 @@ if (!class_exists('MyGmapMainAction')) {
                     $this->elements['category']['id'] = $categoryObject->getVar('mygmap_category_id');
                     $this->elements['category']['name'] = $categoryObject->getVar('mygmap_category_name');
                     $this->elements['category']['desc'] = $categoryObject->getVar('mygmap_category_desc');
+                    if ($categoryObject->getVar('mygmap_category_overlay')) {
+                        $this->elements['overlay'][] = $categoryObject->getVar('mygmap_category_overlay');
+                    }
                 } else {
                     $this->elements['center_lat'] = $mygmap_marker['lat'] = $GLOBALS['xoopsModuleConfig']['mygmap_lat'];
                     $this->elements['center_lng'] = $mygmap_marker['lng'] = $GLOBALS['xoopsModuleConfig']['mygmap_lng'];
                     $this->elements['zoom'] = $GLOBALS['xoopsModuleConfig']['mygmap_zoom'];
                     $this->elements['category']['id'] = -1;
+                    foreach($categoryObjects as $categoryObject) {
+                        if ($categoryObject->getVar('mygmap_category_overlay')) {
+                            $this->elements['overlay'][] = $categoryObject->getVar('mygmap_category_overlay');
+                        }
+                    }
                 }
                 
                 if (!empty($_GET['id'])) {
@@ -145,6 +154,7 @@ if (!class_exists('MyGmapMainAction')) {
             $this->mXoopsTpl->assign('mygmap_catlist', $this->elements['catlist']);
             $this->mXoopsTpl->assign('mygmap_markers', $this->elements['markers']);
             $this->mXoopsTpl->assign('mygmap_areas', $this->elements['areas']);
+            $this->mXoopsTpl->assign('mygmap_overlays', $this->elements['overlay']);
             $this->mXoopsTpl->assign('mygmap_search', $GLOBALS['xoopsModuleConfig']['mygmap_search']);
             $this->mXoopsTpl->assign('mygmap_addr', $this->elements['addr']);
             $this->mXoopsTpl->assign('mygmap_station', $this->elements['station']);

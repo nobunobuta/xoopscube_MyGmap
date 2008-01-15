@@ -10,6 +10,7 @@ if (!class_exists('MyGmapCategoryForm')) {
             $this->addElement('mygmap_category_lat',new XoopsFormHidden('mygmap_category_lat',0));
             $this->addElement('mygmap_category_lng',new XoopsFormHidden('mygmap_category_lng',0));
             $this->addElement('mygmap_category_zoom',new XoopsFormHidden('mygmap_category_zoom',0));
+            $this->addElement('mygmap_category_overlay',new XoopsFormText($this->__l('Overlay'),'mygmap_category_overlay',35,255));
             $this->addElement('mygmap_category_maptype',new XoopsFormSelect($this->__l('MapType'),'mygmap_category_maptype'));
             $this->addOptionArray('mygmap_category_maptype',array(
                 '0' =>'----' ,

@@ -252,6 +252,10 @@ function myGmapSetAttributeByID(id, name, value) {
 var _myGmapMarkers= new Array();
 var _myGmapMarkerIdx=0;
 
+function myGmapAddOverlay(map, url) {
+   var gx = new GGeoXml(url);
+   map.addOverlay(gx);
+}
 function myGmapAddMarker(map, lat, lng, html, letter, id) {
   var point = new GLatLng(lat,lng);
   if (letter == undefined) {

@@ -8,6 +8,7 @@
             'mygmap_category_lng' =>        array('double(14,9)', 'NOT NULL', "0.000000000", ''),
             'mygmap_category_zoom' =>       array('int(2)',       'NOT NULL', "0", ''),
             'mygmap_category_maptype' =>    array('int(5)',       'NOT NULL', "0", ''),
+            'mygmap_category_overlay' =>    array('varchar(255)', 'NOT NULL', "",  ''),
             'mygmap_category_updatetime' => array('int(10)',      'NOT NULL', "0", ''),
         ),
         'primary' => 'mygmap_category_id',
