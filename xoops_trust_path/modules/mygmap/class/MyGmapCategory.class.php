@@ -68,7 +68,7 @@ if( ! class_exists( 'MyGmapCategory' ) ) {
         var $mTableName = 'category';
         
         function insert(&$record,$force=false,$updateOnlyChanged=false) {
-            $record->setVar('mygmap_category_updatetime', time(), true);
+            $record->set('mygmap_category_updatetime', time());
             return parent::insert($record,$force,$updateOnlyChanged);
         }
         

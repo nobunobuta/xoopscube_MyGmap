@@ -99,7 +99,7 @@ if( ! class_exists( 'MyGmapMarker' ) ) {
         }
         
         function insert(&$record,$force=false,$updateOnlyChanged=false) {
-            $record->setVar('mygmap_marker_updatetime', time(), true);
+            $record->set('mygmap_marker_updatetime', time());
             return parent::insert($record,$force,$updateOnlyChanged);
         }
         
