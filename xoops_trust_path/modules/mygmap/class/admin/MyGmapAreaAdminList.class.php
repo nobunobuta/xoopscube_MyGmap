@@ -6,9 +6,9 @@ if (!class_exists('MyGmapAreaAdminList')) {
     {
         function prepare() {
             $this->addElement('mygmap_area_id', '#', 20, array('sort'=>true));
-            $this->addElement('mygmap_area_name',  $this->__l('Title'), 300);
-            $this->addElement('mygmap_area_order', $this->__l('Order'), 50, array('sort'=>true));
-            $this->addElement('mygmap_area_maptype', $this->__l('MapType'), 80, array('sort'=>true));
+            $this->addElement('mygmap_area_name',  $this->__l('mygmap_area_name'), 300);
+            $this->addElement('mygmap_area_order', $this->__l('mygmap_area_order'), 50, array('sort'=>true));
+            $this->addElement('mygmap_area_maptype', $this->__l('mygmap_area_maptype'), 80, array('sort'=>true));
             $this->addElement('__SimpleEditLink__','',50, array('caption'=>$this->__l('Edit')));
             $this->addElement('__SimpleDeleteLink__','',50, array('caption'=>$this->__l('Delete')));
         }

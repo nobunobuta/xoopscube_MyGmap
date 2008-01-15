@@ -4,6 +4,7 @@ if (!class_exists('MyGmapCategoryAdminAction')) {
 
     class MyGmapCategoryAdminAction extends NBFrameAdminMaintAction {
         function prepare() {
+            $this->mHalfAutoForm = true;
             parent::prepare('MyGmapCategory', $this->__l('Category Title'));
             $this->mAllowedOp = array_merge($this->mAllowedOp, array('perm'));
         }

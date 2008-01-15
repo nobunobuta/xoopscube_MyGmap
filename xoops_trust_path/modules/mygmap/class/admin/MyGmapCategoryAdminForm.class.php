@@ -4,14 +4,8 @@ if (!class_exists('MyGmapCategoryAdminForm')) {
 
     class MyGmapCategoryAdminForm extends NBFrameObjectForm {
         function prepare() {
-            $this->addElement('mygmap_category_id',new XoopsFormHidden('mygmap_category_id',0));
-            $this->addElement('mygmap_category_name',new XoopsFormText($this->__l('Title'),'mygmap_category_name',50,255));
-            $this->addElement('mygmap_category_desc',new XoopsFormDhtmlTextArea($this->__l('Description'),'mygmap_category_desc','',5,25));
-            $this->addElement('mygmap_category_lat',new XoopsFormText($this->__l('Lat'),'mygmap_category_lat',25,22));
-            $this->addElement('mygmap_category_lng',new XoopsFormText($this->__l('Lng'),'mygmap_category_lng',25,22));
-            $this->addElement('mygmap_category_zoom',new XoopsFormSelect($this->__l('Zoom'),'mygmap_category_zoom'));
-            $this->addElement('mygmap_category_overlay',new XoopsFormText($this->__l('Overlay'),'mygmap_category_overlay',50,255));
-            $this->addElement('mygmap_category_maptype',new XoopsFormSelect($this->__l('Maptype'),'mygmap_category_maptype'));
+            $this->addElement('mygmap_category_zoom',new XoopsFormSelect($this->__l('mygmap_category_zoom'),'mygmap_category_zoom'));
+            $this->addElement('mygmap_category_maptype',new XoopsFormSelect($this->__l('mygmap_category_maptype'),'mygmap_category_maptype'));
             
             $this->addOptionArray('mygmap_category_zoom',array(
                 '0' =>'0' , '1' =>'1' , '2' =>'2' , '3' =>'3' , '4' =>'4' , '5' =>'5' ,

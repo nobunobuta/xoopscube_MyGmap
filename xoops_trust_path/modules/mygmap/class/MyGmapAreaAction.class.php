@@ -5,6 +5,7 @@ if (!class_exists('MyGmapAreaAction')) {
     class MyGmapAreaAction extends NBFrameObjectAction
     {
         function prepare() {
+            $this->mHalfAutoForm = true;
             parent::prepare('MyGmapArea','mygmap_areaedit',$this->__l('Area'));
             $this->setObjectForm('MyGmapArea');
             $this->setFormTemplate($this->prefix('area.html'));

@@ -5,6 +5,7 @@ if (!class_exists('MyGmapMarkerAction')) {
     class MyGmapMarkerAction extends NBFrameObjectAction
     {
         function prepare() {
+            $this->mHalfAutoForm = true;
             parent::prepare('MyGmapMarker', 'mygmap_markedit',$this->__l('Marker'));
             $this->setObjectForm('MyGmapMarker');
             $this->setFormTemplate($this->prefix('marker.html'));

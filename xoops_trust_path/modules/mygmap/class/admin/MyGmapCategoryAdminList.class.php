@@ -8,8 +8,8 @@ if (!class_exists('MyGmapCategoryAdminList')) {
             parent::prepare();
 
             $this->addElement('mygmap_category_id', '#', 20, array('sort'=>true));
-            $this->addElement('mygmap_category_name', $this->__l('Title'), 300);
-            $this->addElement('mygmap_category_maptype', $this->__l('MapType'), 80, array('sort'=>true));
+            $this->addElement('mygmap_category_name', $this->__l('mygmap_category_name'), 300);
+            $this->addElement('mygmap_category_maptype', $this->__l('mygmap_category_maptype'), 80, array('sort'=>true));
             $this->addElement('__SimpleEditLink__','',50, array('caption'=>$this->__l('Edit')));
             $this->addElement('__SimpleDeleteLink__','',50, array('caption'=>$this->__l('Delete')));
             $this->addElement('__SimplePermLink__','',50, array('caption'=>$this->__l('Perm')));

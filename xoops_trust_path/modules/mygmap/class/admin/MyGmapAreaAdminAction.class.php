@@ -4,6 +4,7 @@ if (!class_exists('MyGmapAreaAdminAction')) {
 
     class MyGmapAreaAdminAction extends NBFrameAdminMaintAction {
         function prepare() {
+            $this->mHalfAutoForm = true;
             parent::prepare('MyGmapArea', $this->__l('Area Title'));
         }
     }

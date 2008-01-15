@@ -4,9 +4,13 @@ if (!class_exists('MyGmapSetDefaultAction')) {
     class MyGmapSetDefaultAction extends NBFrameAction {
         function executeDefaultOp() {
             if ($GLOBALS['xoopsUserIsAdmin']) {
-                if (isset($_POST['lat']) && isset($_POST['lng']) && isset($_POST['zoom'])) {
+                $this->mRequest->defParam('lat',  'POST', 'float', NBFRAME_NO_DEFAULT_PARAM, true);
+                $this->mRequest->defParam('lng',  'POST', 'float', NBFRAME_NO_DEFAULT_PARAM, true);
+                $this->mRequest->defParam('zoom', 'POST', 'int',   NBFRAME_NO_DEFAULT_PARAM, true);
+                if (!$this->mRequest->hasError()) {
+                    $params = $this->mRequest->getParam();
                     $update_configs = array('mygmap_lat','mygmap_lng','mygmap_zoom');
-                    $update_vars = array(floatval($_POST['lat']),floatval($_POST['lng']),intval($_POST['zoom']));
+                    $update_vars = array($params['lat'], $params['lng'], $params['zoom']);
                     $config_handler =& xoops_gethandler('configitem');
                     foreach($update_configs as $key=>$update_config) {
                         $criteria = new CriteriaCompo(new Criteria('conf_modid', $GLOBALS['xoopsModule']->getVar('mid')));

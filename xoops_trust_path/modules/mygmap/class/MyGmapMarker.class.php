@@ -2,34 +2,6 @@
 if( ! class_exists( 'MyGmapMarker' ) ) {
     class MyGmapMarker extends NBFrameObject
     {
-        function MyGmapMarker() {
-
-            $this->NBFrameObject();
-
-            $this->initVar('mygmap_marker_id', XOBJ_DTYPE_INT, 0, true);
-            $this->initVar('mygmap_marker_category_id', XOBJ_DTYPE_INT, 0, true);
-            $this->initVar('mygmap_marker_title', XOBJ_DTYPE_TXTBOX, '', true, 255);
-            $this->initVar('mygmap_marker_desc', XOBJ_DTYPE_TXTAREA, null, false);
-            $this->initVar('mygmap_marker_icontext', XOBJ_DTYPE_TXTBOX, '', false, 2);
-            $this->initVar('mygmap_marker_lat', XOBJ_DTYPE_FLOAT, 0, true);
-            $this->initVar('mygmap_marker_lng', XOBJ_DTYPE_FLOAT, 0, true);
-            $this->initVar('mygmap_marker_zoom', XOBJ_DTYPE_INT, 0, true);
-            $this->initVar('mygmap_marker_uid', XOBJ_DTYPE_INT, 0, true);
-            $this->initVar('mygmap_marker_maptype', XOBJ_DTYPE_INT, 0, false);
-            $this->initVar('mygmap_marker_updatetime', XOBJ_DTYPE_INT, false);
-
-            $this->setAttribute('dohtml', 0);
-            $this->setAttribute('doxcode', 1);
-            $this->setAttribute('dosmiley', 1);
-            $this->setAttribute('doimage', 1);
-            $this->setAttribute('dobr', 1);
-
-            $this->setKeyFields(array('mygmap_marker_id'));
-            $this->setNameField('mygmap_marker_title');
-
-            $this->setAutoIncrementField('mygmap_marker_id');
-        }
-        
         // Special Verifier
         
         function checkVar_mygmap_marker_lat($value) {
@@ -96,26 +68,6 @@ if( ! class_exists( 'MyGmapMarker' ) ) {
                 $result["$ch"] = "$ch";
             }
             return $result;
-        }
-        
-        function insert(&$record,$force=false,$updateOnlyChanged=false) {
-            $record->set('mygmap_marker_updatetime', time());
-            return parent::insert($record,$force,$updateOnlyChanged);
-        }
-        
-        function getLastModified($criteria = null) {
-            if (empty($criteria)) {
-                $criteria = new Criteria(1, intNBCriteriaVal(1));
-            }
-            $criteria->setSort('mygmap_marker_updatetime');
-            $criteria->setOrder('DESC');
-            $_prevLimit = $criteria->getLimit();
-            $criteria->setLimit(1);
-            $markerObjects =& $this->getObjects($criteria, false, 'mygmap_marker_updatetime');
-            $lastModified = $markerObjects[0]->getVar('mygmap_marker_updatetime');
-            $criteria->setLimit($_prevLimit);
-
-            return $lastModified;
         }
     }
 }

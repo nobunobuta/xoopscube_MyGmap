@@ -4,6 +4,7 @@ if (!class_exists('MyGmapMarkerAdminAction')) {
 
     class MyGmapMarkerAdminAction extends NBFrameAdminMaintAction {
         function prepare() {
+            $this->mHalfAutoForm = true;
             parent::prepare('MyGmapMarker', $this->__l('Marker Title'));
         }
     }
