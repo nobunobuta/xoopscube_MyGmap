@@ -35,6 +35,7 @@ if (!class_exists('MyGmapMainAction')) {
                 $this->elements['center_lat'] = $mygmap_marker['lat'] = floatval($_GET['lat']);
                 $this->elements['center_lng'] = $mygmap_marker['lng'] = floatval($_GET['lng']);
                 $this->elements['zoom'] = $mygmap_marker['zoom'] = (isset($_GET['z'])) ? intval($_GET['z']) : $GLOBALS['xoopsModuleConfig']['mygmap_z'];
+                $this->elements['maptype'] = (isset($_GET['t'])) ? intval($_GET['t']) : $GLOBALS['xoopsModuleConfig']['mygmap_maptype'];
                 $mygmap_marker['mark'] = (isset($_GET['mark'])) ? htmlspecialchars(strtoupper($_GET['mark']),ENT_QUOTES) : '';
                 $mygmap_text =(!empty($_GET['text'])) ? mb_convert_encoding($_GET['text'],'EUC-JP','auto') : $GLOBALS['xoopsModuleConfig']['mygmap_text2'];
                 $mygmap_marker['text'] = str_replace("'","\'",$myts->makeTareaData4Show($mygmap_text));
@@ -210,7 +211,7 @@ if (!class_exists('MyGmapMainAction')) {
             if (preg_match('/^mymap\:([0-9a-z\.]+)$/',$str,$matches)) {
                 $url = 'http://maps.google.co.jp/maps/ms?ie=UTF8&hl=ja&msa=0&output=kml&msid='.$matches[1];
             } else {
-                $url = 'http://www.zuisen.com/modules/mygmap/?action=MyGmapLoadKLM&file='.basename($str);
+                $url = XOOPS_URL.'/modules/'.$this->mDirName.'/?action=MyGmapLoadKLM&file='.basename($str);
             }
             return $url;
         }

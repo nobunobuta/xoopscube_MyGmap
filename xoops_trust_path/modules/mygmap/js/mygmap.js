@@ -62,6 +62,7 @@ var myGmapLocSearch;
 var myGmapListInMapOnly = 0;
 var myGmapMapTypes = {};
 var myGmapLatestKnownHoveringPoint = null;
+var myGmapOverviewMapControl = null;
 
 //Google Map Initializing
 function myGmapLoad() {
@@ -71,7 +72,8 @@ function myGmapLoad() {
     mygmap_map.addControl(new GLargeMapControl());
     mygmap_map.addControl(new GMapTypeControl());
     mygmap_map.addControl(new GScaleControl());
-    mygmap_map.addControl(new GOverviewMapControl());
+    myGmapOverviewMapControl = new GOverviewMapControl();
+    mygmap_map.addControl(myGmapOverviewMapControl);
     mygmap_map.enableContinuousZoom();
 //    mygmap_map.enableDoubleClickZoom();
     myGmapCenterIcon = new GIcon();
@@ -86,29 +88,6 @@ function myGmapLoad() {
     myGmapAddressElement = document.getElementById('mygmap_addr');
 
     myGmapMapTypes = new Array(null, G_NORMAL_MAP, G_SATELLITE_MAP, G_HYBRID_MAP);
-
-    if (G_NORMAL_MAP.getMaximumResolution()==17) {
-      // Following Lines make new Maptype for higher resolution
-      var myNewNormalMapTypeOptions = { 
-        shortName:G_NORMAL_MAP.getName(true),
-        urlArg:G_NORMAL_MAP.getUrlArg(),
-        maxResolution:19,
-        minResolution:G_NORMAL_MAP.getMinimumResolution(),
-        tileSize:G_NORMAL_MAP.getTileSize(),
-        textColor:G_NORMAL_MAP.getTextColor(),
-        linkColor:G_NORMAL_MAP.getLinkColor(),
-        errorMessage:G_NORMAL_MAP.getErrorMessage()
-      };
-
-      var myNewNormalMapType = new GMapType(G_NORMAL_MAP.getTileLayers(), G_NORMAL_MAP.getProjection(), G_NORMAL_MAP.getName(false), myNewNormalMapTypeOptions);
-      mygmap_map.removeMapType(G_NORMAL_MAP);
-      G_NORMAL_MAP = myNewNormalMapType;
-      mygmap_map.addMapType(G_NORMAL_MAP);
-      mygmap_map.removeMapType(G_SATELLITE_MAP);
-      mygmap_map.removeMapType(G_HYBRID_MAP);
-      mygmap_map.addMapType(G_SATELLITE_MAP);
-      mygmap_map.addMapType(G_HYBRID_MAP);
-    }
 
     GEvent.addListener(mygmap_map, "moveend", function() {myGmapMoved();});
     GEvent.addListener(mygmap_map, "zoom", function(oldZoomLevel, newZoomLevel){myGmapZoomed();});
@@ -140,7 +119,7 @@ function myGmapShowBlocks() {
     }
   }
 }
-
+var myGmapOverviewMap;
 function myGmapCenterAndZoom() {
   var id = 0;
   var maptype =0
@@ -155,6 +134,8 @@ function myGmapCenterAndZoom() {
   mygmap_map.setCenter(new GLatLng(lat, lng), zoom);
   if (maptype > 0) {
     mygmap_map.setMapType(myGmapMapTypes[maptype]);
+    mygmap_map.setCenter(new GLatLng(lat, lng), zoom);
+    myGmapOverviewMap = myGmapOverviewMapControl.getOverviewMap();
   }
 
   if (id > 0) {

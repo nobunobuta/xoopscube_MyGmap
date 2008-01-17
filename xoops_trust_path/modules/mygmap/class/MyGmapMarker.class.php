@@ -21,10 +21,10 @@ if( ! class_exists( 'MyGmapMarker' ) ) {
         }
 
         function checkVar_mygmap_marker_zoom($value) {
-            if (($value >= 0) && ($value <= 19)) {
+            if (($value >= 0) && ($value <= 24)) {
                 return true;
             }
-            $this->setErrors('Range Error at Zoom (0 <= Zoom <= 19)');
+            $this->setErrors('Range Error at Zoom (0 <= Zoom <= 24)');
             return false;
         }
 
@@ -32,7 +32,7 @@ if( ! class_exists( 'MyGmapMarker' ) ) {
             if (array_key_exists(substr($value.' ',0,1), $this->mHandler->getIconListArray())){
                 return true;
             }
-            $this->setErrors('Range Error at ICON Text "'.$value.'" (Blank or A to J)');
+            $this->setErrors('Range Error at ICON Text "'.$value.'" (Blank or 1 to 20 or A to Z)');
             return false;
         }
         

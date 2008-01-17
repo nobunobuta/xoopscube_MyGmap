@@ -72,6 +72,10 @@ define($constpref."Z_OPT16","16");
 define($constpref."Z_OPT17","17");
 define($constpref."Z_OPT18","18");
 define($constpref."Z_OPT19","19");
+define($constpref."Z_OPT20","20");
+define($constpref."Z_OPT21","21");
+define($constpref."Z_OPT22","22");
+define($constpref."Z_OPT23","23");
 
 define($constpref.'AD_MENU0','カテゴリー管理');
 define($constpref.'AD_MENU1','マーカー管理');

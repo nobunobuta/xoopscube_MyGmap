@@ -97,6 +97,10 @@ $modversion['config'][5] = array(
                     $langPrefix.'Z_OPT17'=>17 ,
                     $langPrefix.'Z_OPT18'=>18 ,
                     $langPrefix.'Z_OPT19'=>19 ,
+                    $langPrefix.'Z_OPT20'=>20 ,
+                    $langPrefix.'Z_OPT21'=>21 ,
+                    $langPrefix.'Z_OPT22'=>22 ,
+                    $langPrefix.'Z_OPT23'=>23 ,
      ),
 );
 $modversion['config'][6] = array(

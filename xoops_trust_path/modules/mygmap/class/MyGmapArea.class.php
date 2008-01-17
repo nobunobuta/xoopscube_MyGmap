@@ -21,10 +21,10 @@ if( ! class_exists( 'MyGmapArea' ) ) {
         }
 
         function checkVar_mygmap_area_zoom($value) {
-            if (($value >= 0) && ($value <= 19)) {
+            if (($value >= 0) && ($value <= 24)) {
                 return true;
             }
-            $this->setErrors('Range Error at Zoom (0 <= Zoom <= 19)');
+            $this->setErrors('Range Error at Zoom (0 <= Zoom <= 24)');
             return false;
         }
     }
