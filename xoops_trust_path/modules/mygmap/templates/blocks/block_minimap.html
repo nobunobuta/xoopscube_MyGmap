@@ -1,0 +1,16 @@
+<div style="text-align:center">
+<div id="<{$block.divid}>" style="height:240px;"></div>
+<span><a href="<{$smarty.const.XOOPS_URL}>/modules/<{$block.dirname}>/?cat=<{$block.category_id}>&amp;id=<{$block.id}>" title="<{$block.title}>"><{$block.title}></a></span>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+var mygmappath = '<{$smarty.const.XOOPS_URL}>/modules/<{$block.dirname}>/';
+var mygmap_API = "<{$block.mygmap_API}>";
+//]]>
+</script>
+<script src="<{$smarty.const.XOOPS_URL}>/modules/<{$block.dirname}>/?action=MyGmapLoadJscipt" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+myGmapMiniMaps[myGmapMiniMap_idx++] = {'divid':'<{$block.divid}>','x':<{$block.lng}>,'y':<{$block.lat}>,'zoom':<{$block.zoom}>,'maptype':<{$block.maptype}>};
+//]]>
+</script>
