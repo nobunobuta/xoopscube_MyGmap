@@ -46,9 +46,6 @@ if (!class_exists('MyGmapLoadJsciptAction')) {
                 case 'trust' :
                     $fileName = XOOPS_TRUST_PATH.'/modules/mygmap/plugins/'. $fileName;
                     break;
-                case 'common' :
-                    $fileName = XOOPS_ROOT_PATH.'/common/modules/mygmap/plugins/'. $fileName;
-                    break;
                 default :
                     $fileName = '';
             }

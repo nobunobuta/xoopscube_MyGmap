@@ -25,17 +25,6 @@ if (!class_exists('MyGmapUtils')) {
                     }
                 }
             }
-            $dir = XOOPS_ROOT_PATH.'/common/modules/mygmap/plugins/';
-            if(is_dir($dir)) {
-                $files1 = glob($dir.'myGmapPlugin*.'.$ext);
-                if (is_array($files1)) {
-                    if ($asArray) {
-                        $files1 = MyGmapUtils::_divideFile($files1, 'common');
-                    }
-                    $files = array_merge($files, $files1);
-                }
-            }
-            
             return $files;
         }
         
