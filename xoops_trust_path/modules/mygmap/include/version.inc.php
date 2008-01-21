@@ -1,4 +1,13 @@
 <?php
+/**
+ *
+ * @package MyGmap
+ * @version $Id$
+ * @copyright Copyright 2006-2008 NobuNobuXOOPS Project <http://sourceforge.net/projects/nobunobuxoops/>
+ * @author NobuNobu <nobunobu@nobunobu.com>
+ * @license http://www.gnu.org/licenses/gpl.txt GNU GENERAL PUBLIC LICENSE Version 2
+ *
+ */
 	$mygmap_version_major = '2';
 	$mygmap_version_minor = '5';
 	$mygmap_version_mod   = '0';

@@ -1,4 +1,13 @@
 <?php
+/**
+ *
+ * @package MyGmap
+ * @version $Id$
+ * @copyright Copyright 2006-2008 NobuNobuXOOPS Project <http://sourceforge.net/projects/nobunobuxoops/>
+ * @author NobuNobu <nobunobu@nobunobu.com>
+ * @license http://www.gnu.org/licenses/gpl.txt GNU GENERAL PUBLIC LICENSE Version 2
+ *
+ */
     $tableDef['mygmap']['category'] = array(
         'fields' => array(
             'mygmap_category_id' =>         array('int(8)',       'NOT NULL', null,  'auto_increment'),
