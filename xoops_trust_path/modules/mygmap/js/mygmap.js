@@ -98,7 +98,7 @@ function myGmapLoad() {
     myGmapMapTypes = new Array(null, G_NORMAL_MAP, G_SATELLITE_MAP, G_HYBRID_MAP);
 
     GEvent.addListener(mygmap_map, "moveend", function() {myGmapMoved();});
-    GEvent.addListener(mygmap_map, "zoom", function(oldZoomLevel, newZoomLevel){myGmapZoomed();});
+    GEvent.addListener(mygmap_map, "zoomend", function(oldZoomLevel, newZoomLevel){myGmapZoomed(oldZoomLevel, newZoomLevel);});
     GEvent.addListener(mygmap_map, "mousemove",
          function (point) { myGmapLatestKnownHoveringPoint = point;  }
     );
@@ -202,8 +202,10 @@ function myGmapMoved() {
   center = bounds = zoomlevel = maptype = null;
 }
 
+var _myGmapOverLays = new Array();
+var _myGmapOverLayIdx=0;
 
-function myGmapZoomed() {
+function myGmapZoomed(oldZoomLevel, newZoomLevel) {
   var bounds = mygmap_map.getBounds();
   if (myGmapAddressElement) myGmapRenderCurAddress(mygmap_map.getZoom());
   for (var i=0; i<_myGmapMarkers.length; i++) {
@@ -216,6 +218,14 @@ function myGmapZoomed() {
       }
       element = null;
     }
+  }
+
+  for (i=0; i < _myGmapOverLayIdx; i++) {
+    if ((oldZoomLevel == _myGmapOverLays[i].limit) && (newZoomLevel < _myGmapOverLays[i].limit)) {
+      mygmap_map.removeOverlay(_myGmapOverLays[i].overlay);
+    } else if ((newZoomLevel == _myGmapOverLays[i].limit) && (oldZoomLevel < _myGmapOverLays[i].limit)) {
+      mygmap_map.addOverlay(_myGmapOverLays[i].overlay);
+    } 
   }
   bounds = null;
 }
@@ -241,9 +251,16 @@ function myGmapSetAttributeByID(id, name, value) {
 var _myGmapMarkers= new Array();
 var _myGmapMarkerIdx=0;
 
-function myGmapAddOverlay(map, url) {
-   var gx = new GGeoXml(url);
-   map.addOverlay(gx);
+function myGmapAddOverlay(map, url, limit) {
+  var gx = new GGeoXml(url);
+  _myGmapOverLays[_myGmapOverLayIdx] = {};
+  _myGmapOverLays[_myGmapOverLayIdx].overlay = gx;
+  _myGmapOverLays[_myGmapOverLayIdx].limit = limit;
+  _myGmapOverLayIdx++;
+  zoom = mygmap_map.getZoom();
+  if (zoom >= limit) {
+    map.addOverlay(gx);
+  }
 }
 function myGmapAddMarker(map, lat, lng, html, letter, id) {
   var point = new GLatLng(lat,lng);

@@ -21,7 +21,7 @@ if (!class_exists('MyGmapLoadJsciptAction')) {
             header('Content-type: application/x-javascript;charset="EUC-JP"');
             echo "if (mygmap_js_src == undefined) {\n";
             echo "  var mygmap_map;\n";
-            echo "  var mygmap_js_src = \"http://maps.google.co.jp/maps?file=api&amp;v=2&amp;key=\" + mygmap_API;\n";
+            echo "  var mygmap_js_src = \"http://maps.google.co.jp/maps?file=api&amp;v=2.x&amp;key=\" + mygmap_API;\n";
             echo "  document.write('<'+'script src=\"'+mygmap_js_src+'\"'+' type=\"text/javascript\" charset=\"utf-8\"><'+'/script>');\n";
             echo "\n";
             echo "  mygmap_js_src = mygmappath + \"?action=MyGmapLoadJscipt&op=load\";\n";

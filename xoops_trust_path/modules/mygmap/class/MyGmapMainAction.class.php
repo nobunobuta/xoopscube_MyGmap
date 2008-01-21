@@ -217,12 +217,19 @@ if (!class_exists('MyGmapMainAction')) {
 
         function overlayURL($str)
         {
-            if (preg_match('/^mymap\:([0-9a-z\.]+)$/',$str,$matches)) {
+            $urlArray = explode(',', $str);
+            $url = $urlArray[0];
+            if (isset($urlArray[1])) {
+                $zoomLimit = intval($urlArray[1]);
+            } else {
+                $zoomLimit = 0;
+            }
+            if (preg_match('/^mymap\:([0-9a-z\.]+)(,([0-9]+))?$/',$url,$matches)) {
                 $url = 'http://maps.google.co.jp/maps/ms?ie=UTF8&hl=ja&msa=0&output=kml&msid='.$matches[1];
             } else {
-                $url = XOOPS_URL.'/modules/'.$this->mDirName.'/?action=MyGmapLoadKLM&file='.basename($str);
+                $url = XOOPS_URL.'/modules/'.$this->mDirName.'/?action=MyGmapLoadKLM&file='.basename($url);
             }
-            return $url;
+            return array('url'=>$url, 'limit'=>$zoomLimit);
         }
         function usort_cmp($a, $b) {
             if ($a['mark'] === $b['mark']) return (($a['title'] < $b['title']) ? -1: 1);
