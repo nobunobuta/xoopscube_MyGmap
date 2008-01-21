@@ -8,6 +8,7 @@
  * @license http://www.gnu.org/licenses/gpl.txt GNU GENERAL PUBLIC LICENSE Version 2
  *
  */
-include dirname(__FILE__).'/include/NBFrameLoader.inc.php';
-NBFrame::executeAction();
+include dirname(dirname(__FILE__)).'/include/NBFrameLoader.inc.php';
+$environment =& NBFrame::prepare('', NBFRAME_TARGET_BLOCK);
+NBFrame::prepareSearchFunction($environment);
 ?>
