@@ -223,4 +223,9 @@ $modversion['blocks'][1]['edit_func'] = 'edit';  // It'll be rewritten
 $modversion['blocks'][1]['options'] = '1';
 $modversion['blocks'][1]['template'] = 'block_minimap.html';  // It'll be rewritten
 $modversion['blocks'][1]['can_clone'] = true ;
+
+// Search
+$modversion['hasSearch'] = 1;
+$modversion['search']['class'] = 'MyGmapSearch';
+$modversion['search']['func'] = 'search';
 ?>
