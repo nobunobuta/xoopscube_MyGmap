@@ -28,6 +28,7 @@ if (class_exists('NBFrame')) {
     $environment->setAttribute('NoCommonAction', array('MyGmapHttpReq',
                                                        'MyGmapLoadJscipt',
                                                        ));
+    $environment->setAttribute('ModuleGroupPermKeys', array('marker_edit','category_edit','area_edit'));
 
     $environment->setAttribute('UseAltSys', true);
     $environment->setAttribute('UseBlockAdmin', true);

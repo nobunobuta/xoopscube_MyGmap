@@ -46,10 +46,11 @@ if( ! class_exists( 'MyGmapMarker' ) ) {
         }
         
         // Special Permission Verifier
-
-        function checkGroupPerm_mygmap_marker_category_id($value, $mode) {
-            if ($mode=='write') {
-                if (NBFrameCheckRight('markereditcat', $value)) {
+        
+        function checkGroupPerm($mode, $bypassAdminCheck=false) {
+            $categoryHandler =& NBFrame::getHandler('MyGmapCategory', $this->mHandler->mEnvironment);
+            if ($categoryObject =& $categoryHandler->get($this->getVar('mygmap_marker_category_id'))) {
+                if ($categoryObject->checkGroupPerm($mode, $bypassAdminCheck)) {
                     return true;
                 }
                 $this->setErrors('Category Permission Error');

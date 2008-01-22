@@ -38,6 +38,22 @@
               <{$mygmap_catedit.elements.mygmap_category_maptype.body}>
             </td>
           </tr>
+<{if $mygmap_catedit.elements.perm_can_read}>
+          <tr>
+            <td class="head"><{$mygmap_catedit.elements.perm_can_read.caption}></td>
+            <td class="<{cycle values="odd,even"}>">
+              <{$mygmap_catedit.elements.perm_can_read.body}>
+            </td>
+          </tr>
+<{/if}>
+<{if $mygmap_catedit.elements.perm_can_edit}>
+          <tr>
+            <td class="head"><{$mygmap_catedit.elements.perm_can_edit.caption}></td>
+            <td class="<{cycle values="odd,even"}>">
+              <{$mygmap_catedit.elements.perm_can_edit.body}>
+            </td>
+          </tr>
+<{/if}>
           <tr>
             <td class="head"><{$mygmap_catedit.elements.submit.caption}></td>
             <td class="<{cycle values="odd,even"}>">

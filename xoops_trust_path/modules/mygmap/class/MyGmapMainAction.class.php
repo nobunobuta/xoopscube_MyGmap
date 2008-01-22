@@ -63,6 +63,8 @@ if (!class_exists('MyGmapMainAction')) {
                     $this->elements['category']['id'] = $categoryObject->getVar('mygmap_category_id');
                     $this->elements['category']['name'] = $categoryObject->getVar('mygmap_category_name');
                     $this->elements['category']['desc'] = $categoryObject->getVar('mygmap_category_desc');
+                    $this->elements['category']['can_edit'] = $categoryObject->checkGroupPerm('write', true);
+                    
                     if ($categoryObject->getVar('mygmap_category_overlay')) {
                         $this->elements['overlay'][] = $this->overlayURL($categoryObject->getVar('mygmap_category_overlay'));
                     }
@@ -105,7 +107,7 @@ if (!class_exists('MyGmapMainAction')) {
                     $mygmap_desc = $markerObject->getVar('mygmap_marker_desc');
                     $mygmap_marker['title'] = $mygmap_title;
                     $mygmap_marker['text'] = '<b>'.$mygmap_title .'</b>' . '<hr />' . $mygmap_desc;
-                    $mygmap_marker['canedit'] = (NBFrameCheckRight('markeredit', 1) && $markerObject->checkGroupPerm('write'));
+                    $mygmap_marker['canedit'] = (NBFrame::checkRight('marker_edit') && $this->elements['category']['can_edit']);
                     $this->elements['markers'][] = $mygmap_marker;
                 }
                 usort($this->elements['markers'], array(&$this, 'usort_cmp'));
@@ -184,10 +186,10 @@ if (!class_exists('MyGmapMainAction')) {
                 $credit .= '<br />'.$GLOBALS['mygmap_invgeo_credit'];
             }
             $this->mXoopsTpl->assign('xoopsUserIsAdmin', $GLOBALS['xoopsUserIsAdmin']);
-            $this->mXoopsTpl->assign('mygmap_can_edit_area', NBFrameCheckRight('areaedit', 1));
-            $this->mXoopsTpl->assign('mygmap_can_edit_category', NBFrameCheckRight('categoryedit', 1));
+            $this->mXoopsTpl->assign('mygmap_can_edit_area', NBFrame::checkRight('area_edit'));
+            $this->mXoopsTpl->assign('mygmap_can_edit_category', NBFrame::checkRight('category_edit'));
             if (!empty($this->elements['category'])&&$this->elements['category']['id'] > 0) {
-                $this->mXoopsTpl->assign('mygmap_can_add_marker', (NBFrameCheckRight('markeredit', 1) && NBFrameCheckRight('markereditcat', $this->elements['category']['id'])));
+                $this->mXoopsTpl->assign('mygmap_can_add_marker', (NBFrame::checkRight('marker_edit') && $this->elements['category']['can_edit']));
             } else {
                 $this->mXoopsTpl->assign('mygmap_can_add_marker', $GLOBALS['xoopsUserIsAdmin']);
             }

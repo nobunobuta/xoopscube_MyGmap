@@ -18,7 +18,7 @@ if (!class_exists('MyGmapMarkerAction')) {
             parent::prepare('MyGmapMarker', 'mygmap_markedit',$this->__l('Marker'));
             $this->setObjectForm('MyGmapMarker');
             $this->setFormTemplate($this->prefix('marker.html'));
-            $this->setExecutePermission('markeredit');
+            $this->setExecutePermission('marker_edit');
         }
 
         function viewFormOp() {
@@ -35,7 +35,10 @@ if (!class_exists('MyGmapMarkerAction')) {
         }
 
         function executeActionSuccess() {
-            redirect_header($this->getUrlBase()."/?cat=".$this->mObject->getVar('mygmap_marker_category_id'), 2, $this->__e('Action Success'));
+            redirect_header($this->getUrlBase().'/?cat='.$this->mObject->getVar('mygmap_marker_category_id'), 2, $this->__e('Action Success'));
+        }
+        function executeActionError() {
+            redirect_header($this->getUrlBase().'/?cat='.$this->mObject->getVar('mygmap_marker_category_id'), 2, $this->mErrorMsg);
         }
     }
 }

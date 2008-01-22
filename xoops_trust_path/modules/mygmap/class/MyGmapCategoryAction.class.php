@@ -18,7 +18,7 @@ if (!class_exists('MyGmapCategoryAction')) {
             parent::prepare('MyGmapCategory', 'mygmap_catedit',$this->__l('Category'));
             $this->setObjectForm('MyGmapCategory');
             $this->setFormTemplate($this->prefix('category.html'));
-            $this->setExecutePermission('categoryedit');
+            $this->setExecutePermission('category_edit');
         }
         
         function viewFormOp() {

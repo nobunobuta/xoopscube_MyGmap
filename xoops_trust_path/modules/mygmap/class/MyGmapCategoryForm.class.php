@@ -22,6 +22,11 @@ if (!class_exists('MyGmapCategoryForm')) {
             $this->addElement('mygmap_category_overlay',new XoopsFormText($this->__l('mygmap_category_overlay'),'mygmap_category_overlay',35,255));
             $this->addElement('mygmap_category_maptype',new XoopsFormSelect($this->__l('mygmap_category_maptype'),'mygmap_category_maptype'));
 
+            if (is_object($GLOBALS['xoopsUser']) && (in_array(XOOPS_GROUP_ADMIN, $GLOBALS['xoopsUser']->getGroups()))) {
+                $this->addElement('perm_can_read',new XoopsFormSelectGroup($this->__l('perm_can_read'),'perm_can_read',true,null,3,true));
+                $this->addElement('perm_can_edit',new XoopsFormSelectGroup($this->__l('perm_can_edit'),'perm_can_edit',true,null,3,true));
+            }
+
             $this->addOptionArray('mygmap_category_maptype',array(
                 '0' =>'----' ,
                 '1' =>$this->__l('Maptype Map') ,

@@ -11,6 +11,12 @@
 if( ! class_exists( 'MyGmapCategory' ) ) {
     class MyGmapCategory extends NBFrameObject
     {
+        function prepare()
+        {
+            $this->setGroupPermAttrib('can_read');
+            $this->setGroupPermAttrib('can_edit');
+        }
+
         // Special Verifier
         
         function checkVar_mygmap_category_lat($value) {
@@ -37,10 +43,11 @@ if( ! class_exists( 'MyGmapCategory' ) ) {
             return false;
         }
         // Special Permission Verifier
-
-        function checkGroupPerm_mygmap_category_id($value, $mode) {
-            if ($mode == 'markereditlist') {
-                if (NBFrameCheckRight('markereditcat', $value)) {
+        
+        function checkGroupPerm($mode, $bypassAdminCheck=false) {
+            $permArray= array('read'=>'can_read', 'write'=>'can_edit');
+            if (in_array($mode, array_keys($permArray))) {
+                if ($this->checkRight($permArray[$mode], $bypassAdminCheck)) {
                     return true;
                 }
                 $this->setErrors('Category Permission Error');

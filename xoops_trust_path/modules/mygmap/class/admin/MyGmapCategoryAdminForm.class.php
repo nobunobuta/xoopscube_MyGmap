@@ -15,6 +15,8 @@ if (!class_exists('MyGmapCategoryAdminForm')) {
         function prepare() {
             $this->addElement('mygmap_category_zoom',new XoopsFormSelect($this->__l('mygmap_category_zoom'),'mygmap_category_zoom'));
             $this->addElement('mygmap_category_maptype',new XoopsFormSelect($this->__l('mygmap_category_maptype'),'mygmap_category_maptype'));
+            $this->addElement('perm_can_read',new XoopsFormSelectGroup($this->__l('perm_can_read'),'perm_can_read',true,null,3,true));
+            $this->addElement('perm_can_edit',new XoopsFormSelectGroup($this->__l('perm_can_edit'),'perm_can_edit',true,null,3,true));
             
             $this->addOptionArray('mygmap_category_zoom',array(
                 '0' =>'0' , '1' =>'1' , '2' =>'2' , '3' =>'3' , '4' =>'4' , '5' =>'5' ,
@@ -30,6 +32,10 @@ if (!class_exists('MyGmapCategoryAdminForm')) {
                 '3' =>$this->__l('Maptype Hybrid'),
             ));
         }
-    }
+        function preInsert() {
+            $this->defParam('perm_can_read', 'array-int',  array());
+            $this->defParam('perm_can_edit', 'array-int',  array());
+        }
+   }
 }
 ?>
