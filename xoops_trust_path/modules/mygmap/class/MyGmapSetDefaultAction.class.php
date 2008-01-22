@@ -19,16 +19,14 @@ if (!class_exists('MyGmapSetDefaultAction')) {
                 if (!$this->mRequest->hasError()) {
                     $params = $this->mRequest->getParam();
                     $update_configs = array('mygmap_lat','mygmap_lng','mygmap_zoom');
-                    $update_vars = array($params['lat'], $params['lng'], $params['zoom']);
-                    $config_handler =& xoops_gethandler('configitem');
-                    foreach($update_configs as $key=>$update_config) {
-                        $criteria = new CriteriaCompo(new Criteria('conf_modid', $GLOBALS['xoopsModule']->getVar('mid')));
-                        $criteria->add(new Criteria('conf_name', $update_config));
-                        $configitems =& $config_handler->getObjects($criteria, false);
-                        if (count($configitems)==1) {
-                            $configitems[0]->setVar('conf_value', $update_vars[$key]);
-                            $config_handler->insert($configitems[0]);
-                        }
+                    $update_vars = array(
+                        'mygmap_lat'=>$params['lat'],
+                        'mygmap_lng'=> $params['lng'],
+                        'mygmap_zoom'=>$params['zoom']
+                    );
+                    $configHandler =& NBFrame::getHandler('NBFrame.xoops.Config',NBFrame::null());
+                    foreach($update_vars as $conf_name=>$conf_value) {
+                        $configHandler->setModuleConfig($this->mDirName, $conf_name, $conf_value);
                     }
                     return NBFRAME_ACTION_SUCCESS;
                 } else {

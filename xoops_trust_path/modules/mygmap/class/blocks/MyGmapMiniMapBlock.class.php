@@ -39,9 +39,11 @@ if (!class_exists('MyGmapMiniMapBlock')) {
                 $block['gmapi_include'] = 1;
                 define('MYGMAP_GMAPI_INCLUDED', 1);
             }
-            $markerHandler =& NBFrame::getHandler('MyGmapMarker',$environment);            $markerObject =& $markerHandler->get($option[0]);
+            $markerHandler =& NBFrame::getHandler('MyGmapMarker',$environment);
+            $markerObject =& $markerHandler->get($option[0]);
             if ($markerObject) {
-                $block['mygmap_API'] = NBFrameGetModuleConfig($dirName, 'mygmap_api');
+                $configHandler =& NBFrame::getHandler('NBFrame.xoops.Config',NBFrame::null());
+                $block['mygmap_API'] = $configHandler->getModuleConfig($dirName, 'mygmap_api');
                 $block['dirname'] = $dirName;
                 $block['divid'] = 'mygmap_mini_'.$id; $id++;
                 $block['id'] = $markerObject->getVar('mygmap_marker_id');
