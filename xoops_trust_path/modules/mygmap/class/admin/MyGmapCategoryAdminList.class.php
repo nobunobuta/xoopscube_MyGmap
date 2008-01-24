@@ -31,9 +31,7 @@ if (!class_exists('MyGmapCategoryAdminList')) {
 
         // Special List Item '__SimplePermLink__'
         function extraItem___SimplePermLink__(&$object,$element) {
-            $objectKey = $object->getKeyFields();
-            $objectKey = $objectKey[0];
-            $key = $object->getVar($objectKey);
+            $key = $object->getKey();
             if (!empty($this->mAction)) {
                 $item['link'] = $this->mAction->addUrlParam('op=perm&amp;'.$objectKey.'='.$key);
             } else {
