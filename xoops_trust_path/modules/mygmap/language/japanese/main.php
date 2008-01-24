@@ -61,6 +61,7 @@ define($constpref.'LANG_MYGMAP_MARKER_ICONTEXT', 'アイコン');
 define($constpref.'LANG_MYGMAP_MARKER_LAT', '緯度');
 define($constpref.'LANG_MYGMAP_MARKER_LNG', '経度');
 define($constpref.'LANG_MYGMAP_MARKER_ZOOM', '縮尺');
+define($constpref.'LANG_MYGMAP_MARKER_MAPTYPE', 'モード');
 define($constpref.'LANG_PERM_CAN_READ', '閲覧権限');
 define($constpref.'LANG_PERM_CAN_EDIT', '編集権限');
 

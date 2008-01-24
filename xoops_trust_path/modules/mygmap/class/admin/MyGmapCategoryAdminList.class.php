@@ -21,26 +21,11 @@ if (!class_exists('MyGmapCategoryAdminList')) {
             $this->addElement('mygmap_category_maptype', $this->__l('mygmap_category_maptype'), 80, array('sort'=>true));
             $this->addElement('__SimpleEditLink__','',50, array('caption'=>$this->__l('Edit')));
             $this->addElement('__SimpleDeleteLink__','',50, array('caption'=>$this->__l('Delete')));
-            $this->addElement('__SimplePermLink__','',50, array('caption'=>$this->__l('Perm')));
         }
         
         function formatItem_mygmap_category_maptype($value) {
             $optionArray = array('', $this->__l('MapType Map'),$this->__l('MapType Satelite'),$this->__l('Maptype_Hybrid'));
             return $optionArray[$value];
-        }
-
-        // Special List Item '__SimplePermLink__'
-        function extraItem___SimplePermLink__(&$object,$element) {
-            $key = $object->getKey();
-            if (!empty($this->mAction)) {
-                $item['link'] = $this->mAction->addUrlParam('op=perm&amp;'.$objectKey.'='.$key);
-            } else {
-                $item['link'] = xoops_getenv('PHP_SELF').'?op=perm&amp;'.$objectKey.'='.$key;
-            }
-            $item['linktitle'] = 'Set Group Permission';
-            $item['value'] = $element['ext']['caption'];
-            $item['align'] = 'center';
-            return $item;
         }
     }
 }
