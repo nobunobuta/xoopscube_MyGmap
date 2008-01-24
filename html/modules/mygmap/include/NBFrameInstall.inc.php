@@ -9,8 +9,8 @@
  *
  */
     include dirname(__FILE__).'/NBFrameLoader.inc.php';
-    NBFrame::prepare(null, NBFRAME_TARGET_INSTALLER);
-    $installHelper =& NBFrame::getInstallHelper();
+    NBFrameBase::prepare(null, NBFRAME_TARGET_INSTALLER);
+    $installHelper =& NBFrameBase::getInstallHelper();
     $installHelper->prepareOnInstallFunction();
     $installHelper->prepareOnUpdateFunction();
     $installHelper->prepareOnUninstallFunction();
