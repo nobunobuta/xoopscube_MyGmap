@@ -8,8 +8,11 @@
  * @license http://www.gnu.org/licenses/gpl.txt GNU GENERAL PUBLIC LICENSE Version 2
  *
  */
-$constpref = NBFrame::langConstPrefix('', NBFRAME_TARGET_TEMP);
-if (!defined($constpref.'LANGUAGE_MAIN_READ')) {
+if( defined( 'FOR_XOOPS_LANG_CHECKER' ) ) $mydirname = 'mygmap' ;
+$constpref = NBFrame::langConstPrefix('', $mydirname);
+
+if (defined( 'FOR_XOOPS_LANG_CHECKER' ) || !defined($constpref.'LANGUAGE_MAIN_READ')) {
+
 define($constpref.'LANGUAGE_MAIN_READ','1');
 
 define($constpref.'LANG_SET_DEFAULT','現在地をデフォルトに変更');

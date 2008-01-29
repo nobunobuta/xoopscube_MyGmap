@@ -10,7 +10,7 @@
  */
 include_once dirname(__FILE__).'/include/version.inc.php';
 
-$langPrefix = NBFrame::langConstPrefix('MI', NBFRAME_TARGET_INSTALLER);
+$langPrefix = NBFrame::langConstPrefix('MI', '', NBFRAME_TARGET_INSTALLER);
 
 $modversion['name'] = 'MyGmap'; // It'll be rewritten
 $modversion['version'] = $GLOBALS['mygmap_version_xoops'];
