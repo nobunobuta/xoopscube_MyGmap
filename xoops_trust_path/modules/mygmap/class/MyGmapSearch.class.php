@@ -23,6 +23,8 @@ if(! class_exists('MyGmapSearch')) {
                     $criteria0->add(new Criteria('mygmap_marker_desc', '%'.$queryarray[$i].'%', 'LIKE'),'OR');
                     $criteria->add($criteria0, $andor);
                 }
+            } else {
+                $criteria =& new CriteriaCompo(new CriteriaElement());
             }
             if ($userid) {
                 $criteria->add(new Criteria('_NBsys_create_user', $userid));
