@@ -35,10 +35,10 @@ if (!class_exists('MyGmapMarkerAction')) {
         }
 
         function executeActionSuccess() {
-            redirect_header($this->getUrlBase().'/?cat='.$this->mObject->getVar('mygmap_marker_category_id'), 2, $this->__e('Action Success'));
+            NBFrame::redirect($this->mEnvironment,'MyGmapMain', 2, $this->__e('Action Success'), array('cat'=>$this->mObject->getVar('mygmap_marker_category_id')));
         }
         function executeActionError() {
-            redirect_header($this->getUrlBase().'/?cat='.$this->mObject->getVar('mygmap_marker_category_id'), 2, $this->mErrorMsg);
+            NBFrame::redirect($this->mEnvironment,'MyGmapMain', 2, $this->mErrorMsg, array('cat'=>$this->mObject->getVar('mygmap_marker_category_id')));
         }
     }
 }

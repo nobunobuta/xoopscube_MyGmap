@@ -39,10 +39,10 @@ if (!class_exists('MyGmapSetDefaultAction')) {
             }
         }
         function executeActionSuccess() {
-            redirect_header($this->getUrlBase().'/', 2, $this->__e('Action Success'));
+            NBFrame::redirect($this->mEnvironment,'MyGmapMain', 2, $this->__e('Action Success'));
         }
         function executeActionError() {
-            redirect_header($this->getUrlBase().'/', 2, $this->mErrorMsg);
+            NBFrame::redirect($this->mEnvironment,'MyGmapMain', 2, $this->mErrorMsg);
         }
     }
 }
