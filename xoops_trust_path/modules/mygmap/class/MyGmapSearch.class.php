@@ -46,9 +46,9 @@ if(! class_exists('MyGmapSearch')) {
                 $ret[] = array(
                     'title' => $markerObject->getVar('mygmap_marker_title'),
                     'uid' => $markerObject->getVar('_NBsys_create_user'), 
-                    'time' => NBFrame::getMySQLTimeStamp($markerObject->getVar('_NBsys_update_time')), 
+                    'time' => $markerObject->getVar('_NBsys_update_time'), 
                     'page' => $markerObject->getVar('mygmap_marker_title'),
-                    'link' => NBFrame::getActionUrl($environment, 'MyGmapMain', array('cat'=>$markerObject->getVar('mygmap_marker_category_id'),'id'=>$markerObject->getVar('mygmap_marker_id')),'html',true),
+                    'link' => $environment->getActionUrl('MyGmapMain', array('cat'=>$markerObject->getVar('mygmap_marker_category_id'),'id'=>$markerObject->getVar('mygmap_marker_id')),'html',true),
                     'context' => $context,
                 );
             }

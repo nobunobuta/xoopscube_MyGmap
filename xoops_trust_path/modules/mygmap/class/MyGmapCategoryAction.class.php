@@ -35,7 +35,7 @@ if (!class_exists('MyGmapCategoryAction')) {
         }
 
         function executeActionSuccess() {
-            NBFrame::redirect($this->mEnvironment,'MyGmapMain', 2, $this->__e('Action Success'),array('cat'=>$this->mObject->getVar('mygmap_category_id')));
+            $this->mEnvironment->redirect('MyGmapMain', 2, $this->__e('Action Success'),array('cat'=>$this->mObject->getVar('mygmap_category_id')));
         }
     }
 }

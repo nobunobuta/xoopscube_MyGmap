@@ -11,6 +11,8 @@
 if (class_exists('NBFrame')) {
     $environment->setAttribute('ModueleMainAction','MyGmapMain');
     $environment->setAttribute('AdminMainAction',  'admin.MyGmapMainAdmin');
+//  $environment->setAttribute('MainMenu',         'MyGmapMainMenu');
+    $environment->setAttribute('AdminMenu',        'admin.MyGmapAdminMenu');
 
     $environment->setAttribute('AllowedAction', array('MyGmapCategory',
                                                       'MyGmapMarker',

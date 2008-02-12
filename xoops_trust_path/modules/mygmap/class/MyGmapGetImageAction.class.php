@@ -15,7 +15,7 @@ if (!class_exists('MyGmapGetImageAction')) {
         function executeDefaultOp() {
             error_reporting(E_ERROR);
             $fileBaseName = basename($_GET['file']);
-            $fileName = NBFrame::findFile($fileBaseName, $this->mEnvironment, 'images');
+            $fileName = $this->mEnvironment->findFile($fileBaseName, '/images', false, '=');
             if (!empty($fileName) && preg_match('/\.(jpeg|jpg|gif|png)$/', strtolower($fileBaseName), $match)) {
                 $fileExt = $match[1];
                 if ($fileExt =='jpeg' || $fileExt =='jpg') {

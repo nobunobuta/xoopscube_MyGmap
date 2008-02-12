@@ -38,7 +38,7 @@ if (!class_exists('MyGmapLoadJsciptAction')) {
         }
         
         function executeLoadOp() {
-            $fileName = NBFrame::findFile('mygmap.js', $this->mEnvironment, 'js');
+            $fileName = $this->mEnvironment->findFile('mygmap.js', 'js', false, '=');
             if (!empty($fileName)) {
                 NBFrame::using('HTTPOutput');
                 NBFrameHTTPOutput::putFile($fileName, 'application/x-javascript;charset="EUC-JP"');

@@ -74,6 +74,7 @@ if (!class_exists('MyGmapMainAction')) {
                     $this->elements['zoom'] = $GLOBALS['xoopsModuleConfig']['mygmap_zoom'];
                     $this->elements['category']['id'] = -1;
                     foreach($categoryObjects as $categoryObject) {
+                        $categoryCanEdit[$categoryObject->getKey()] = $categoryObject->checkGroupPerm('write', true);
                         if ($categoryObject->getVar('mygmap_category_overlay')) {
                             $this->elements['overlay'][] = $this->overlayURL($categoryObject->getVar('mygmap_category_overlay'));
                         }
@@ -107,7 +108,11 @@ if (!class_exists('MyGmapMainAction')) {
                     $mygmap_desc = $markerObject->getVar('mygmap_marker_desc');
                     $mygmap_marker['title'] = $mygmap_title;
                     $mygmap_marker['text'] = '<b>'.$mygmap_title .'</b>' . '<hr />' . $mygmap_desc;
-                    $mygmap_marker['canedit'] = (NBFrame::checkRight('marker_edit') && $this->elements['category']['can_edit']);
+                    if ($category_id != -1) {
+                        $mygmap_marker['canedit'] = (NBFrame::checkRight('marker_edit') && $this->elements['category']['can_edit']);
+                    } else {
+                        $mygmap_marker['canedit'] = (NBFrame::checkRight('marker_edit') && $categoryCanEdit[$markerObject->getVar('mygmap_marker_category_id')]);
+                    }
                     $this->elements['markers'][] = $mygmap_marker;
                 }
                 usort($this->elements['markers'], array(&$this, 'usort_cmp'));
