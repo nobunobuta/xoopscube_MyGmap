@@ -30,7 +30,7 @@ if (!class_exists('MyGmapMiniMapBlock')) {
         }
         
         function show(&$environment, $option){
-            $dirName = $environment->mDirName;
+            $dirName = $environment->getDirName();
             static $id = 0;
             
             if (defined('MYGMAP_GMAPI_INCLUDED')) {

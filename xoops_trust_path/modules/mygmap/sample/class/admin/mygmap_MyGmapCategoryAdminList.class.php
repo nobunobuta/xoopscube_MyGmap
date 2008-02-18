@@ -9,7 +9,7 @@
  *
  */
 if (!class_exists('mygmap_MyGmapCategoryAdminList')) {
-    NBFrame::using('+admin.MyGmapCategoryAdminList', NBFrame::getEnvironments());
+    NBFrame::using('+admin.MyGmapCategoryAdminList', NBFrame::getEnvironment());
 
     class mygmap_MyGmapCategoryAdminList extends MyGmapCategoryAdminList
     {

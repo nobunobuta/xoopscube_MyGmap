@@ -32,10 +32,6 @@ if (!class_exists('MyGmapCategoryAdminForm')) {
                 '3' =>$this->__l('Maptype Hybrid'),
             ));
         }
-        function preInsert() {
-            $this->defParam('perm_can_read', 'array-int',  array());
-            $this->defParam('perm_can_edit', 'array-int',  array());
-        }
    }
 }
 ?>
