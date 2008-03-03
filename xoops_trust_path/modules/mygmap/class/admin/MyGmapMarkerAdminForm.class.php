@@ -18,7 +18,7 @@ if (!class_exists('MyGmapMarkerAdminForm')) {
             $this->addElement('mygmap_marker_zoom',new XoopsFormSelect($this->__l('mygmap_marker_zoom'),'mygmap_marker_zoom'));
             $this->addElement('mygmap_marker_maptype',new XoopsFormSelect($this->__l('mygmap_marker_maptype'),'mygmap_marker_maptype'));
             
-            $categoryHandler =& NBFrame::getHandler('MyGmapCategory', $this->mEnvironment);            $this->addOptionArray('mygmap_marker_category_id',$categoryHandler->getSelectOptionArray());
+            $this->addObjectOptionArray('mygmap_marker_category_id','MyGmapCategory');
 
             $markerHandler =& NBFrame::getHandler('MyGmapMarker', $this->mEnvironment);            $this->addOptionArray('mygmap_marker_icontext', $markerHandler->getIconListArray());
 
