@@ -221,9 +221,9 @@ function myGmapZoomed(oldZoomLevel, newZoomLevel) {
   }
 
   for (i=0; i < _myGmapOverLayIdx; i++) {
-    if ((oldZoomLevel == _myGmapOverLays[i].limit) && (newZoomLevel < _myGmapOverLays[i].limit)) {
+    if ((oldZoomLevel >= _myGmapOverLays[i].limit) && (newZoomLevel < _myGmapOverLays[i].limit)) {
       mygmap_map.removeOverlay(_myGmapOverLays[i].overlay);
-    } else if ((newZoomLevel == _myGmapOverLays[i].limit) && (oldZoomLevel < _myGmapOverLays[i].limit)) {
+    } else if ((newZoomLevel >= _myGmapOverLays[i].limit) && (oldZoomLevel < _myGmapOverLays[i].limit)) {
       mygmap_map.addOverlay(_myGmapOverLays[i].overlay);
     } 
   }
